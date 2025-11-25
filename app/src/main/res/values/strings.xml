@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Mindful</string>
+    <string name="accessibility_service_description">Mindful Scrolling uses this service to detect when you are scrolling endlessly in supported apps and to block access during "Take a Break" mode.</string>
+</resources>

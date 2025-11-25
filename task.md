@@ -1,0 +1,46 @@
+# Mindful Scrolling App - Development Tasks
+
+- [x] **Project Structure & Base Classes** <!-- id: 0 -->
+    - [x] Create Application class with Hilt setup
+    - [x] Verify/Setup Theme and Color Palette (Day/Night support)
+    - [x] Setup Navigation Host
+- [x] **Core Data Layer** <!-- id: 1 -->
+    - [x] Define Room Entities:
+        - [x] `AppLimit` (Per app limits)
+        - [x] `AppGroup` & `AppGroupMember` (Group limits)
+        - [x] `UsageLog` (Stats)
+        - [x] `OverrideLog` (Emergency overrides)
+    - [x] Create DAOs (AppLimitDao, AppGroupDao, UsageDao)
+    - [x] Implement Repository Layer (Settings, Usage, Limits)
+    - [ ] Implement DataStore for User Preferences (Night Mode settings, Schedule)
+- [x] **Domain Layer** <!-- id: 2 -->
+    - [x] Use Cases: Usage Monitoring, Limit Checking, Group Management
+    - [x] Use Cases: Take a Break Logic, Night Mode Logic
+- [/] **Background Services & Monitoring** <!-- id: 3 -->
+    - [/] **Accessibility Service**: Core monitoring engine
+    - [ ] **UsageStatsManager**: Historical data sync
+    - [ ] **Reel Detection Logic**: Scroll pattern recognition (R&D)
+    - [ ] **Foreground Service**: For active "Take a Break" mode
+- [ ] **Feature: App Limits & Groups (Req 1)** <!-- id: 4 -->
+    - [ ] App Selection List (Installed Apps)
+    - [ ] Limit Configuration UI (Daily/Weekly)
+    - [ ] App Group Creation & Management UI
+- [x] **Feature: Intervention System (Req 2, 9)** <!-- id: 5 -->
+    - [x] Overlay Window Implementation (System Alert Window)
+    - [x] Pop-up UI: "Time's Up", "Take a Break"
+    - [x] Emergency Override Logic & UI
+- [ ] **Feature: Statistics & Analytics (Req 3)** <!-- id: 6 -->
+    - [ ] Dashboard UI: Daily/Weekly/Monthly views
+    - [ ] Charts/Graphs Implementation
+- [ ] **Feature: Scheduling & Night Mode (Req 4, 8)** <!-- id: 7 -->
+    - [ ] Schedule Configuration UI (Weekdays/Weekends)
+    - [ ] Night Mode Settings & Logic (Stricter limits)
+- [ ] **Feature: Take a Break Mode (Req 6)** <!-- id: 8 -->
+    - [ ] Mode Activation UI (Duration, Whitelist)
+    - [ ] Strict Blocking Overlay
+- [ ] **Feature: Reel Scrolling Restriction (Req 7)** <!-- id: 9 -->
+    - [ ] Scroll Detection Algorithm
+    - [ ] Intervention Overlay (Breathing exercise)
+- [ ] **Settings & Permissions (Req 5)** <!-- id: 10 -->
+    - [ ] Onboarding Flow: Permission Requests (Usage, Overlay, Accessibility)
+    - [ ] General Settings Screen
