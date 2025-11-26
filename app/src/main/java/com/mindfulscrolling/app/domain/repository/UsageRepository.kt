@@ -7,4 +7,5 @@ interface UsageRepository {
     fun getUsageForDate(date: Long): Flow<List<UsageLogEntity>>
     suspend fun logUsage(packageName: String, duration: Long, date: Long)
     suspend fun getUsageForApp(packageName: String, date: Long): UsageLogEntity?
+    suspend fun syncUsage(usageStats: Map<String, Long>, date: Long)
 }

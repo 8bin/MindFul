@@ -11,6 +11,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.mindfulscrolling.app.domain.usecase.UpdateUsageUseCase
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import javax.inject.Inject
 
 @AndroidEntryPoint

@@ -1,37 +1,44 @@
-# Implementing Core Monitoring Engine
+# Implementing UsageStatsManager Sync
 
-The goal is to upgrade the `AccessibilityInterventionService` from a simple event listener to a robust monitoring engine that tracks app usage in real-time and enforces limits.
+The goal is to sync historical usage data from Android's `UsageStatsManager` to our local `UsageLog` database. This ensures data accuracy even if the Accessibility Service was disabled or the app was killed.
 
 ## User Review Required
 > [!IMPORTANT]
-> This implementation relies on `AccessibilityService` which requires the user to manually enable the service in Android Settings. We need to ensure the user is guided to do this (handled in a future task, but good to keep in mind).
+> This feature requires the `PACKAGE_USAGE_STATS` permission, which is a special permission that the user must grant in system settings. We need to handle the case where this permission is not granted.
 
 ## Proposed Changes
 
-### Service Layer
-#### [MODIFY] [AccessibilityInterventionService.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/service/AccessibilityInterventionService.kt)
-- Implement a `Job` or `Handler` for periodic checks (e.g., every 1 second) when a monitored app is in the foreground.
-- Track `startTime` when entering a package.
-- On switching apps or periodic tick:
-    - Calculate `duration`.
-    - Update `UsageLog` via Repository.
-    - Check if limit is exceeded.
-    - Trigger `OverlayManager` if needed.
+### Data Layer
+#### [NEW] [UsageStatsDataSource.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/data/datasource/UsageStatsDataSource.kt)
+- Helper class to interact with `UsageStatsManager`.
+- Methods to query usage stats for a given time range.
+
+#### [MODIFY] [UsageRepository.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/repository/UsageRepository.kt)
+- Add method `syncUsage(usageStats: Map<String, Long>, date: Long)`.
+
+#### [MODIFY] [UsageRepositoryImpl.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/data/repository/UsageRepositoryImpl.kt)
+- Implement `syncUsage` to update local DB with system stats.
+- Logic: If system stat > local stat, update local. (Trust system stats for historical data).
 
 ### Domain Layer
-#### [NEW] [UpdateUsageUseCase.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/usecase/UpdateUsageUseCase.kt)
-- Create this new use case to handle safe updates to the usage log.
+#### [NEW] [SyncUsageUseCase.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/usecase/SyncUsageUseCase.kt)
+- Orchestrates the sync process.
+- Gets stats from `UsageStatsDataSource`.
+- Calls `UsageRepository.syncUsage`.
 
-### Data Layer
-#### [MODIFY] [UsageRepository.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/data/repository/UsageRepository.kt)
-- Ensure methods exist to increment usage safely.
+### Worker Layer
+#### [NEW] [SyncUsageWorker.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/worker/SyncUsageWorker.kt)
+- WorkManager worker to run periodically (e.g., every 15 minutes).
+- Calls `SyncUsageUseCase`.
+
+### DI
+#### [MODIFY] [AppModule.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/di/AppModule.kt)
+- Provide `UsageStatsManager`.
 
 ## Verification Plan
 
 ### Manual Verification
-1.  Build and install the app.
-2.  Enable Accessibility Service for "Mindful Scrolling".
-3.  Set a limit for a specific app (e.g., Chrome) to 1 minute.
-4.  Open Chrome and use it.
-5.  Verify that usage is being logged (we can check logs or database).
-6.  Verify that after 1 minute, the overlay appears.
+1.  Grant Usage Access permission to the app.
+2.  Use some apps (e.g., Chrome) for a few minutes.
+3.  Trigger the worker manually (or wait for it).
+4.  Check the database (via logs or UI) to see if usage is reflected.

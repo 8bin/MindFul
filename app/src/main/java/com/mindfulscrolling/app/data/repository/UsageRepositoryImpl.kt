@@ -30,4 +30,27 @@ class UsageRepositoryImpl @Inject constructor(
     override suspend fun getUsageForApp(packageName: String, date: Long): UsageLogEntity? {
         return usageLogDao.getUsageForAppAndDate(packageName, date)
     }
+
+    override suspend fun syncUsage(usageStats: Map<String, Long>, date: Long) {
+        usageStats.forEach { (packageName, systemDuration) ->
+            if (systemDuration > 0) {
+                val currentLog = usageLogDao.getUsageForAppAndDate(packageName, date)
+                val localDuration = currentLog?.durationMillis ?: 0
+                
+                // If system stats show more usage, trust system stats (it's the source of truth)
+                // But we also need to be careful not to overwrite if we have more granular data.
+                // For now, let's take the max.
+                if (systemDuration > localDuration) {
+                    val log = UsageLogEntity(
+                        id = currentLog?.id ?: 0,
+                        packageName = packageName,
+                        date = date,
+                        durationMillis = systemDuration,
+                        lastUpdated = System.currentTimeMillis()
+                    )
+                    usageLogDao.insertOrUpdateUsage(log)
+                }
+            }
+        }
+    }
 }
