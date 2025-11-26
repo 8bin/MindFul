@@ -29,7 +29,7 @@
         - [x] Fix Accessibility Permission persistence check
         - [x] Optimize App List loading speed
         - [x] Remove manual package entry & Add Search in App Limits
-    - [ ] **Focus Profiles**: Create/Edit Profiles (e.g., Work, Sleep)
+    - [x] **Focus Profiles**: Create/Edit Profiles (e.g., Work, Sleep)
     - [ ] Profile Scheduling Logic
 - [x] **Feature: Intervention System (Req 2, 9)** <!-- id: 5 -->
     - [x] Overlay Window Implementation (System Alert Window)

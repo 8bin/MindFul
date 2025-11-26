@@ -47,4 +47,9 @@ object DatabaseModule {
     fun provideOverrideLogDao(database: AppDatabase): OverrideLogDao {
         return database.overrideLogDao()
     }
+
+    @Provides
+    fun provideFocusProfileDao(database: AppDatabase): com.mindfulscrolling.app.data.local.dao.FocusProfileDao {
+        return database.focusProfileDao()
+    }
 }

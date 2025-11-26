@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
@@ -37,7 +38,8 @@ import androidx.compose.ui.text.style.TextOverflow
 fun DashboardScreen(
     viewModel: DashboardViewModel = hiltViewModel(),
     onNavigateToSettings: () -> Unit,
-    onNavigateToAppLimits: () -> Unit
+    onNavigateToAppLimits: () -> Unit,
+    onNavigateToProfiles: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val usageLogs = uiState.usageLogs
@@ -71,6 +73,14 @@ fun DashboardScreen(
                         androidx.compose.material3.Icon(
                             imageVector = androidx.compose.material.icons.Icons.Default.List,
                             contentDescription = "App Limits"
+                        )
+                    }
+                    androidx.compose.material3.IconButton(
+                        onClick = onNavigateToProfiles
+                    ) {
+                        androidx.compose.material3.Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.Person,
+                            contentDescription = "Profiles"
                         )
                     }
                     androidx.compose.material3.IconButton(

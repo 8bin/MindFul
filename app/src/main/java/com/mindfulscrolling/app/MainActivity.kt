@@ -72,6 +72,9 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onNavigateToAppLimits = {
                                     navController.navigate("app_limits")
+                                },
+                                onNavigateToProfiles = {
+                                    navController.navigate("profiles")
                                 }
                             )
                         }
@@ -83,6 +86,21 @@ class MainActivity : ComponentActivity() {
                                 onNavigateBack = {
                                     navController.popBackStack()
                                 }
+                            )
+                        }
+                        composable("profiles") {
+                            com.mindfulscrolling.app.ui.profiles.FocusProfilesScreen(
+                                onNavigateToEditProfile = { profileId ->
+                                    navController.navigate("edit_profile/$profileId")
+                                }
+                            )
+                        }
+                        composable(
+                            route = "edit_profile/{profileId}",
+                            arguments = listOf(androidx.navigation.navArgument("profileId") { type = androidx.navigation.NavType.LongType })
+                        ) {
+                            com.mindfulscrolling.app.ui.profiles.EditProfileScreen(
+                                onBack = { navController.popBackStack() }
                             )
                         }
                     }

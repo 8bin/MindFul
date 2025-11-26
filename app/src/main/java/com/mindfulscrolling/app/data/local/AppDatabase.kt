@@ -12,8 +12,15 @@ import com.mindfulscrolling.app.data.local.entity.OverrideLogEntity
 import com.mindfulscrolling.app.data.local.entity.UsageLogEntity
 
 @Database(
-    entities = [AppLimitEntity::class, UsageLogEntity::class, AppGroupEntity::class, OverrideLogEntity::class],
-    version = 1,
+    entities = [
+        AppLimitEntity::class,
+        UsageLogEntity::class,
+        AppGroupEntity::class,
+        OverrideLogEntity::class,
+        FocusProfileEntity::class,
+        ProfileAppCrossRef::class
+    ],
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -21,4 +28,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun usageLogDao(): UsageLogDao
     abstract fun appGroupDao(): AppGroupDao
     abstract fun overrideLogDao(): OverrideLogDao
+    abstract fun focusProfileDao(): FocusProfileDao
 }
