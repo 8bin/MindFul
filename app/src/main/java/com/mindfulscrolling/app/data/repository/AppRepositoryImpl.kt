@@ -12,7 +12,12 @@ import com.mindfulscrolling.app.domain.repository.AppRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+import dagger.hilt.android.qualifiers.ApplicationContext
+import android.content.Context
+import android.content.pm.PackageManager
+
 class AppRepositoryImpl @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val appLimitDao: AppLimitDao,
     private val appGroupDao: AppGroupDao,
     private val usageLogDao: UsageLogDao,
@@ -34,4 +39,19 @@ class AppRepositoryImpl @Inject constructor(
 
     override suspend fun logOverride(override: OverrideLogEntity) = overrideLogDao.insert(override)
     override fun getAllOverrides(): Flow<List<OverrideLogEntity>> = overrideLogDao.getAllOverrides()
+
+    override suspend fun getInstalledApps(): List<com.mindfulscrolling.app.domain.model.AppInfo> {
+        val packageManager = context.packageManager
+        return packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+            .filter { appInfo ->
+                packageManager.getLaunchIntentForPackage(appInfo.packageName) != null
+            }
+            .map { appInfo ->
+                com.mindfulscrolling.app.domain.model.AppInfo(
+                    name = packageManager.getApplicationLabel(appInfo).toString(),
+                    packageName = appInfo.packageName
+                )
+            }
+            .sortedBy { it.name }
+    }
 }

@@ -28,6 +28,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
@@ -35,7 +36,8 @@ import androidx.compose.ui.text.style.TextOverflow
 @Composable
 fun DashboardScreen(
     viewModel: DashboardViewModel = hiltViewModel(),
-    onNavigateToSettings: () -> Unit
+    onNavigateToSettings: () -> Unit,
+    onNavigateToAppLimits: () -> Unit
 ) {
     val usageLogs by viewModel.usageState.collectAsState()
 
@@ -60,13 +62,23 @@ fun DashboardScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-                androidx.compose.material3.IconButton(
-                    onClick = onNavigateToSettings
-                ) {
-                    androidx.compose.material3.Icon(
-                        imageVector = Icons.Filled.Settings,
-                        contentDescription = "Settings"
-                    )
+                Row {
+                    androidx.compose.material3.IconButton(
+                        onClick = onNavigateToAppLimits
+                    ) {
+                        androidx.compose.material3.Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.List,
+                            contentDescription = "App Limits"
+                        )
+                    }
+                    androidx.compose.material3.IconButton(
+                        onClick = onNavigateToSettings
+                    ) {
+                        androidx.compose.material3.Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = "Settings"
+                        )
+                    }
                 }
             }
         }

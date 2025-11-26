@@ -38,14 +38,16 @@ fun OnboardingScreen(
     
     var hasUsageStats by remember { mutableStateOf(false) }
     var hasOverlay by remember { mutableStateOf(false) }
+    var hasAccessibility by remember { mutableStateOf(false) }
 
     // Check permissions on resume
     LaunchedEffect(lifecycle) {
         lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
             hasUsageStats = permissionManager.hasUsageStatsPermission()
             hasOverlay = permissionManager.hasOverlayPermission()
+            hasAccessibility = permissionManager.isAccessibilityServiceEnabled()
             
-            if (hasUsageStats && hasOverlay) {
+            if (hasUsageStats && hasOverlay && hasAccessibility) {
                 onAllPermissionsGranted()
             }
         }
@@ -88,6 +90,15 @@ fun OnboardingScreen(
                 description = "Required to show reminders when you exceed limits.",
                 isGranted = hasOverlay,
                 onClick = { context.startActivity(permissionManager.getOverlayPermissionIntent()) }
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            PermissionItem(
+                title = "Accessibility Service",
+                description = "Required to detect when you open apps and scroll.",
+                isGranted = hasAccessibility,
+                onClick = { context.startActivity(permissionManager.getAccessibilitySettingsIntent()) }
             )
         }
     }

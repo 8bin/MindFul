@@ -32,7 +32,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val startDestination = if (permissionManager.hasUsageStatsPermission() && permissionManager.hasOverlayPermission()) {
+                    val startDestination = if (permissionManager.hasUsageStatsPermission() && 
+                        permissionManager.hasOverlayPermission() && 
+                        permissionManager.isAccessibilityServiceEnabled()) {
                         startService(android.content.Intent(this, com.mindfulscrolling.app.service.AppMonitoringService::class.java))
                         "dashboard"
                     } else {
@@ -55,11 +57,21 @@ class MainActivity : ComponentActivity() {
                             DashboardScreen(
                                 onNavigateToSettings = {
                                     navController.navigate("settings")
+                                },
+                                onNavigateToAppLimits = {
+                                    navController.navigate("app_limits")
                                 }
                             )
                         }
                         composable("settings") {
                             com.mindfulscrolling.app.ui.settings.SettingsScreen()
+                        }
+                        composable("app_limits") {
+                            com.mindfulscrolling.app.ui.limits.AppListScreen(
+                                onNavigateBack = {
+                                    navController.popBackStack()
+                                }
+                            )
                         }
                     }
                 }

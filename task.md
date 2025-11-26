@@ -21,16 +21,19 @@
     - [ ] **UsageStatsManager**: Historical data sync
     - [ ] **Reel Detection Logic**: Scroll pattern recognition (R&D)
     - [ ] **Foreground Service**: For active "Take a Break" mode
-- [ ] **Feature: App Limits & Groups (Req 1)** <!-- id: 4 -->
-    - [ ] App Selection List (Installed Apps)
-    - [ ] Limit Configuration UI (Daily/Weekly)
-    - [ ] App Group Creation & Management UI
+- [ ] **Feature: Focus Profiles & Limits (Req 1)** <!-- id: 4 -->
+    - [x] App Selection List (Installed Apps)
+    - [x] Limit Configuration UI (Daily/Weekly)
+    - [ ] **Focus Profiles**: Create/Edit Profiles (e.g., Work, Sleep)
+    - [ ] Profile Scheduling Logic
 - [x] **Feature: Intervention System (Req 2, 9)** <!-- id: 5 -->
     - [x] Overlay Window Implementation (System Alert Window)
     - [x] Pop-up UI: "Time's Up", "Take a Break"
     - [x] Emergency Override Logic & UI
+    - [ ] **Strict Mode**: Math/Typing Challenges for Override
 - [ ] **Feature: Statistics & Analytics (Req 3)** <!-- id: 6 -->
     - [ ] Dashboard UI: Daily/Weekly/Monthly views
+    - [ ] **Timeline View**: Detailed usage history
     - [ ] Charts/Graphs Implementation
 - [ ] **Feature: Scheduling & Night Mode (Req 4, 8)** <!-- id: 7 -->
     - [ ] Schedule Configuration UI (Weekdays/Weekends)
@@ -44,3 +47,4 @@
 - [ ] **Settings & Permissions (Req 5)** <!-- id: 10 -->
     - [ ] Onboarding Flow: Permission Requests (Usage, Overlay, Accessibility)
     - [ ] General Settings Screen
+    - [ ] **Strict Mode Configuration**: Prevent Uninstall, PIN Protection

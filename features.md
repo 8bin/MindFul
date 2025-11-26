@@ -2,18 +2,19 @@
 
 ## Core Functionality
 - **Screen Time Monitoring**: Continuously tracks app usage via an Accessibility Service and `UsageStatsManager`.
-- **App‑Specific Limits**: Users can set daily time limits per app or per app group.
-- **App Groups**: Combine multiple apps (e.g., social media) under a single limit.
+- **App & Website Limits**: Users can set daily time limits per app, website, or category.
+- **Focus Profiles**: Create custom profiles (e.g., "Work", "Sleep") with specific blocked apps and schedules.
+- **Strict Mode**: Advanced protection to prevent bypassing limits (e.g., PIN, complex tasks to unlock, preventing uninstall).
 - **Take a Break Mode**: Temporarily suspend usage with a configurable break timer.
 - **Night‑Mode Scheduling**: Enforce stricter limits during defined night hours.
 - **Reel Scrolling Restriction**: Detect rapid scrolling patterns and intervene with a calming overlay.
 
 ## User Interface
-- **Dashboard**: Daily/weekly/monthly usage statistics with charts and graphs.
-- **Limits Screen**: Manage per‑app and group limits.
-- **Settings**: Permission onboarding, night‑mode configuration, and general preferences.
-- **Intervention Overlay**: System‑alert window that appears when limits are exceeded, offering options to dismiss or go home.
-- **Emergency Override**: Quick access to bypass limits in urgent situations.
+- **Dashboard**: Daily/weekly/monthly usage statistics with charts, graphs, and a **Timeline View**.
+- **Limits & Profiles**: Manage per‑app limits and configure Focus Profiles.
+- **Settings**: Permission onboarding, strict mode configuration, and general preferences.
+- **Intervention Overlay**: System‑alert window that appears when limits are exceeded.
+- **Strict Unlock**: Challenges (Math, Typing) required to override limits in Strict Mode.
 
 ## Background Services
 - **AccessibilityInterventionService**: Core engine that monitors foreground app changes and scrolling events.

@@ -26,4 +26,7 @@ interface AppRepository {
     // Overrides
     suspend fun logOverride(override: OverrideLogEntity)
     fun getAllOverrides(): Flow<List<OverrideLogEntity>>
+
+    // System
+    suspend fun getInstalledApps(): List<com.mindfulscrolling.app.domain.model.AppInfo>
 }
