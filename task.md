@@ -23,7 +23,12 @@
     - [ ] **Foreground Service**: For active "Take a Break" mode
 - [ ] **Feature: Focus Profiles & Limits (Req 1)** <!-- id: 4 -->
     - [x] App Selection List (Installed Apps)
+    - [x] App Selection List (Installed Apps)
     - [x] Limit Configuration UI (Daily/Weekly)
+    - [x] **Refinements**:
+        - [x] Fix Accessibility Permission persistence check
+        - [x] Optimize App List loading speed
+        - [x] Remove manual package entry & Add Search in App Limits
     - [ ] **Focus Profiles**: Create/Edit Profiles (e.g., Work, Sleep)
     - [ ] Profile Scheduling Logic
 - [x] **Feature: Intervention System (Req 2, 9)** <!-- id: 5 -->
@@ -32,7 +37,7 @@
     - [x] Emergency Override Logic & UI
     - [ ] **Strict Mode**: Math/Typing Challenges for Override
 - [ ] **Feature: Statistics & Analytics (Req 3)** <!-- id: 6 -->
-    - [ ] Dashboard UI: Daily/Weekly/Monthly views
+    - [x] Dashboard UI: Daily/Weekly/Monthly views
     - [ ] **Timeline View**: Detailed usage history
     - [ ] Charts/Graphs Implementation
 - [ ] **Feature: Scheduling & Night Mode (Req 4, 8)** <!-- id: 7 -->

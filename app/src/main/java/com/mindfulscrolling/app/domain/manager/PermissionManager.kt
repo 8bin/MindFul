@@ -41,10 +41,23 @@ class PermissionManager @Inject constructor(
     fun isAccessibilityServiceEnabled(): Boolean {
         val am = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as android.view.accessibility.AccessibilityManager
         val enabledServices = am.getEnabledAccessibilityServiceList(android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
-        return enabledServices.any { 
+        val isEnabledViaApi = enabledServices.any { 
             it.resolveInfo.serviceInfo.packageName == context.packageName && 
             it.resolveInfo.serviceInfo.name == "com.mindfulscrolling.app.service.AccessibilityInterventionService"
         }
+
+        if (isEnabledViaApi) return true
+
+        // Fallback check
+        val prefString = Settings.Secure.getString(
+            context.contentResolver,
+            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: return false
+
+        val expectedServiceName = "${context.packageName}/.service.AccessibilityInterventionService"
+        val expectedServiceNameFull = "${context.packageName}/com.mindfulscrolling.app.service.AccessibilityInterventionService"
+        
+        return prefString.contains(expectedServiceName) || prefString.contains(expectedServiceNameFull)
     }
 
     fun getUsageStatsIntent(): Intent {

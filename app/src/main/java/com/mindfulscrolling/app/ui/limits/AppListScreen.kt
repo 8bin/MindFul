@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -26,16 +27,30 @@ fun AppListScreen(
     val uiState by viewModel.uiState.collectAsState()
     var showLimitDialog by remember { mutableStateOf<String?>(null) }
 
+    val searchQuery by viewModel.searchQuery.collectAsState()
+
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("App Limits") },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+            Column {
+                TopAppBar(
+                    title = { Text("App Limits") },
+                    navigationIcon = {
+                        IconButton(onClick = onNavigateBack) {
+                            Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        }
                     }
-                }
-            )
+                )
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = viewModel::onSearchQueryChanged,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    placeholder = { Text("Search apps...") },
+                    leadingIcon = { Icon(androidx.compose.material.icons.Icons.Default.Search, contentDescription = null) },
+                    singleLine = true
+                )
+            }
         }
     ) { paddingValues ->
         Box(

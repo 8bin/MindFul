@@ -40,9 +40,9 @@ class AppRepositoryImpl @Inject constructor(
     override suspend fun logOverride(override: OverrideLogEntity) = overrideLogDao.insert(override)
     override fun getAllOverrides(): Flow<List<OverrideLogEntity>> = overrideLogDao.getAllOverrides()
 
-    override suspend fun getInstalledApps(): List<com.mindfulscrolling.app.domain.model.AppInfo> {
+    override suspend fun getInstalledApps(): List<com.mindfulscrolling.app.domain.model.AppInfo> = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
         val packageManager = context.packageManager
-        return packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
             .filter { appInfo ->
                 packageManager.getLaunchIntentForPackage(appInfo.packageName) != null
             }

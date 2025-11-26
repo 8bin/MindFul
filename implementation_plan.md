@@ -1,32 +1,54 @@
-# Implementing Dashboard UI
+# Implementing Focus Profiles
 
-The goal is to create a functional Dashboard UI that shows the user's daily usage stats and allows them to navigate to other features.
+Focus Profiles allow users to define different blocking rules for different contexts (e.g., "Work", "Sleep", "Study"). A profile consists of a name and a set of apps with specific limits or blocking rules.
 
 ## User Review Required
 > [!NOTE]
-> The dashboard will initially show data from the local `UsageLog` database. We will need to ensure the data is refreshed reactively.
+> For this iteration, we will implement the CRUD operations for Profiles and the ability to manually activate a profile. Scheduling profiles will be a separate task.
 
 ## Proposed Changes
 
-### UI Layer
-#### [MODIFY] [DashboardScreen.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/dashboard/DashboardScreen.kt)
-- **Header**: "Today's Usage" with total time.
-- **Usage List**: List of apps with their usage duration and progress bar.
-- **Navigation**: Buttons/Cards to navigate to "App Limits" and "Settings".
-- **ViewModel**: `DashboardViewModel` to fetch usage data from `UsageRepository`.
+### Data Layer
+#### [NEW] [FocusProfileEntity.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/data/local/entity/FocusProfileEntity.kt)
+- `id`, `name`, `icon`, `isActive`
 
-#### [NEW] [DashboardViewModel.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/dashboard/DashboardViewModel.kt)
-- Fetches usage for the current day.
-- Exposes `StateFlow<DashboardUiState>`.
+#### [NEW] [ProfileAppCrossRef.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/data/local/entity/ProfileAppCrossRef.kt)
+- Many-to-many relationship between Profile and Apps (Packages).
+- Additional fields: `limitDurationMinutes` (specific limit for this profile).
+
+#### [MODIFY] [AppDatabase.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/data/local/AppDatabase.kt)
+- Add new entities.
+
+#### [NEW] [FocusProfileDao.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/data/local/dao/FocusProfileDao.kt)
+- CRUD for profiles.
+- Query to get active profile and its rules.
+
+#### [MODIFY] [AppRepository.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/repository/AppRepository.kt)
+- Add methods for Profile management.
 
 ### Domain Layer
-#### [NEW] [GetDailyUsageUseCase.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/usecase/GetDailyUsageUseCase.kt)
-- Returns a flow of usage data for the current day, sorted by duration.
+#### [NEW] [ManageFocusProfilesUseCase.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/usecase/ManageFocusProfilesUseCase.kt)
+- Create, Update, Delete, Activate profiles.
+
+#### [MODIFY] [GetAppLimitUseCase.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/usecase/GetAppLimitUseCase.kt)
+- Update logic to check the *Active Profile* first. If a profile is active, use its limits. If not, fall back to global limits.
+
+### UI Layer
+#### [NEW] [FocusProfilesScreen.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/profiles/FocusProfilesScreen.kt)
+- List of profiles.
+- "Create New Profile" button.
+- Toggle to activate/deactivate.
+
+#### [NEW] [EditProfileScreen.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/profiles/EditProfileScreen.kt)
+- Edit name.
+- Select apps and set limits for this profile.
 
 ## Verification Plan
 
 ### Manual Verification
-1.  Open the app.
-2.  Verify that the dashboard shows the total usage time.
-3.  Verify that the list shows apps used today.
-4.  Verify navigation to "App Limits" and "Settings".
+1.  Create a profile "Work".
+2.  Add "YouTube" to "Work" with a 0-minute limit (Block).
+3.  Activate "Work" profile.
+4.  Open YouTube -> Should be blocked immediately.
+5.  Deactivate "Work" profile.
+6.  Open YouTube -> Should work (or follow global limit).

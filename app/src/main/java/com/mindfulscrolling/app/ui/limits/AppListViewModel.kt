@@ -20,6 +20,9 @@ class AppListViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<AppListUiState>(AppListUiState.Loading)
     val uiState: StateFlow<AppListUiState> = _uiState.asStateFlow()
 
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery = _searchQuery.asStateFlow()
+
     init {
         loadData()
     }
@@ -28,20 +31,38 @@ class AppListViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val installedApps = appRepository.getInstalledApps()
-                appRepository.getAllLimits().collect { limits ->
+                
+                kotlinx.coroutines.flow.combine(
+                    appRepository.getAllLimits(),
+                    _searchQuery
+                ) { limits, query ->
                     val limitMap = limits.associateBy { it.packageName }
-                    val appItems = installedApps.map { app ->
+                    val filteredApps = if (query.isBlank()) {
+                        installedApps
+                    } else {
+                        installedApps.filter { 
+                            it.name.contains(query, ignoreCase = true) || 
+                            it.packageName.contains(query, ignoreCase = true) 
+                        }
+                    }
+                    
+                    filteredApps.map { app ->
                         AppItemUiState(
                             appInfo = app,
                             limitMinutes = limitMap[app.packageName]?.limitDurationMinutes
                         )
                     }
+                }.collect { appItems ->
                     _uiState.value = AppListUiState.Success(appItems)
                 }
             } catch (e: Exception) {
                 _uiState.value = AppListUiState.Error(e.message ?: "Unknown error")
             }
         }
+    }
+
+    fun onSearchQueryChanged(query: String) {
+        _searchQuery.value = query
     }
 
     fun setLimit(packageName: String, minutes: Int) {
