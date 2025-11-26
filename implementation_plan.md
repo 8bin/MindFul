@@ -1,44 +1,32 @@
-# Implementing UsageStatsManager Sync
+# Implementing Dashboard UI
 
-The goal is to sync historical usage data from Android's `UsageStatsManager` to our local `UsageLog` database. This ensures data accuracy even if the Accessibility Service was disabled or the app was killed.
+The goal is to create a functional Dashboard UI that shows the user's daily usage stats and allows them to navigate to other features.
 
 ## User Review Required
-> [!IMPORTANT]
-> This feature requires the `PACKAGE_USAGE_STATS` permission, which is a special permission that the user must grant in system settings. We need to handle the case where this permission is not granted.
+> [!NOTE]
+> The dashboard will initially show data from the local `UsageLog` database. We will need to ensure the data is refreshed reactively.
 
 ## Proposed Changes
 
-### Data Layer
-#### [NEW] [UsageStatsDataSource.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/data/datasource/UsageStatsDataSource.kt)
-- Helper class to interact with `UsageStatsManager`.
-- Methods to query usage stats for a given time range.
+### UI Layer
+#### [MODIFY] [DashboardScreen.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/dashboard/DashboardScreen.kt)
+- **Header**: "Today's Usage" with total time.
+- **Usage List**: List of apps with their usage duration and progress bar.
+- **Navigation**: Buttons/Cards to navigate to "App Limits" and "Settings".
+- **ViewModel**: `DashboardViewModel` to fetch usage data from `UsageRepository`.
 
-#### [MODIFY] [UsageRepository.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/repository/UsageRepository.kt)
-- Add method `syncUsage(usageStats: Map<String, Long>, date: Long)`.
-
-#### [MODIFY] [UsageRepositoryImpl.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/data/repository/UsageRepositoryImpl.kt)
-- Implement `syncUsage` to update local DB with system stats.
-- Logic: If system stat > local stat, update local. (Trust system stats for historical data).
+#### [NEW] [DashboardViewModel.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/dashboard/DashboardViewModel.kt)
+- Fetches usage for the current day.
+- Exposes `StateFlow<DashboardUiState>`.
 
 ### Domain Layer
-#### [NEW] [SyncUsageUseCase.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/usecase/SyncUsageUseCase.kt)
-- Orchestrates the sync process.
-- Gets stats from `UsageStatsDataSource`.
-- Calls `UsageRepository.syncUsage`.
-
-### Worker Layer
-#### [NEW] [SyncUsageWorker.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/worker/SyncUsageWorker.kt)
-- WorkManager worker to run periodically (e.g., every 15 minutes).
-- Calls `SyncUsageUseCase`.
-
-### DI
-#### [MODIFY] [AppModule.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/di/AppModule.kt)
-- Provide `UsageStatsManager`.
+#### [NEW] [GetDailyUsageUseCase.kt](file:///c:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/usecase/GetDailyUsageUseCase.kt)
+- Returns a flow of usage data for the current day, sorted by duration.
 
 ## Verification Plan
 
 ### Manual Verification
-1.  Grant Usage Access permission to the app.
-2.  Use some apps (e.g., Chrome) for a few minutes.
-3.  Trigger the worker manually (or wait for it).
-4.  Check the database (via logs or UI) to see if usage is reflected.
+1.  Open the app.
+2.  Verify that the dashboard shows the total usage time.
+3.  Verify that the list shows apps used today.
+4.  Verify navigation to "App Limits" and "Settings".

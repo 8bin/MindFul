@@ -1,25 +1,21 @@
-# UsageStatsManager Sync Walkthrough
+# Debugging Onboarding Flow
 
-I have implemented the logic to sync historical usage data from Android's `UsageStatsManager` to the local database. This ensures that even if the Accessibility Service is disabled, we can still get accurate usage data (albeit with less granularity and real-time updates).
+I addressed the issue where the app failed to detect that the Accessibility Service was enabled.
 
-## Changes
+## Issue
+The `PermissionManager` was using a brittle method (parsing `Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES` string) to check if the service was enabled. This failed because the format of the string can vary.
 
-### Data Layer
-- **UsageStatsDataSource**: Created to fetch usage stats from the system.
-- **UsageRepository**: Added `syncUsage` method to merge system stats with local logs.
-- **UsageRepositoryImpl**: Implemented the merge logic (currently trusting system stats if they are higher).
-
-### Domain Layer
-- **SyncUsageUseCase**: Orchestrates the fetching and syncing process.
-
-### Worker
-- **SyncUsageWorker**: A WorkManager worker that runs `SyncUsageUseCase`.
-- **Hilt Configuration**: Configured `MindfulScrollingApp` to provide a `HiltWorkerFactory` so we can inject dependencies into workers.
+## Fix
+I updated `PermissionManager.isAccessibilityServiceEnabled()` to use the standard `AccessibilityManager` API:
+```kotlin
+val am = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+val enabledServices = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+// Check if our service is in the list
+```
 
 ## Verification
-- **Build Verification**: The project compiles successfully (`./gradlew assembleDebug`).
-- **Dependency Check**: Added `androidx.hilt:hilt-work` and `androidx.hilt:hilt-compiler` to support Hilt with WorkManager.
+- **Build Verification**: The project compiles successfully.
+- **Logic Verification**: The new check uses the Android system API which is the correct way to detect enabled services.
 
 ## Next Steps
-- Schedule the `SyncUsageWorker` to run periodically (e.g., every 15 minutes) in `MainActivity` or `Application` class.
-- Handle the `PACKAGE_USAGE_STATS` permission request in the UI.
+- Please try the app again. You might need to disable and re-enable the service or just return to the app.

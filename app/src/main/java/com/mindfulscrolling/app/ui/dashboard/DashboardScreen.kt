@@ -39,7 +39,9 @@ fun DashboardScreen(
     onNavigateToSettings: () -> Unit,
     onNavigateToAppLimits: () -> Unit
 ) {
-    val usageLogs by viewModel.usageState.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
+    val usageLogs = uiState.usageLogs
+    val totalUsageMinutes = uiState.totalUsageMillis / 60000
 
     Scaffold(
         topBar = {
@@ -91,6 +93,36 @@ fun DashboardScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 16.dp)
         ) {
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    colors = androidx.compose.material3.CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(24.dp)
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Total Screen Time",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "${totalUsageMinutes / 60}h ${totalUsageMinutes % 60}m",
+                            style = MaterialTheme.typography.displayLarge,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
+                }
+            }
+
             item {
                 Text(
                     text = "Today's Usage",

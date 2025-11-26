@@ -18,7 +18,7 @@
     - [x] Use Cases: Take a Break Logic, Night Mode Logic
 - [/] **Background Services & Monitoring** <!-- id: 3 -->
     - [x] **Accessibility Service**: Core monitoring engine
-    - [ ] **UsageStatsManager**: Historical data sync
+    - [x] **UsageStatsManager**: Historical data sync
     - [ ] **Reel Detection Logic**: Scroll pattern recognition (R&D)
     - [ ] **Foreground Service**: For active "Take a Break" mode
 - [ ] **Feature: Focus Profiles & Limits (Req 1)** <!-- id: 4 -->

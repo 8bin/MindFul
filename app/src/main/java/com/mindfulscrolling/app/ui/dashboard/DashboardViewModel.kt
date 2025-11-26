@@ -3,7 +3,7 @@ package com.mindfulscrolling.app.ui.dashboard
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mindfulscrolling.app.data.local.entity.UsageLogEntity
-import com.mindfulscrolling.app.domain.usecase.GetAppUsageStatsUseCase
+import com.mindfulscrolling.app.domain.usecase.GetDailyUsageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,28 +14,30 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
-    private val getAppUsageStatsUseCase: GetAppUsageStatsUseCase
+    private val getDailyUsageUseCase: GetDailyUsageUseCase
 ) : ViewModel() {
 
-    private val _usageState = MutableStateFlow<List<UsageLogEntity>>(emptyList())
-    val usageState: StateFlow<List<UsageLogEntity>> = _usageState.asStateFlow()
+    private val _uiState = MutableStateFlow(DashboardUiState())
+    val uiState: StateFlow<DashboardUiState> = _uiState.asStateFlow()
 
     init {
         loadTodayUsage()
     }
 
     private fun loadTodayUsage() {
-        val today = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.timeInMillis
-
         viewModelScope.launch {
-            getAppUsageStatsUseCase(today).collect { logs ->
-                _usageState.value = logs.sortedByDescending { it.durationMillis }
+            getDailyUsageUseCase().collect { logs ->
+                val totalDuration = logs.sumOf { it.durationMillis }
+                _uiState.value = DashboardUiState(
+                    usageLogs = logs,
+                    totalUsageMillis = totalDuration
+                )
             }
         }
     }
 }
+
+data class DashboardUiState(
+    val usageLogs: List<UsageLogEntity> = emptyList(),
+    val totalUsageMillis: Long = 0
+)

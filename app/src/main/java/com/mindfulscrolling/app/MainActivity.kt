@@ -25,6 +25,18 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Schedule Usage Sync
+        val syncRequest = androidx.work.PeriodicWorkRequestBuilder<com.mindfulscrolling.app.worker.SyncUsageWorker>(
+            15, java.util.concurrent.TimeUnit.MINUTES
+        ).build()
+
+        androidx.work.WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "SyncUsageWorker",
+            androidx.work.ExistingPeriodicWorkPolicy.KEEP,
+            syncRequest
+        )
+
         setContent {
             MindfulScrollingTheme {
                 Surface(
