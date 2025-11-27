@@ -13,7 +13,7 @@ class ManageFocusProfilesUseCase @Inject constructor(
 
     suspend fun getProfileById(id: Long): FocusProfileEntity? = repository.getProfileById(id)
 
-    fun getActiveProfile(): Flow<FocusProfileEntity?> = repository.getActiveProfile()
+    fun getActiveProfiles(): Flow<List<FocusProfileEntity>> = repository.getActiveProfiles()
 
     suspend fun createProfile(name: String, icon: String): Long {
         return repository.insertProfile(FocusProfileEntity(name = name, icon = icon))
@@ -29,6 +29,10 @@ class ManageFocusProfilesUseCase @Inject constructor(
 
     suspend fun activateProfile(profileId: Long) {
         repository.activateProfile(profileId)
+    }
+
+    suspend fun deactivateProfile(profileId: Long) {
+        repository.deactivateProfile(profileId)
     }
 
     suspend fun deactivateAllProfiles() {

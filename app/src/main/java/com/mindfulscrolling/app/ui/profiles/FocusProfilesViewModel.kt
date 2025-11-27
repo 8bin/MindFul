@@ -19,13 +19,13 @@ class FocusProfilesViewModel @Inject constructor(
     val profiles: StateFlow<List<FocusProfileEntity>> = manageFocusProfilesUseCase.getAllProfiles()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val activeProfile: StateFlow<FocusProfileEntity?> = manageFocusProfilesUseCase.getActiveProfile()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+    val activeProfiles: StateFlow<List<FocusProfileEntity>> = manageFocusProfilesUseCase.getActiveProfiles()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    fun activateProfile(profile: FocusProfileEntity) {
+    fun toggleProfileActivation(profile: FocusProfileEntity) {
         viewModelScope.launch {
             if (profile.isActive) {
-                manageFocusProfilesUseCase.deactivateAllProfiles()
+                manageFocusProfilesUseCase.deactivateProfile(profile.id)
             } else {
                 manageFocusProfilesUseCase.activateProfile(profile.id)
             }

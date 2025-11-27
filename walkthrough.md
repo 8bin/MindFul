@@ -22,7 +22,10 @@ We have implemented the **Focus Profiles** feature, allowing users to create cus
 ### Automated Build Verification
 - **Build Status**: Success
 - **APK**: `app/build/outputs/apk/debug/app-debug.apk` generated.
-- **Fixes**: Resolved `Unresolved reference` errors for `Icons.Filled.List` and `Icons.Filled.ArrowBack`.
+- **Fixes**: 
+    - Resolved `Unresolved reference` errors for `Icons.Filled.List` and `Icons.Filled.ArrowBack`.
+    - Fixed `WorkManagerInitializer` lint error in `AndroidManifest.xml`.
+    - Added `fallbackToDestructiveMigration()` to `DatabaseModule` to prevent crashes on schema updates.
 
 ### Manual Verification Steps
 1.  **Create a Profile**:
@@ -51,7 +54,34 @@ We have implemented the **Focus Profiles** feature, allowing users to create cus
     - Verify list of dates and durations are displayed.
     - Verify the back button works.
 
+### Focus Profile Verification
+1.  **Blocking Logic**:
+    - Activate a profile with a blocked app.
+    - Open the blocked app.
+    - Verify it is blocked immediately (Overlay shown).
+2.  **Custom Time Limits**:
+    - Edit a profile.
+    - Select an app and choose "Custom".
+    - Enter a time limit (e.g., 5 minutes).
+    - Activate profile.
+    - Use app for 5 minutes.
+    - Verify it gets blocked after limit is reached.
+3.  **App Sorting**:
+    - Edit a profile.
+    - Select a few apps.
+    - Verify that selected apps move to the top of the list.
+4.  **UI Clarity**:
+    - Verify the label says "Daily Limit" instead of just "Limit".
+    - Verify the dialog title says "Set Daily Time Limit".
+5.  **Multiple Profiles**:
+    - Create two profiles (e.g., "Work" and "Study").
+    - Activate "Work". Verify it is active.
+    - Activate "Study". Verify BOTH are active (switches ON).
+    - Verify apps blocked in EITHER profile are blocked.
+6.  **Compact UI**:
+    - Edit a profile.
+    - Verify "Block", "Allow", "Custom" chips are to the RIGHT of the app name.
+
 ## Next Steps
-- Implement **Profile Scheduling** to automatically activate profiles based on time/day.
-- Add more granular limits (e.g., specific time duration per profile).
 - **Refine Usage Stats**: Investigate `queryEvents` for more accurate "Today" stats if `INTERVAL_DAILY` proves insufficient.
+- **Schedule Profiles**: Implement automatic profile activation.

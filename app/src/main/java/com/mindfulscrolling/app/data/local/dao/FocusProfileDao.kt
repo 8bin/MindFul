@@ -19,8 +19,8 @@ interface FocusProfileDao {
     @Query("SELECT * FROM focus_profiles WHERE id = :id")
     suspend fun getProfileById(id: Long): FocusProfileEntity?
 
-    @Query("SELECT * FROM focus_profiles WHERE isActive = 1 LIMIT 1")
-    fun getActiveProfile(): Flow<FocusProfileEntity?>
+    @Query("SELECT * FROM focus_profiles WHERE isActive = 1")
+    fun getActiveProfiles(): Flow<List<FocusProfileEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProfile(profile: FocusProfileEntity): Long
@@ -47,7 +47,7 @@ interface FocusProfileDao {
     @Query("SELECT * FROM profile_app_cross_ref WHERE profileId = :profileId")
     fun getProfileApps(profileId: Long): Flow<List<ProfileAppCrossRef>>
     
-    @Query("SELECT * FROM profile_app_cross_ref WHERE profileId = (SELECT id FROM focus_profiles WHERE isActive = 1 LIMIT 1)")
+    @Query("SELECT * FROM profile_app_cross_ref WHERE profileId IN (SELECT id FROM focus_profiles WHERE isActive = 1)")
     fun getActiveProfileApps(): Flow<List<ProfileAppCrossRef>>
 
     @Query("UPDATE focus_profiles SET isActive = 0")
@@ -55,13 +55,13 @@ interface FocusProfileDao {
 
     @Transaction
     suspend fun activateProfile(profileId: Long) {
-        deactivateAllProfiles()
+        // deactivateAllProfiles() // Removed to allow multiple profiles
         setProfileActive(profileId, true)
     }
 
     @Query("UPDATE focus_profiles SET isActive = :isActive WHERE id = :profileId")
     suspend fun setProfileActive(profileId: Long, isActive: Boolean)
 
-    @Query("SELECT * FROM profile_app_cross_ref WHERE packageName = :packageName AND profileId = (SELECT id FROM focus_profiles WHERE isActive = 1 LIMIT 1)")
-    suspend fun getLimitForAppInActiveProfile(packageName: String): ProfileAppCrossRef?
+    @Query("SELECT * FROM profile_app_cross_ref WHERE packageName = :packageName AND profileId IN (SELECT id FROM focus_profiles WHERE isActive = 1)")
+    suspend fun getLimitsForAppInActiveProfiles(packageName: String): List<ProfileAppCrossRef>
 }

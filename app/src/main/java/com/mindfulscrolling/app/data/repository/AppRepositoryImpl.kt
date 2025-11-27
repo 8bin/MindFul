@@ -59,16 +59,17 @@ class AppRepositoryImpl @Inject constructor(
     // Focus Profiles
     override fun getAllProfiles(): Flow<List<com.mindfulscrolling.app.data.local.entity.FocusProfileEntity>> = focusProfileDao.getAllProfiles()
     override suspend fun getProfileById(id: Long): com.mindfulscrolling.app.data.local.entity.FocusProfileEntity? = focusProfileDao.getProfileById(id)
-    override fun getActiveProfile(): Flow<com.mindfulscrolling.app.data.local.entity.FocusProfileEntity?> = focusProfileDao.getActiveProfile()
+    override fun getActiveProfiles(): Flow<List<com.mindfulscrolling.app.data.local.entity.FocusProfileEntity>> = focusProfileDao.getActiveProfiles()
     override suspend fun insertProfile(profile: com.mindfulscrolling.app.data.local.entity.FocusProfileEntity): Long = focusProfileDao.insertProfile(profile)
     override suspend fun updateProfile(profile: com.mindfulscrolling.app.data.local.entity.FocusProfileEntity) = focusProfileDao.updateProfile(profile)
     override suspend fun deleteProfile(profile: com.mindfulscrolling.app.data.local.entity.FocusProfileEntity) = focusProfileDao.deleteProfile(profile)
     override suspend fun activateProfile(profileId: Long) = focusProfileDao.activateProfile(profileId)
+    override suspend fun deactivateProfile(profileId: Long) = focusProfileDao.setProfileActive(profileId, false)
     override suspend fun deactivateAllProfiles() = focusProfileDao.deactivateAllProfiles()
 
     // Profile Apps
     override fun getProfileApps(profileId: Long): Flow<List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>> = focusProfileDao.getProfileApps(profileId)
     override suspend fun updateProfileApps(profileId: Long, apps: List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>) = focusProfileDao.updateProfileApps(profileId, apps)
     override fun getActiveProfileApps(): Flow<List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>> = focusProfileDao.getActiveProfileApps()
-    override suspend fun getLimitForAppInActiveProfile(packageName: String): com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef? = focusProfileDao.getLimitForAppInActiveProfile(packageName)
+    override suspend fun getLimitsForAppInActiveProfiles(packageName: String): List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef> = focusProfileDao.getLimitsForAppInActiveProfiles(packageName)
 }

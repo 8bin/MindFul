@@ -33,16 +33,17 @@ interface AppRepository {
     // Focus Profiles
     fun getAllProfiles(): Flow<List<com.mindfulscrolling.app.data.local.entity.FocusProfileEntity>>
     suspend fun getProfileById(id: Long): com.mindfulscrolling.app.data.local.entity.FocusProfileEntity?
-    fun getActiveProfile(): Flow<com.mindfulscrolling.app.data.local.entity.FocusProfileEntity?>
+    fun getActiveProfiles(): Flow<List<com.mindfulscrolling.app.data.local.entity.FocusProfileEntity>>
     suspend fun insertProfile(profile: com.mindfulscrolling.app.data.local.entity.FocusProfileEntity): Long
     suspend fun updateProfile(profile: com.mindfulscrolling.app.data.local.entity.FocusProfileEntity)
     suspend fun deleteProfile(profile: com.mindfulscrolling.app.data.local.entity.FocusProfileEntity)
     suspend fun activateProfile(profileId: Long)
+    suspend fun deactivateProfile(profileId: Long)
     suspend fun deactivateAllProfiles()
     
     // Profile Apps
     fun getProfileApps(profileId: Long): Flow<List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>>
     suspend fun updateProfileApps(profileId: Long, apps: List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>)
     fun getActiveProfileApps(): Flow<List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>>
-    suspend fun getLimitForAppInActiveProfile(packageName: String): com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef?
+    suspend fun getLimitsForAppInActiveProfiles(packageName: String): List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>
 }

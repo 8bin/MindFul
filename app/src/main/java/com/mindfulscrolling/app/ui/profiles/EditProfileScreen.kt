@@ -92,35 +92,92 @@ fun AppSelectionItem(
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = appState.appInfo.name,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                maxLines = 1,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
-        }
-        
-        if (appState.isSelected) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text("Limit: ", style = MaterialTheme.typography.bodyMedium)
+            
+            if (appState.isSelected) {
                 Spacer(modifier = Modifier.width(8.dp))
-                // Simple limit selector for now (0 = Block, -1 = Allow, >0 = Limit)
-                // Using a simple segmented button or radio row for MVP
-                FilterChip(
-                    selected = appState.limitMinutes == 0L,
-                    onClick = { onLimitChange(0) },
-                    label = { Text("Block") }
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                FilterChip(
-                    selected = appState.limitMinutes == -1L,
-                    onClick = { onLimitChange(-1) },
-                    label = { Text("Allow") }
-                )
-                // Custom limit can be added later
+                // Options Row
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    FilterChip(
+                        selected = appState.limitMinutes == 0L,
+                        onClick = { onLimitChange(0) },
+                        label = { Text("Block") },
+                        modifier = Modifier.height(32.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    FilterChip(
+                        selected = appState.limitMinutes == -1L,
+                        onClick = { onLimitChange(-1) },
+                        label = { Text("Allow") },
+                        modifier = Modifier.height(32.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    
+                    var showDialog by remember { mutableStateOf(false) }
+                    if (showDialog) {
+                        TimeLimitDialog(
+                            initialMinutes = if (appState.limitMinutes > 0) appState.limitMinutes else 30,
+                            onDismiss = { showDialog = false },
+                            onConfirm = { minutes ->
+                                onLimitChange(minutes)
+                                showDialog = false
+                            }
+                        )
+                    }
+
+                    FilterChip(
+                        selected = appState.limitMinutes > 0,
+                        onClick = { showDialog = true },
+                        label = { 
+                            Text(if (appState.limitMinutes > 0) "${appState.limitMinutes}m" else "Custom") 
+                        },
+                        modifier = Modifier.height(32.dp)
+                    )
+                }
             }
-            HorizontalDivider(modifier = Modifier.padding(start = 56.dp))
         }
+        HorizontalDivider(modifier = Modifier.padding(start = 56.dp))
     }
+}
+
+@Composable
+fun TimeLimitDialog(
+    initialMinutes: Long,
+    onDismiss: () -> Unit,
+    onConfirm: (Long) -> Unit
+) {
+    var minutes by remember { mutableStateOf(initialMinutes.toString()) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Set Daily Time Limit") },
+        text = {
+            OutlinedTextField(
+                value = minutes,
+                onValueChange = { if (it.all { char -> char.isDigit() }) minutes = it },
+                label = { Text("Minutes") },
+                singleLine = true
+            )
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    val m = minutes.toLongOrNull()
+                    if (m != null && m > 0) {
+                        onConfirm(m)
+                    }
+                }
+            ) {
+                Text("Set")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        }
+    )
 }

@@ -24,7 +24,7 @@ fun FocusProfilesScreen(
     viewModel: FocusProfilesViewModel = hiltViewModel()
 ) {
     val profiles by viewModel.profiles.collectAsState()
-    val activeProfile by viewModel.activeProfile.collectAsState()
+
     var showCreateDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -47,8 +47,8 @@ fun FocusProfilesScreen(
             items(profiles) { profile ->
                 ProfileItem(
                     profile = profile,
-                    isActive = profile.id == activeProfile?.id,
-                    onActivate = { viewModel.activateProfile(profile) },
+                    isActive = profile.isActive,
+                    onActivate = { viewModel.toggleProfileActivation(profile) },
                     onEdit = { onNavigateToEditProfile(profile.id) },
                     onDelete = { viewModel.deleteProfile(profile) }
                 )

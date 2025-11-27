@@ -44,6 +44,8 @@ class EditProfileViewModel @Inject constructor(
                 limitMinutes = profileApp?.limitDurationMinutes ?: 0 // Default to 0 (Blocked) if selected
             )
         }
+
+        .sortedWith(compareByDescending<AppProfileState> { it.isSelected }.thenBy { it.appInfo.name })
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     init {
