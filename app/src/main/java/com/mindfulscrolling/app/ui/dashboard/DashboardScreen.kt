@@ -39,7 +39,8 @@ fun DashboardScreen(
     viewModel: DashboardViewModel = hiltViewModel(),
     onNavigateToSettings: () -> Unit,
     onNavigateToAppLimits: () -> Unit,
-    onNavigateToProfiles: () -> Unit
+    onNavigateToProfiles: () -> Unit,
+    onNavigateToHistory: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val usageLogs = uiState.usageLogs
@@ -110,7 +111,8 @@ fun DashboardScreen(
                         .padding(vertical = 8.dp),
                     colors = androidx.compose.material3.CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.primaryContainer
-                    )
+                    ),
+                    onClick = onNavigateToHistory
                 ) {
                     Column(
                         modifier = Modifier

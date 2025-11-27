@@ -36,9 +36,11 @@
     - [x] Pop-up UI: "Time's Up", "Take a Break"
     - [x] Emergency Override Logic & UI
     - [ ] **Strict Mode**: Math/Typing Challenges for Override
-- [ ] **Feature: Statistics & Analytics (Req 3)** <!-- id: 6 -->
+- [/] **Feature: Statistics & Analytics (Req 3)** <!-- id: 6 -->
     - [x] Dashboard UI: Daily/Weekly/Monthly views
-    - [ ] **Timeline View**: Detailed usage history
+    - [/] **Timeline View**: Detailed usage history
+        - [x] **Usage History Screen**: List of daily totals
+        - [x] **Dashboard Integration**: Clickable Total Screen Time
     - [ ] Charts/Graphs Implementation
 - [ ] **Feature: Scheduling & Night Mode (Req 4, 8)** <!-- id: 7 -->
     - [ ] Schedule Configuration UI (Weekdays/Weekends)

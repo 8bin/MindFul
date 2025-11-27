@@ -42,6 +42,16 @@ We have implemented the **Focus Profiles** feature, allowing users to create cus
     - Toggle the switch OFF.
     - Open the app again. It should be accessible (unless global limit is reached).
 
+### Usage History Verification
+1.  **Check Dashboard**:
+    - Verify "Total Screen Time" card is clickable.
+    - Click on the card.
+2.  **Verify History Screen**:
+    - Ensure "Usage History" screen opens.
+    - Verify list of dates and durations are displayed.
+    - Verify the back button works.
+
 ## Next Steps
 - Implement **Profile Scheduling** to automatically activate profiles based on time/day.
 - Add more granular limits (e.g., specific time duration per profile).
+- **Refine Usage Stats**: Investigate `queryEvents` for more accurate "Today" stats if `INTERVAL_DAILY` proves insufficient.

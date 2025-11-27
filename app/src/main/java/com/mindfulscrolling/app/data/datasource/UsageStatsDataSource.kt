@@ -18,6 +18,13 @@ class UsageStatsDataSource @Inject constructor(
             endTime
         )
 
-        return stats.associate { it.packageName to it.totalTimeInForeground }
+        // Aggregate hourly stats by package name
+        val aggregatedStats = mutableMapOf<String, Long>()
+        stats.forEach { usageStat ->
+            val currentTotal = aggregatedStats.getOrDefault(usageStat.packageName, 0L)
+            aggregatedStats[usageStat.packageName] = currentTotal + usageStat.totalTimeInForeground
+        }
+
+        return aggregatedStats
     }
 }

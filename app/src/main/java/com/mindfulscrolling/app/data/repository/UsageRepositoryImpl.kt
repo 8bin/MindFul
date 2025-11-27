@@ -14,6 +14,10 @@ class UsageRepositoryImpl @Inject constructor(
         return usageLogDao.getUsageForDate(date)
     }
 
+    override fun getUsageHistory(): Flow<List<com.mindfulscrolling.app.data.local.model.DailyUsageSummary>> {
+        return usageLogDao.getDailyTotals()
+    }
+
     override suspend fun logUsage(packageName: String, duration: Long, date: Long) {
         val currentLog = usageLogDao.getUsageForAppAndDate(packageName, date)
         val newDuration = (currentLog?.durationMillis ?: 0) + duration

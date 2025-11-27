@@ -75,6 +75,9 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onNavigateToProfiles = {
                                     navController.navigate("profiles")
+                                },
+                                onNavigateToHistory = {
+                                    navController.navigate("history")
                                 }
                             )
                         }
@@ -100,6 +103,11 @@ class MainActivity : ComponentActivity() {
                             arguments = listOf(androidx.navigation.navArgument("profileId") { type = androidx.navigation.NavType.LongType })
                         ) {
                             com.mindfulscrolling.app.ui.profiles.EditProfileScreen(
+                                onBack = { navController.popBackStack() }
+                            )
+                        }
+                        composable("history") {
+                            com.mindfulscrolling.app.ui.dashboard.UsageHistoryScreen(
                                 onBack = { navController.popBackStack() }
                             )
                         }

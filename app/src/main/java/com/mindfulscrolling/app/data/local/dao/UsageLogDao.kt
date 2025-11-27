@@ -17,4 +17,7 @@ interface UsageLogDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrUpdateUsage(usage: UsageLogEntity)
+
+    @Query("SELECT date, SUM(durationMillis) as totalDuration FROM usage_logs GROUP BY date ORDER BY date DESC")
+    fun getDailyTotals(): Flow<List<com.mindfulscrolling.app.data.local.model.DailyUsageSummary>>
 }
