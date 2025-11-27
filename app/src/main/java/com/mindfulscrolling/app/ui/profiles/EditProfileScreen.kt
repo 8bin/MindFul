@@ -28,7 +28,7 @@ fun EditProfileScreen(
                 title = { Text(profile?.name ?: "Edit Profile") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
             )

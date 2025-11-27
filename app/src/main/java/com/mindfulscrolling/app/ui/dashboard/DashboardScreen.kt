@@ -71,7 +71,7 @@ fun DashboardScreen(
                         onClick = onNavigateToAppLimits
                     ) {
                         androidx.compose.material3.Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.List,
+                            imageVector = Icons.Filled.List,
                             contentDescription = "App Limits"
                         )
                     }

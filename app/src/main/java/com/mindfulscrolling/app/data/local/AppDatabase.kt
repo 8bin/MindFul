@@ -10,6 +10,9 @@ import com.mindfulscrolling.app.data.local.entity.AppGroupEntity
 import com.mindfulscrolling.app.data.local.entity.AppLimitEntity
 import com.mindfulscrolling.app.data.local.entity.OverrideLogEntity
 import com.mindfulscrolling.app.data.local.entity.UsageLogEntity
+import com.mindfulscrolling.app.data.local.entity.FocusProfileEntity
+import com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef
+import com.mindfulscrolling.app.data.local.dao.FocusProfileDao
 
 @Database(
     entities = [

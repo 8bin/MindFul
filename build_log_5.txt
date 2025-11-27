@@ -1,0 +1,255 @@
+
+> Configure project :app
+WARNING: The option setting 'android.suppressUnsupportedOptionWarnings=true' is experimental.
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :app:mergeReleaseNativeLibs NO-SOURCE
+> Task :app:stripReleaseDebugSymbols NO-SOURCE
+> Task :app:extractReleaseNativeSymbolTables NO-SOURCE
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:checkReleaseDuplicateClasses UP-TO-DATE
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+> Task :app:generateReleaseResValues UP-TO-DATE
+> Task :app:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :app:generateReleaseResources UP-TO-DATE
+> Task :app:mergeReleaseResources UP-TO-DATE
+> Task :app:packageReleaseResources UP-TO-DATE
+> Task :app:parseReleaseLocalResources UP-TO-DATE
+> Task :app:createReleaseCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksRelease UP-TO-DATE
+> Task :app:processReleaseMainManifest UP-TO-DATE
+> Task :app:processReleaseManifest UP-TO-DATE
+> Task :app:processReleaseManifestForPackage UP-TO-DATE
+> Task :app:processReleaseResources UP-TO-DATE
+> Task :app:javaPreCompileRelease UP-TO-DATE
+> Task :app:desugarReleaseFileDependencies UP-TO-DATE
+> Task :app:mergeReleaseStartupProfile UP-TO-DATE
+> Task :app:mergeExtDexRelease UP-TO-DATE
+> Task :app:mergeReleaseArtProfile UP-TO-DATE
+> Task :app:mergeReleaseShaders UP-TO-DATE
+> Task :app:compileReleaseShaders NO-SOURCE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets UP-TO-DATE
+> Task :app:compressReleaseAssets UP-TO-DATE
+> Task :app:extractReleaseVersionControlInfo UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:optimizeReleaseResources UP-TO-DATE
+> Task :app:collectReleaseDependencies UP-TO-DATE
+> Task :app:sdkReleaseDependencyData UP-TO-DATE
+> Task :app:writeReleaseAppMetadata UP-TO-DATE
+> Task :app:writeReleaseSigningConfigVersions UP-TO-DATE
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :app:preReleaseUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileReleaseUnitTest UP-TO-DATE
+> Task :app:kspReleaseKotlin
+> Task :app:kspDebugKotlin
+> Task :app:compileReleaseKotlin
+> Task :app:compileDebugKotlin
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/dashboard/DashboardScreen.kt:74:56 'List: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.List
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/profiles/EditProfileScreen.kt:31:43 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack
+
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
+> Task :app:hiltAggregateDepsDebug UP-TO-DATE
+> Task :app:hiltJavaCompileDebug UP-TO-DATE
+> Task :app:processDebugJavaRes UP-TO-DATE
+> Task :app:mergeDebugJavaResource UP-TO-DATE
+> Task :app:transformDebugClassesWithAsm
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:generateDebugLintReportModel
+
+> Task :app:compileReleaseKotlin
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/domain/manager/PermissionManager.kt:28:20 'checkOpNoThrow(String, Int, String): Int' is deprecated. Deprecated in Java
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/service/OverlayManager.kt:65:44 'TYPE_PHONE: Int' is deprecated. Deprecated in Java
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/dashboard/DashboardScreen.kt:74:56 'List: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.List
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/limits/AppListScreen.kt:39:48 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/overlay/OverlayManager.kt:40:44 'TYPE_PHONE: Int' is deprecated. Deprecated in Java
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/overlay/OverlayScreen.kt:28:5 Parameter 'packageName' is never used
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/profiles/EditProfileScreen.kt:31:43 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack
+
+> Task :app:dexBuilderDebug
+
+> Task :app:compileReleaseJavaWithJavac
+Java compiler version 21 has deprecated support for compiling with source/target version 8.
+Try one of the following options:
+    1. [Recommended] Use Java toolchain with a lower language version
+    2. Set a higher source/target version
+    3. Use a lower version of the JDK running the build (if you're not using Java toolchain)
+For more details on how to configure these settings, see https://developer.android.com/build/jdks.
+To suppress this warning, set android.javaCompile.suppressSourceTargetDeprecationWarning=true in gradle.properties.
+
+> Task :app:mergeProjectDexDebug
+
+> Task :app:compileReleaseJavaWithJavac
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+
+> Task :app:hiltAggregateDepsRelease
+> Task :app:generateDebugAndroidTestLintModel
+
+> Task :app:hiltJavaCompileRelease
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+
+> Task :app:generateReleaseLintVitalReportModel
+> Task :app:transformReleaseClassesWithAsm
+> Task :app:packageDebug
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:dexBuilderRelease
+> Task :app:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleDebug
+> Task :app:mergeReleaseGlobalSynthetics
+> Task :app:processReleaseJavaRes
+> Task :app:generateDebugUnitTestLintModel
+> Task :app:mergeReleaseJavaResource
+> Task :app:mergeDexRelease
+> Task :app:lintAnalyzeDebug
+> Task :app:compileReleaseArtProfile
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:kspDebugUnitTestKotlin NO-SOURCE
+> Task :app:compileDebugUnitTestKotlin NO-SOURCE
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:hiltAggregateDepsDebugUnitTest
+> Task :app:hiltJavaCompileDebugUnitTest NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes NO-SOURCE
+> Task :app:transformDebugUnitTestClassesWithAsm
+> Task :app:testDebugUnitTest NO-SOURCE
+> Task :app:bundleReleaseClassesToRuntimeJar
+> Task :app:bundleReleaseClassesToCompileJar
+> Task :app:kspReleaseUnitTestKotlin NO-SOURCE
+> Task :app:compileReleaseUnitTestKotlin NO-SOURCE
+> Task :app:compileReleaseUnitTestJavaWithJavac NO-SOURCE
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:hiltAggregateDepsReleaseUnitTest
+> Task :app:hiltJavaCompileReleaseUnitTest NO-SOURCE
+> Task :app:processReleaseUnitTestJavaRes NO-SOURCE
+> Task :app:transformReleaseUnitTestClassesWithAsm
+> Task :app:testReleaseUnitTest NO-SOURCE
+> Task :app:test UP-TO-DATE
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :app:lintVitalReportRelease SKIPPED
+> Task :app:lintVitalRelease SKIPPED
+> Task :app:packageRelease
+> Task :app:createReleaseApkListingFileRedirect
+> Task :app:assembleRelease
+> Task :app:assemble
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///C:/App/MindFul/app/build/reports/lint-results-debug.html
+Lint found 1 error and 37 warnings. First failure:
+C:\App\MindFul\app\src\main\AndroidManifest.xml:13: Error: Remove androidx.work.WorkManagerInitializer from your AndroidManifest.xml when using on-demand initialization. [RemoveWorkManagerInitializer from androidx.work]
+    <application
+    ^
+
+
+> Task :app:lintDebug FAILED
+Lint found 1 error, 37 warnings. First failure:
+
+C:\App\MindFul\app\src\main\AndroidManifest.xml:13: Error: Remove androidx.work.WorkManagerInitializer from your AndroidManifest.xml when using on-demand initialization. [RemoveWorkManagerInitializer from androidx.work]
+    <application
+    ^
+
+   Explanation for issues of type "RemoveWorkManagerInitializer":
+   If an android.app.Application implements
+   androidx.work.Configuration.Provider,
+   the default androidx.startup.InitializationProvider needs to be removed
+   from the
+   AndroidManifest.xml file.
+
+   Vendor: Android Open Source Project
+   Identifier: androidx.work
+   Feedback: https://issuetracker.google.com/issues/new?component=409906
+
+
+The full lint text report is located at:
+  C:\App\MindFul\app\build\intermediates\lint_intermediate_text_report\debug\lintReportDebug\lint-results-debug.txt
+
+[Incubating] Problems report is available at: file:///C:/App/MindFul/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:lintDebug'.
+> Lint found errors in the project; aborting build.
+  
+  Fix the issues identified by lint, or create a baseline to see only new errors.
+  To create a baseline, run `gradlew updateLintBaseline` after adding the following to the module's build.gradle file:
+  ```
+  android {
+      lint {
+          baseline = file("lint-baseline.xml")
+      }
+  }
+  ```
+  For more details, see https://developer.android.com/studio/write/lint#snapshot
+  
+  Lint found 1 error, 37 warnings. First failure:
+  
+  C:\App\MindFul\app\src\main\AndroidManifest.xml:13: Error: Remove androidx.work.WorkManagerInitializer from your AndroidManifest.xml when using on-demand initialization. [RemoveWorkManagerInitializer from androidx.work]
+      <application
+      ^
+  
+     Explanation for issues of type "RemoveWorkManagerInitializer":
+     If an android.app.Application implements
+     androidx.work.Configuration.Provider,
+     the default androidx.startup.InitializationProvider needs to be removed
+     from the
+     AndroidManifest.xml file.
+  
+     Vendor: Android Open Source Project
+     Identifier: androidx.work
+     Feedback: https://issuetracker.google.com/issues/new?component=409906
+  
+  
+  The full lint text report is located at:
+    C:\App\MindFul\app\build\intermediates\lint_intermediate_text_report\debug\lintReportDebug\lint-results-debug.txt
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 5m 42s
+104 actionable tasks: 39 executed, 65 up-to-date

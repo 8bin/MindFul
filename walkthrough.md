@@ -19,6 +19,11 @@ We have implemented the **Focus Profiles** feature, allowing users to create cus
 - **Dashboard**: Added a "Profiles" button to the top bar for easy access.
 
 ## Verification
+### Automated Build Verification
+- **Build Status**: Success
+- **APK**: `app/build/outputs/apk/debug/app-debug.apk` generated.
+- **Fixes**: Resolved `Unresolved reference` errors for `Icons.Filled.List` and `Icons.Filled.ArrowBack`.
+
 ### Manual Verification Steps
 1.  **Create a Profile**:
     - Go to Dashboard -> Profiles (Person Icon).

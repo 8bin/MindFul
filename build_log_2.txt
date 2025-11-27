@@ -1,0 +1,516 @@
+Initialized native services in: C:\Users\binoy\.gradle\native
+Initialized jansi services in: C:\Users\binoy\.gradle\native
+The client will now receive all logging from the daemon (pid: 8948). The daemon log file: C:\Users\binoy\.gradle\daemon\8.13\daemon-8948.out.log
+Starting 7th build in daemon [uptime: 1 hrs 26 mins 42.036 secs, performance: 98%, GC rate: 0.00/s, heap usage: 0% of 2 GiB]
+Using 4 worker leases.
+Now considering [C:\App\MindFul] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Settings evaluated using settings file 'C:\App\MindFul\settings.gradle.kts'.
+Projects loaded. Root project using build file 'C:\App\MindFul\build.gradle.kts'.
+Included projects: [root project 'MindfulScrolling', project ':app']
+
+> Configure project :
+Evaluating root project 'MindfulScrolling' using build file 'C:\App\MindFul\build.gradle.kts'.
+Resolved plugin [id: 'com.android.application', version: '8.12.3', apply: false]
+Resolved plugin [id: 'org.jetbrains.kotlin.android', version: '1.9.22', apply: false]
+Resolved plugin [id: 'com.google.devtools.ksp', version: '1.9.22-1.0.17', apply: false]
+Resolved plugin [id: 'com.google.dagger.hilt.android', version: '2.51', apply: false]
+
+> Configure project :app
+Evaluating project ':app' using build file 'C:\App\MindFul\app\build.gradle.kts'.
+Resolved plugin [id: 'com.android.application', version: '8.12.3']
+Resolved plugin [id: 'org.jetbrains.kotlin.android', version: '1.9.22']
+Resolved plugin [id: 'com.google.devtools.ksp', version: '1.9.22-1.0.17']
+Resolved plugin [id: 'com.google.dagger.hilt.android', version: '2.51']
+WARNING: The option setting 'android.suppressUnsupportedOptionWarnings=true' is experimental.
+Using default execution profile
+Using Kotlin Gradle Plugin gradle82 variant
+All projects evaluated.
+Task name matched 'assembleDebug'
+Selected primary task 'assembleDebug' from project :
+Tasks to be executed: [task ':app:preBuild', task ':app:preDebugBuild', task ':app:mergeDebugNativeDebugMetadata', task ':app:checkKotlinGradlePluginConfigurationErrors', task ':app:checkDebugAarMetadata', task ':app:generateDebugResValues', task ':app:mapDebugSourceSetPaths', task ':app:generateDebugResources', task ':app:mergeDebugResources', task ':app:packageDebugResources', task ':app:parseDebugLocalResources', task ':app:createDebugCompatibleScreenManifests', task ':app:extractDeepLinksDebug', task ':app:processDebugMainManifest', task ':app:processDebugManifest', task ':app:processDebugManifestForPackage', task ':app:processDebugResources', task ':app:kspDebugKotlin', task ':app:compileDebugKotlin', task ':app:javaPreCompileDebug', task ':app:compileDebugJavaWithJavac', task ':app:mergeDebugShaders', task ':app:compileDebugShaders', task ':app:generateDebugAssets', task ':app:mergeDebugAssets', task ':app:compressDebugAssets', task ':app:hiltAggregateDepsDebug', task ':app:hiltJavaCompileDebug', task ':app:processDebugJavaRes', task ':app:mergeDebugJavaResource', task ':app:checkDebugDuplicateClasses', task ':app:desugarDebugFileDependencies', task ':app:mergeExtDexDebug', task ':app:mergeLibDexDebug', task ':app:transformDebugClassesWithAsm', task ':app:dexBuilderDebug', task ':app:mergeProjectDexDebug', task ':app:mergeDebugJniLibFolders', task ':app:mergeDebugNativeLibs', task ':app:stripDebugDebugSymbols', task ':app:validateSigningDebug', task ':app:writeDebugAppMetadata', task ':app:writeDebugSigningConfigVersions', task ':app:packageDebug', task ':app:createDebugApkListingFileRedirect', task ':app:assembleDebug']
+Tasks that were excluded: []
+Resolve mutations for :app:preBuild (Thread[#347,included builds,5,main]) started.
+:app:preBuild (Thread[#347,included builds,5,main]) started.
+
+> Task :app:preBuild UP-TO-DATE
+Skipping task ':app:preBuild' as it has no actions.
+Resolve mutations for :app:preDebugBuild (Thread[#347,included builds,5,main]) started.
+:app:preDebugBuild (Thread[#347,included builds,5,main]) started.
+
+> Task :app:preDebugBuild UP-TO-DATE
+Skipping task ':app:preDebugBuild' as it has no actions.
+Resolve mutations for :app:mergeDebugNativeDebugMetadata (Thread[#347,included builds,5,main]) started.
+:app:mergeDebugNativeDebugMetadata (Thread[#347,included builds,5,main]) started.
+
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+Skipping task ':app:mergeDebugNativeDebugMetadata' as it has no source files and no previous output files.
+Resolve mutations for :app:checkKotlinGradlePluginConfigurationErrors (Thread[#347,included builds,5,main]) started.
+:app:checkKotlinGradlePluginConfigurationErrors (Thread[#347,included builds,5,main]) started.
+
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+Caching disabled for task ':app:checkKotlinGradlePluginConfigurationErrors' because:
+  Build cache is disabled
+Task ':app:checkKotlinGradlePluginConfigurationErrors' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :app:checkDebugAarMetadata (Thread[#347,included builds,5,main]) started.
+:app:checkDebugAarMetadata (Thread[#347,included builds,5,main]) started.
+
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+Caching disabled for task ':app:checkDebugAarMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:checkDebugAarMetadata' as it is up-to-date.
+Resolve mutations for :app:generateDebugResValues (Thread[#347,included builds,5,main]) started.
+:app:generateDebugResValues (Thread[#347,included builds,5,main]) started.
+
+> Task :app:generateDebugResValues UP-TO-DATE
+Caching disabled for task ':app:generateDebugResValues' because:
+  Build cache is disabled
+Skipping task ':app:generateDebugResValues' as it is up-to-date.
+Resolve mutations for :app:mapDebugSourceSetPaths (Thread[#347,included builds,5,main]) started.
+:app:mapDebugSourceSetPaths (Thread[#347,included builds,5,main]) started.
+
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+Caching disabled for task ':app:mapDebugSourceSetPaths' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:mapDebugSourceSetPaths' as it is up-to-date.
+Resolve mutations for :app:generateDebugResources (Thread[#347,included builds,5,main]) started.
+:app:generateDebugResources (Thread[#347,included builds,5,main]) started.
+
+> Task :app:generateDebugResources UP-TO-DATE
+Caching disabled for task ':app:generateDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:generateDebugResources' as it is up-to-date.
+Resolve mutations for :app:mergeDebugResources (Thread[#347,included builds,5,main]) started.
+:app:mergeDebugResources (Thread[#347,included builds,5,main]) started.
+
+> Task :app:mergeDebugResources UP-TO-DATE
+Caching disabled for task ':app:mergeDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:mergeDebugResources' as it is up-to-date.
+Resolve mutations for :app:packageDebugResources (Thread[#347,included builds,5,main]) started.
+:app:packageDebugResources (Thread[#347,included builds,5,main]) started.
+
+> Task :app:packageDebugResources UP-TO-DATE
+Caching disabled for task ':app:packageDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:packageDebugResources' as it is up-to-date.
+Resolve mutations for :app:parseDebugLocalResources (Thread[#347,included builds,5,main]) started.
+:app:parseDebugLocalResources (Thread[#347,included builds,5,main]) started.
+
+> Task :app:parseDebugLocalResources UP-TO-DATE
+Caching disabled for task ':app:parseDebugLocalResources' because:
+  Build cache is disabled
+Skipping task ':app:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :app:createDebugCompatibleScreenManifests (Thread[#347,included builds,5,main]) started.
+:app:createDebugCompatibleScreenManifests (Thread[#347,included builds,5,main]) started.
+
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+Caching disabled for task ':app:createDebugCompatibleScreenManifests' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:createDebugCompatibleScreenManifests' as it is up-to-date.
+Resolve mutations for :app:extractDeepLinksDebug (Thread[#347,included builds,5,main]) started.
+:app:extractDeepLinksDebug (Thread[#347,included builds,5,main]) started.
+
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+Caching disabled for task ':app:extractDeepLinksDebug' because:
+  Build cache is disabled
+Skipping task ':app:extractDeepLinksDebug' as it is up-to-date.
+Resolve mutations for :app:processDebugMainManifest (Thread[#347,included builds,5,main]) started.
+:app:processDebugMainManifest (Thread[#347,included builds,5,main]) started.
+
+> Task :app:processDebugMainManifest UP-TO-DATE
+Caching disabled for task ':app:processDebugMainManifest' because:
+  Build cache is disabled
+Skipping task ':app:processDebugMainManifest' as it is up-to-date.
+Resolve mutations for :app:processDebugManifest (Thread[#347,included builds,5,main]) started.
+:app:processDebugManifest (Thread[#347,included builds,5,main]) started.
+
+> Task :app:processDebugManifest UP-TO-DATE
+Caching disabled for task ':app:processDebugManifest' because:
+  Build cache is disabled
+Skipping task ':app:processDebugManifest' as it is up-to-date.
+Resolve mutations for :app:processDebugManifestForPackage (Thread[#347,included builds,5,main]) started.
+:app:processDebugManifestForPackage (Thread[#347,included builds,5,main]) started.
+
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+Custom actions are attached to task ':app:processDebugManifestForPackage'.
+Caching disabled for task ':app:processDebugManifestForPackage' because:
+  Build cache is disabled
+Skipping task ':app:processDebugManifestForPackage' as it is up-to-date.
+Resolve mutations for :app:processDebugResources (Thread[#350,Execution worker Thread 3,5,main]) started.
+:app:processDebugResources (Thread[#350,Execution worker Thread 3,5,main]) started.
+
+> Task :app:processDebugResources UP-TO-DATE
+Caching disabled for task ':app:processDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:processDebugResources' as it is up-to-date.
+Resolve mutations for :app:kspDebugKotlin (Thread[#350,Execution worker Thread 3,5,main]) started.
+:app:kspDebugKotlin (Thread[#350,Execution worker Thread 3,5,main]) started.
+
+> Task :app:kspDebugKotlin
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+Caching disabled for task ':app:kspDebugKotlin' because:
+  Build cache is disabled
+Task ':app:kspDebugKotlin' is not up-to-date because:
+  Task has failed previously.
+The input changes require a full rebuild for incremental task ':app:kspDebugKotlin'.
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+Kotlin source files: C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\datasource\UsageStatsDataSource.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\AppDatabase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\AppGroupDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\AppLimitDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\FocusProfileDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\OverrideLogDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\UsageLogDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\AppGroupEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\AppLimitEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\FocusProfileEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\OverrideLogEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\ProfileAppCrossRef.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\UsageLogEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\repository\AppRepositoryImpl.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\repository\SettingsRepositoryImpl.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\repository\UsageRepositoryImpl.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\di\DatabaseModule.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\di\RepositoryModule.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\manager\PermissionManager.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\model\AppInfo.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\repository\AppRepository.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\repository\SettingsRepository.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\repository\UsageRepository.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\CheckLimitExceededUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\CreateAppGroupUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetAllAppLimitsUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetAppGroupsUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetAppLimitUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetAppUsageStatsUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetDailyUsageUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\LogEmergencyOverrideUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\ManageFocusProfilesUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\RemoveAppLimitUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\SetAppLimitUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\SyncUsageUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\UpdateUsageUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\MainActivity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\MindfulScrollingApp.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\service\AccessibilityInterventionService.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\service\AppMonitoringService.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\service\OverlayManager.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\dashboard\DashboardScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\dashboard\DashboardViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\limits\AppListScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\limits\AppListViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\onboarding\OnboardingScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\overlay\OverlayManager.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\overlay\OverlayScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\EditProfileScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\EditProfileViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\settings\SettingsScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\settings\SettingsViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\theme\Color.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\theme\Theme.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\theme\Type.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\worker\SyncUsageWorker.kt
+Java source files: 
+Script source files: 
+Script file extensions: 
+[KOTLIN] Kotlin compilation 'jdkHome' argument: null
+
+Resolve mutations for :app:javaPreCompileDebug (Thread[#348,Execution worker,5,main]) started.
+:app:javaPreCompileDebug (Thread[#348,Execution worker,5,main]) started.
+
+> Task :app:javaPreCompileDebug UP-TO-DATE
+Caching disabled for task ':app:javaPreCompileDebug' because:
+  Build cache is disabled
+Skipping task ':app:javaPreCompileDebug' as it is up-to-date.
+Resolve mutations for :app:mergeDebugShaders (Thread[#348,Execution worker,5,main]) started.
+:app:mergeDebugShaders (Thread[#348,Execution worker,5,main]) started.
+
+> Task :app:mergeDebugShaders UP-TO-DATE
+Caching disabled for task ':app:mergeDebugShaders' because:
+  Build cache is disabled
+  Simple merging task
+Skipping task ':app:mergeDebugShaders' as it is up-to-date.
+Resolve mutations for :app:compileDebugShaders (Thread[#348,Execution worker,5,main]) started.
+:app:compileDebugShaders (Thread[#348,Execution worker,5,main]) started.
+
+> Task :app:compileDebugShaders NO-SOURCE
+Skipping task ':app:compileDebugShaders' as it has no source files and no previous output files.
+Resolve mutations for :app:generateDebugAssets (Thread[#348,Execution worker,5,main]) started.
+:app:generateDebugAssets (Thread[#348,Execution worker,5,main]) started.
+
+> Task :app:generateDebugAssets UP-TO-DATE
+Skipping task ':app:generateDebugAssets' as it has no actions.
+Resolve mutations for :app:mergeDebugAssets (Thread[#348,Execution worker,5,main]) started.
+:app:mergeDebugAssets (Thread[#348,Execution worker,5,main]) started.
+
+> Task :app:mergeDebugAssets UP-TO-DATE
+Caching disabled for task ':app:mergeDebugAssets' because:
+  Build cache is disabled
+  Simple merging task
+Skipping task ':app:mergeDebugAssets' as it is up-to-date.
+Resolve mutations for :app:compressDebugAssets (Thread[#347,included builds,5,main]) started.
+:app:compressDebugAssets (Thread[#347,included builds,5,main]) started.
+
+> Task :app:compressDebugAssets UP-TO-DATE
+Caching disabled for task ':app:compressDebugAssets' because:
+  Build cache is disabled
+Skipping task ':app:compressDebugAssets' as it is up-to-date.
+Resolve mutations for :app:checkDebugDuplicateClasses (Thread[#347,included builds,5,main]) started.
+:app:checkDebugDuplicateClasses (Thread[#347,included builds,5,main]) started.
+
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+Caching disabled for task ':app:checkDebugDuplicateClasses' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:checkDebugDuplicateClasses' as it is up-to-date.
+Resolve mutations for :app:desugarDebugFileDependencies (Thread[#347,included builds,5,main]) started.
+:app:desugarDebugFileDependencies (Thread[#347,included builds,5,main]) started.
+
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+Caching disabled for task ':app:desugarDebugFileDependencies' because:
+  Build cache is disabled
+Skipping task ':app:desugarDebugFileDependencies' as it is up-to-date.
+Resolve mutations for :app:mergeExtDexDebug (Thread[#347,included builds,5,main]) started.
+:app:mergeExtDexDebug (Thread[#347,included builds,5,main]) started.
+
+> Task :app:mergeExtDexDebug UP-TO-DATE
+Caching disabled for task ':app:mergeExtDexDebug' because:
+  Build cache is disabled
+Skipping task ':app:mergeExtDexDebug' as it is up-to-date.
+Resolve mutations for :app:mergeLibDexDebug (Thread[#347,included builds,5,main]) started.
+:app:mergeLibDexDebug (Thread[#347,included builds,5,main]) started.
+
+> Task :app:mergeLibDexDebug UP-TO-DATE
+Caching disabled for task ':app:mergeLibDexDebug' because:
+  Build cache is disabled
+Skipping task ':app:mergeLibDexDebug' as it is up-to-date.
+Resolve mutations for :app:mergeDebugJniLibFolders (Thread[#347,included builds,5,main]) started.
+:app:mergeDebugJniLibFolders (Thread[#347,included builds,5,main]) started.
+
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+Caching disabled for task ':app:mergeDebugJniLibFolders' because:
+  Build cache is disabled
+  Simple merging task
+Skipping task ':app:mergeDebugJniLibFolders' as it is up-to-date.
+Resolve mutations for :app:mergeDebugNativeLibs (Thread[#347,included builds,5,main]) started.
+:app:mergeDebugNativeLibs (Thread[#347,included builds,5,main]) started.
+
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+Skipping task ':app:mergeDebugNativeLibs' as it has no source files and no previous output files.
+Resolve mutations for :app:stripDebugDebugSymbols (Thread[#347,included builds,5,main]) started.
+:app:stripDebugDebugSymbols (Thread[#347,included builds,5,main]) started.
+
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+Skipping task ':app:stripDebugDebugSymbols' as it has no source files and no previous output files.
+Resolve mutations for :app:validateSigningDebug (Thread[#347,included builds,5,main]) started.
+:app:validateSigningDebug (Thread[#347,included builds,5,main]) started.
+
+> Task :app:validateSigningDebug UP-TO-DATE
+Caching disabled for task ':app:validateSigningDebug' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:validateSigningDebug' as it is up-to-date.
+Resolve mutations for :app:writeDebugAppMetadata (Thread[#347,included builds,5,main]) started.
+:app:writeDebugAppMetadata (Thread[#347,included builds,5,main]) started.
+
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+Caching disabled for task ':app:writeDebugAppMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:writeDebugAppMetadata' as it is up-to-date.
+Resolve mutations for :app:writeDebugSigningConfigVersions (Thread[#347,included builds,5,main]) started.
+:app:writeDebugSigningConfigVersions (Thread[#347,included builds,5,main]) started.
+
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+Caching disabled for task ':app:writeDebugSigningConfigVersions' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:writeDebugSigningConfigVersions' as it is up-to-date.
+
+> Task :app:kspDebugKotlin
+i: found daemon on port 17146 (14252424 ms old), trying to connect
+i: connected to the daemon
+i: [ksp] loaded provider(s): [dagger.hilt.processor.internal.uninstallmodules.KspUninstallModulesProcessor$Provider, dagger.hilt.processor.internal.definecomponent.KspDefineComponentProcessor$Provider, dagger.hilt.android.processor.internal.viewmodel.KspViewModelProcessor$Provider, dagger.hilt.android.processor.internal.customtestapplication.KspCustomTestApplicationProcessor$Provider, dagger.hilt.android.processor.internal.bindvalue.KspBindValueProcessor$Provider, dagger.hilt.processor.internal.generatesrootinput.KspGeneratesRootInputProcessor$Provider, dagger.hilt.processor.internal.originatingelement.KspOriginatingElementProcessor$Provider, dagger.hilt.processor.internal.earlyentrypoint.KspEarlyEntryPointProcessor$Provider, dagger.hilt.android.processor.internal.androidentrypoint.KspAndroidEntryPointProcessor$Provider, dagger.hilt.processor.internal.aggregateddeps.KspAggregatedDepsProcessor$Provider, dagger.hilt.processor.internal.aliasof.KspAliasOfProcessor$Provider, dagger.hilt.processor.internal.root.KspComponentTreeDepsProcessor$Provider, dagger.hilt.processor.internal.root.KspRootProcessor$Provider, androidx.hilt.AndroidXHiltKspProcessor$Provider, androidx.room.RoomKspProcessor$Provider, dagger.internal.codegen.KspComponentProcessor$Provider]
+Resolve mutations for :app:compileDebugKotlin (Thread[#350,Execution worker Thread 3,5,main]) started.
+:app:compileDebugKotlin (Thread[#350,Execution worker Thread 3,5,main]) started.
+
+> Task :app:compileDebugKotlin
+Caching disabled for task ':app:compileDebugKotlin' because:
+  Build cache is disabled
+Task ':app:compileDebugKotlin' is not up-to-date because:
+  Input property 'javaSources' file C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\AppDatabase_Impl.java has changed.
+  Input property 'javaSources' file C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\repository\AppRepositoryImpl_Factory.java has changed.
+  Input property 'javaSources' file C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\dao\FocusProfileDao_Impl.java has been added.
+  and more...
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\debug\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\main\kotlin', not found
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+Kotlin source files: C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\datasource\UsageStatsDataSource.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\AppDatabase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\AppGroupDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\AppLimitDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\FocusProfileDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\OverrideLogDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\UsageLogDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\AppGroupEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\AppLimitEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\FocusProfileEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\OverrideLogEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\ProfileAppCrossRef.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\UsageLogEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\repository\AppRepositoryImpl.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\repository\SettingsRepositoryImpl.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\repository\UsageRepositoryImpl.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\di\DatabaseModule.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\di\RepositoryModule.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\manager\PermissionManager.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\model\AppInfo.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\repository\AppRepository.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\repository\SettingsRepository.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\repository\UsageRepository.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\CheckLimitExceededUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\CreateAppGroupUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetAllAppLimitsUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetAppGroupsUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetAppLimitUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetAppUsageStatsUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetDailyUsageUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\LogEmergencyOverrideUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\ManageFocusProfilesUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\RemoveAppLimitUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\SetAppLimitUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\SyncUsageUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\UpdateUsageUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\MainActivity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\MindfulScrollingApp.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\service\AccessibilityInterventionService.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\service\AppMonitoringService.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\service\OverlayManager.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\dashboard\DashboardScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\dashboard\DashboardViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\limits\AppListScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\limits\AppListViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\onboarding\OnboardingScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\overlay\OverlayManager.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\overlay\OverlayScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\EditProfileScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\EditProfileViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\settings\SettingsScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\settings\SettingsViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\theme\Color.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\theme\Theme.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\theme\Type.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\worker\SyncUsageWorker.kt
+Java source files: C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\datasource\UsageStatsDataSource_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\AppDatabase_Impl.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\dao\AppGroupDao_Impl.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\dao\AppLimitDao_Impl.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\dao\FocusProfileDao_Impl.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\dao\OverrideLogDao_Impl.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\dao\UsageLogDao_Impl.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\repository\AppRepositoryImpl_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\repository\SettingsRepositoryImpl_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\repository\UsageRepositoryImpl_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\di\DatabaseModule_ProvideAppDatabaseFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\di\DatabaseModule_ProvideAppGroupDaoFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\di\DatabaseModule_ProvideAppLimitDaoFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\di\DatabaseModule_ProvideFocusProfileDaoFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\di\DatabaseModule_ProvideOverrideLogDaoFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\di\DatabaseModule_ProvideUsageLogDaoFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\manager\PermissionManager_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\CheckLimitExceededUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\CreateAppGroupUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\GetAllAppLimitsUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\GetAppGroupsUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\GetAppLimitUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\GetAppUsageStatsUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\GetDailyUsageUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\LogEmergencyOverrideUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\ManageFocusProfilesUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\RemoveAppLimitUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\SetAppLimitUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\SyncUsageUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\UpdateUsageUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\Hilt_MainActivity.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\MainActivity_GeneratedInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\MainActivity_MembersInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\MindfulScrollingApp_GeneratedInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\MindfulScrollingApp_MembersInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\service\AccessibilityInterventionService_GeneratedInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\service\AccessibilityInterventionService_MembersInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\service\AppMonitoringService_GeneratedInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\service\AppMonitoringService_MembersInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\service\Hilt_AccessibilityInterventionService.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\service\Hilt_AppMonitoringService.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\service\OverlayManager_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\dashboard\DashboardViewModel_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\dashboard\DashboardViewModel_HiltModules.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\dashboard\DashboardViewModel_HiltModules_KeyModule_ProvideFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\limits\AppListViewModel_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\limits\AppListViewModel_HiltModules.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\limits\AppListViewModel_HiltModules_KeyModule_ProvideFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\overlay\OverlayManager_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\EditProfileViewModel_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\EditProfileViewModel_HiltModules.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\EditProfileViewModel_HiltModules_KeyModule_ProvideFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesViewModel_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesViewModel_HiltModules.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesViewModel_HiltModules_KeyModule_ProvideFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\settings\SettingsViewModel_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\settings\SettingsViewModel_HiltModules.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\settings\SettingsViewModel_HiltModules_KeyModule_ProvideFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\worker\SyncUsageWorker_AssistedFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\worker\SyncUsageWorker_AssistedFactory_Impl.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\worker\SyncUsageWorker_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\worker\SyncUsageWorker_HiltModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\dagger\hilt\internal\aggregatedroot\codegen\_com_mindfulscrolling_app_MindfulScrollingApp.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_di_DatabaseModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_di_RepositoryModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_MainActivity_GeneratedInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_MindfulScrollingApp_GeneratedInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_service_AccessibilityInterventionService_GeneratedInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_service_AppMonitoringService_GeneratedInjector.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_dashboard_DashboardViewModel_HiltModules_BindsModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_dashboard_DashboardViewModel_HiltModules_KeyModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_limits_AppListViewModel_HiltModules_BindsModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_limits_AppListViewModel_HiltModules_KeyModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_EditProfileViewModel_HiltModules_BindsModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_EditProfileViewModel_HiltModules_KeyModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_FocusProfilesViewModel_HiltModules_BindsModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_FocusProfilesViewModel_HiltModules_KeyModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_settings_SettingsViewModel_HiltModules_BindsModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_settings_SettingsViewModel_HiltModules_KeyModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_worker_SyncUsageWorker_HiltModule.java
+Script source files: 
+Script file extensions: 
+Using Kotlin/JVM incremental compilation
+[KOTLIN] Kotlin compilation 'jdkHome' argument: null
+i: found daemon on port 17146 (14290511 ms old), trying to connect
+i: connected to the daemon
+Options for KOTLIN DAEMON: IncrementalCompilationOptions(super=CompilationOptions(compilerMode=INCREMENTAL_COMPILER, targetPlatform=JVM, reportCategories=[0, 3], reportSeverity=2, requestedCompilationResults=[0], kotlinScriptExtensions=[]), areFileChangesKnown=true, modifiedFiles=[C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\MainActivity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\AppDatabase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\repository\AppRepositoryImpl.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\di\DatabaseModule.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\repository\AppRepository.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\GetAppLimitUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\dashboard\DashboardScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\dao\FocusProfileDao.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\FocusProfileEntity.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\data\local\entity\ProfileAppCrossRef.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\domain\usecase\ManageFocusProfilesUseCase.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\EditProfileScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\EditProfileViewModel.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesScreen.kt, C:\App\MindFul\app\src\main\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesViewModel.kt, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\AppDatabase_Impl.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\repository\AppRepositoryImpl_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\data\local\dao\FocusProfileDao_Impl.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\di\DatabaseModule_ProvideFocusProfileDaoFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\domain\usecase\ManageFocusProfilesUseCase_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\EditProfileViewModel_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\EditProfileViewModel_HiltModules.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\EditProfileViewModel_HiltModules_KeyModule_ProvideFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesViewModel_Factory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesViewModel_HiltModules.java, C:\App\MindFul\app\build\generated\ksp\debug\java\com\mindfulscrolling\app\ui\profiles\FocusProfilesViewModel_HiltModules_KeyModule_ProvideFactory.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_EditProfileViewModel_HiltModules_BindsModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_EditProfileViewModel_HiltModules_KeyModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_FocusProfilesViewModel_HiltModules_BindsModule.java, C:\App\MindFul\app\build\generated\ksp\debug\java\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_FocusProfilesViewModel_HiltModules_KeyModule.java], deletedFiles=[], classpathChanges=NoChanges, workingDir=C:\App\MindFul\app\build\kotlin\compileDebugKotlin\cacheable, multiModuleICSettings=MultiModuleICSettings(buildHistoryFile=C:\App\MindFul\app\build\kotlin\compileDebugKotlin\local-state\build-history.bin, useModuleDetection=true), usePreciseJavaTracking=true, outputFiles=[C:\App\MindFul\app\build\tmp\kotlin-classes\debug, C:\App\MindFul\app\build\kotlin\compileDebugKotlin\cacheable, C:\App\MindFul\app\build\kotlin\compileDebugKotlin\local-state])
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/dashboard/DashboardScreen.kt:74:89 'List: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.List
+w: file:///C:/App/MindFul/app/src/main/java/com/mindfulscrolling/app/ui/profiles/EditProfileScreen.kt:31:44 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack
+Resolve mutations for :app:compileDebugJavaWithJavac (Thread[#347,included builds,5,main]) started.
+:app:compileDebugJavaWithJavac (Thread[#347,included builds,5,main]) started.
+
+> Task :app:compileDebugJavaWithJavac
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+Custom actions are attached to task ':app:compileDebugJavaWithJavac'.
+Caching disabled for task ':app:compileDebugJavaWithJavac' because:
+  Build cache is disabled
+Task ':app:compileDebugJavaWithJavac' is not up-to-date because:
+  Input property 'classpath' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\data\local\AppDatabase.class has changed.
+  Input property 'classpath' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\data\local\dao\OverrideLogDao.class has been removed.
+  Input property 'classpath' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\data\local\dao\FocusProfileDao$DefaultImpls.class has been added.
+  and more...
+Java compiler version 21 has deprecated support for compiling with source/target version 8.
+Try one of the following options:
+    1. [Recommended] Use Java toolchain with a lower language version
+    2. Set a higher source/target version
+    3. Use a lower version of the JDK running the build (if you're not using Java toolchain)
+For more details on how to configure these settings, see https://developer.android.com/build/jdks.
+To suppress this warning, set android.javaCompile.suppressSourceTargetDeprecationWarning=true in gradle.properties.
+Compilation mode: in-process compilation
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+Created classpath snapshot for incremental compilation in 1.971 secs.
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+Compiling with toolchain 'C:\Program Files\Microsoft\jdk-21.0.8.9-hotspot'.
+file or directory 'C:\App\MindFul\app\src\debug\java', not found
+Compiling with JDK Java compiler API.
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+Incremental compilation of 56 classes completed in 20.746 secs.
+Class dependency analysis for incremental compilation took 0.146 secs.
+Resolve mutations for :app:hiltAggregateDepsDebug (Thread[#347,included builds,5,main]) started.
+:app:hiltAggregateDepsDebug (Thread[#347,included builds,5,main]) started.
+
+> Task :app:hiltAggregateDepsDebug
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+Caching disabled for CopyTransform: C:\App\MindFul\app\build\tmp\kotlin-classes\debug because:
+  Build cache is disabled
+  Caching not enabled.
+Caching disabled for CopyTransform: C:\App\MindFul\app\build\intermediates\javac\debug\compileDebugJavaWithJavac\classes because:
+  Build cache is disabled
+  Caching not enabled.
+Caching disabled for AggregatedPackagesTransform: C:\App\MindFul\app\build\intermediates\javac\debug\compileDebugJavaWithJavac\classes because:
+  Build cache is disabled
+Caching disabled for AggregatedPackagesTransform: C:\App\MindFul\app\build\tmp\kotlin-classes\debug because:
+  Build cache is disabled
+Caching disabled for task ':app:hiltAggregateDepsDebug' because:
+  Build cache is disabled
+Task ':app:hiltAggregateDepsDebug' is not up-to-date because:
+  Input property 'compileClasspath' file C:\App\MindFul\app\build\intermediates\javac\debug\compileDebugJavaWithJavac\classes\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_EditProfileViewModel_HiltModules_BindsModule.class has been added.
+  Input property 'compileClasspath' file C:\App\MindFul\app\build\intermediates\javac\debug\compileDebugJavaWithJavac\classes\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_EditProfileViewModel_HiltModules_KeyModule.class has been added.
+  Input property 'compileClasspath' file C:\App\MindFul\app\build\intermediates\javac\debug\compileDebugJavaWithJavac\classes\hilt_aggregated_deps\_com_mindfulscrolling_app_ui_profiles_FocusProfilesViewModel_HiltModules_BindsModule.class has been added.
+  and more...
+The input changes require a full rebuild for incremental task ':app:hiltAggregateDepsDebug'.
+Resolve mutations for :app:hiltJavaCompileDebug (Thread[#347,included builds,5,main]) started.
+:app:hiltJavaCompileDebug (Thread[#347,included builds,5,main]) started.
+
+> Task :app:hiltJavaCompileDebug
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+Caching disabled for task ':app:hiltJavaCompileDebug' because:
+  Build cache is disabled
+Task ':app:hiltJavaCompileDebug' is not up-to-date because:
+  Input property 'classpath' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\data\local\AppDatabase.class has changed.
+  Input property 'classpath' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\data\local\dao\OverrideLogDao.class has been removed.
+  Input property 'classpath' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\data\local\dao\FocusProfileDao$DefaultImpls.class has been added.
+  and more...
+Compilation mode: in-process compilation
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+Created classpath snapshot for incremental compilation in 0.448 secs.
+Compiling with toolchain 'C:\Program Files\Microsoft\jdk-21.0.8.9-hotspot'.
+Compiling with JDK Java compiler API.
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+Incremental compilation of 50 classes completed in 16.234 secs.
+Class dependency analysis for incremental compilation took 0.078 secs.
+Resolve mutations for :app:processDebugJavaRes (Thread[#350,Execution worker Thread 3,5,main]) started.
+:app:processDebugJavaRes (Thread[#350,Execution worker Thread 3,5,main]) started.
+
+> Task :app:processDebugJavaRes
+file or directory 'C:\App\MindFul\app\src\main\resources', not found
+file or directory 'C:\App\MindFul\app\src\debug\resources', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+file or directory 'C:\App\MindFul\app\src\main\resources', not found
+file or directory 'C:\App\MindFul\app\src\debug\resources', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+Caching disabled for task ':app:processDebugJavaRes' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Task ':app:processDebugJavaRes' is not up-to-date because:
+  Input property 'rootSpec$1' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\META-INF\app_debug.kotlin_module has changed.
+  Input property 'rootSpec$1' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\ui\profiles has been added.
+file or directory 'C:\App\MindFul\app\src\main\resources', not found
+file or directory 'C:\App\MindFul\app\src\debug\resources', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+file or directory 'C:\App\MindFul\app\src\main\resources', not found
+file or directory 'C:\App\MindFul\app\src\debug\resources', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\resources', not found
+Resolve mutations for :app:mergeDebugJavaResource (Thread[#350,Execution worker Thread 3,5,main]) started.
+:app:mergeDebugJavaResource (Thread[#350,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :app:transformDebugClassesWithAsm (Thread[#347,included builds,5,main]) started.
+:app:transformDebugClassesWithAsm (Thread[#347,included builds,5,main]) started.
+
+> Task :app:mergeDebugJavaResource
+Caching disabled for task ':app:mergeDebugJavaResource' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Task ':app:mergeDebugJavaResource' is not up-to-date because:
+  Input property 'projectJavaRes' file C:\App\MindFul\app\build\intermediates\java_res\debug\processDebugJavaRes\out\META-INF\app_debug.kotlin_module has changed.
+  Input property 'projectJavaRes' file C:\App\MindFul\app\build\intermediates\java_res\debug\processDebugJavaRes\out\com\mindfulscrolling\app\ui\profiles has been added.
+
+> Task :app:transformDebugClassesWithAsm
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+file or directory 'C:\App\MindFul\app\build\generated\ksp\debug\classes', not found
+Caching disabled for task ':app:transformDebugClassesWithAsm' because:
+  Build cache is disabled
+Task ':app:transformDebugClassesWithAsm' is not up-to-date because:
+  Input property 'inputClassesDir' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\ComposableSingletons$MainActivityKt$lambda-1$1.class has changed.
+  Input property 'inputClassesDir' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\ComposableSingletons$MainActivityKt.class has changed.
+  Input property 'inputClassesDir' file C:\App\MindFul\app\build\tmp\kotlin-classes\debug\com\mindfulscrolling\app\data\local\AppDatabase.class has changed.
+  and more...
+Resolve mutations for :app:dexBuilderDebug (Thread[#347,included builds,5,main]) started.
+:app:dexBuilderDebug (Thread[#347,included builds,5,main]) started.
+
+> Task :app:dexBuilderDebug
+Caching disabled for task ':app:dexBuilderDebug' because:
+  Build cache is disabled
+Task ':app:dexBuilderDebug' is not up-to-date because:
+  Input property 'projectClasses' file C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\dirs\com\mindfulscrolling\app\ComposableSingletons$MainActivityKt$lambda-1$1.class has changed.
+  Input property 'projectClasses' file C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\dirs\com\mindfulscrolling\app\ComposableSingletons$MainActivityKt.class has changed.
+  Input property 'projectClasses' file C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\dirs\com\mindfulscrolling\app\DaggerMindfulScrollingApp_HiltComponents_SingletonC$ActivityCBuilder.class has changed.
+  and more...
+Dex builder is incremental : true 
+Processing input C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\dirs
+Dexing C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\dirs
+Processing input C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\jars\0.jar
+Dexing C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\jars\0.jar
+Dexing 'C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\dirs' to 'C:\App\MindFul\app\build\intermediates\project_dex_archive\debug\dexBuilderDebug\out'
+Dexing 'C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\dirs' to 'C:\App\MindFul\app\build\intermediates\project_dex_archive\debug\dexBuilderDebug\out'
+Dexing 'C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\jars\0.jar' to 'C:\App\MindFul\app\build\intermediates\project_dex_archive\debug\dexBuilderDebug\out\4e89a58f866046252b7ccab486a15468c7180520a7ab242c0c2f3aaa2d609e18_0.jar'
+Dexing 'C:\App\MindFul\app\build\intermediates\classes\debug\transformDebugClassesWithAsm\jars\0.jar' to 'C:\App\MindFul\app\build\intermediates\project_dex_archive\debug\dexBuilderDebug\out\4e89a58f866046252b7ccab486a15468c7180520a7ab242c0c2f3aaa2d609e18_1.jar'
+Terminate batch job (Y/N)? ^C
