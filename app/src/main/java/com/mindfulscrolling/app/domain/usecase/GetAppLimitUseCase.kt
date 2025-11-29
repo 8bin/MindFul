@@ -2,12 +2,30 @@ package com.mindfulscrolling.app.domain.usecase
 
 import com.mindfulscrolling.app.data.local.entity.AppLimitEntity
 import com.mindfulscrolling.app.domain.repository.AppRepository
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class GetAppLimitUseCase @Inject constructor(
-    private val appRepository: AppRepository
+    private val appRepository: AppRepository,
+    private val manageBreakUseCase: com.mindfulscrolling.app.domain.usecase.ManageBreakUseCase
 ) {
     suspend operator fun invoke(packageName: String): AppLimitEntity? {
+        // 0. Take a Break Mode (Highest Priority)
+        val isBreakActive = manageBreakUseCase.isBreakActive.first()
+        if (isBreakActive) {
+            val remaining = manageBreakUseCase.getRemainingTimeMillis()
+            if (remaining > 0) {
+                if (manageBreakUseCase.isAppWhitelisted(packageName)) {
+                    return null // Allowed
+                } else {
+                    return AppLimitEntity(packageName, 0, false) // Blocked
+                }
+            } else {
+                // Break expired but state not updated yet
+                manageBreakUseCase.stopBreak()
+            }
+        }
+
         val profileLimits = appRepository.getProfileLimitsForApp(packageName)
         
         // Filter for effective profiles (Manual OR Scheduled)

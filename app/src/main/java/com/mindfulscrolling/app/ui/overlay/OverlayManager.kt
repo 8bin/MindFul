@@ -31,7 +31,7 @@ class OverlayManager @Inject constructor(
     private var overlayView: ComposeView? = null
     private val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main + kotlinx.coroutines.SupervisorJob())
 
-    fun showOverlay(packageName: String, onDismiss: () -> Unit) {
+    fun showOverlay(packageName: String, isBreakMode: Boolean = false, remainingTime: Long = 0, onDismiss: () -> Unit) {
         if (overlayView != null) return // Already showing
 
         val params = WindowManager.LayoutParams(
@@ -57,6 +57,8 @@ class OverlayManager @Inject constructor(
             setContent {
                 OverlayScreen(
                     packageName = packageName,
+                    isBreakMode = isBreakMode,
+                    remainingTime = remainingTime,
                     onDismiss = {
                         removeOverlay()
                         onDismiss()

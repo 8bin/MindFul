@@ -26,6 +26,7 @@ fun FocusProfilesScreen(
     val profiles by viewModel.profiles.collectAsState()
 
     var showCreateDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf<FocusProfileEntity?>(null) }
 
     Scaffold(
         topBar = {
@@ -50,7 +51,7 @@ fun FocusProfilesScreen(
                     isActive = profile.isActive,
                     onActivate = { viewModel.toggleProfileActivation(profile) },
                     onEdit = { onNavigateToEditProfile(profile.id) },
-                    onDelete = { viewModel.deleteProfile(profile) }
+                    onDelete = { showDeleteDialog = profile }
                 )
             }
         }
@@ -61,6 +62,29 @@ fun FocusProfilesScreen(
                 onCreate = { name ->
                     viewModel.createProfile(name, "default_icon")
                     showCreateDialog = false
+                }
+            )
+        }
+        
+        if (showDeleteDialog != null) {
+             AlertDialog(
+                onDismissRequest = { showDeleteDialog = null },
+                title = { Text("Delete Profile") },
+                text = { Text("Are you sure you want to delete '${showDeleteDialog?.name}'?") },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            showDeleteDialog?.let { viewModel.deleteProfile(it) }
+                            showDeleteDialog = null
+                        }
+                    ) {
+                        Text("Delete")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showDeleteDialog = null }) {
+                        Text("Cancel")
+                    }
                 }
             )
         }
@@ -79,7 +103,9 @@ fun ProfileItem(
         colors = CardDefaults.cardColors(
             containerColor = if (isActive) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
         ),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onEdit() }
     ) {
         Row(
             modifier = Modifier
@@ -125,9 +151,6 @@ fun ProfileItem(
                     checked = isActive,
                     onCheckedChange = { onActivate() }
                 )
-                IconButton(onClick = onEdit) {
-                    Icon(Icons.Filled.Edit, contentDescription = "Edit")
-                }
                 IconButton(onClick = onDelete) {
                     Icon(Icons.Filled.Delete, contentDescription = "Delete")
                 }

@@ -22,7 +22,8 @@ class AppRepositoryImpl @Inject constructor(
     private val appGroupDao: AppGroupDao,
     private val usageLogDao: UsageLogDao,
     private val overrideLogDao: OverrideLogDao,
-    private val focusProfileDao: com.mindfulscrolling.app.data.local.dao.FocusProfileDao
+    private val focusProfileDao: com.mindfulscrolling.app.data.local.dao.FocusProfileDao,
+    private val breakPreferences: com.mindfulscrolling.app.data.local.BreakPreferences
 ) : AppRepository {
 
     override fun getAllLimits(): Flow<List<AppLimitEntity>> = appLimitDao.getAllLimits()
@@ -74,4 +75,11 @@ class AppRepositoryImpl @Inject constructor(
     override fun getActiveProfileApps(): Flow<List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>> = focusProfileDao.getActiveProfileApps()
     override suspend fun getLimitsForAppInActiveProfiles(packageName: String): List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef> = focusProfileDao.getLimitsForAppInActiveProfiles(packageName)
     override suspend fun getProfileLimitsForApp(packageName: String): List<com.mindfulscrolling.app.data.local.dao.ProfileWithLimit> = focusProfileDao.getProfileLimitsForApp(packageName)
+
+    // Take a Break
+    override fun isBreakActive(): Flow<Boolean> = breakPreferences.isBreakActive
+    override fun getBreakEndTime(): Flow<Long> = breakPreferences.breakEndTime
+    override fun getBreakWhitelist(): Flow<Set<String>> = breakPreferences.breakWhitelist
+    override suspend fun setBreakActive(active: Boolean, endTime: Long) = breakPreferences.setBreakActive(active, endTime)
+    override suspend fun updateBreakWhitelist(whitelist: Set<String>) = breakPreferences.updateWhitelist(whitelist)
 }

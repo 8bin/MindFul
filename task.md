@@ -15,12 +15,18 @@
     - [ ] Implement DataStore for User Preferences (Night Mode settings, Schedule)
 - [x] **Domain Layer** <!-- id: 2 -->
     - [x] Use Cases: Usage Monitoring, Limit Checking, Group Management
-    - [ ] Profile Scheduling Logic
+    - [x] Profile Scheduling Logic
 - [x] **Feature: Intervention System (Req 2, 9)** <!-- id: 5 -->
     - [x] Overlay Window Implementation (System Alert Window)
     - [x] Pop-up UI: "Time's Up", "Take a Break"
     - [x] Emergency Override Logic & UI
     - [ ] Intervention Overlay (Breathing exercise)
+- [x] **Feature: Take a Break Mode (Req 6)** <!-- id: 8 -->
+    - [x] Mode Activation UI (Duration, Whitelist)
+    - [x] Strict Blocking Overlay
+    - [x] Custom Duration (Days/Hours/Mins)
+    - [x] Real-time Countdown (DD:HH:MM:SS)
+    - [x] Breathing Exercise Feature
 - [ ] **Settings & Permissions (Req 5)** <!-- id: 10 -->
     - [ ] Onboarding Flow: Permission Requests (Usage, Overlay, Accessibility)
     - [ ] General Settings Screen

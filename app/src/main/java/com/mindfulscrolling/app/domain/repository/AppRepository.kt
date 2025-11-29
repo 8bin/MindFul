@@ -48,4 +48,11 @@ interface AppRepository {
     fun getActiveProfileApps(): Flow<List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>>
     suspend fun getLimitsForAppInActiveProfiles(packageName: String): List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>
     suspend fun getProfileLimitsForApp(packageName: String): List<com.mindfulscrolling.app.data.local.dao.ProfileWithLimit>
+
+    // Take a Break
+    fun isBreakActive(): Flow<Boolean>
+    fun getBreakEndTime(): Flow<Long>
+    fun getBreakWhitelist(): Flow<Set<String>>
+    suspend fun setBreakActive(active: Boolean, endTime: Long = 0L)
+    suspend fun updateBreakWhitelist(whitelist: Set<String>)
 }

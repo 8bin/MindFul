@@ -31,21 +31,25 @@ class EditProfileViewModel @Inject constructor(
 
     private val _installedApps = MutableStateFlow<List<AppInfo>>(emptyList())
     
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery
+
     // Apps currently in the profile
     private val _profileApps = MutableStateFlow<List<ProfileAppCrossRef>>(emptyList())
 
     // Combined list of apps with their status in the profile
-    val appListState = combine(_installedApps, _profileApps) { installed, profileApps ->
-        installed.map { app ->
-            val profileApp = profileApps.find { it.packageName == app.packageName }
-            AppProfileState(
-                appInfo = app,
-                isSelected = profileApp != null,
-                limitMinutes = profileApp?.limitDurationMinutes ?: 0 // Default to 0 (Blocked) if selected
-            )
-        }
-
-        .sortedWith(compareByDescending<AppProfileState> { it.isSelected }.thenBy { it.appInfo.name })
+    val appListState = combine(_installedApps, _profileApps, _searchQuery) { installed, profileApps, query ->
+        installed
+            .filter { it.name.contains(query, ignoreCase = true) }
+            .map { app ->
+                val profileApp = profileApps.find { it.packageName == app.packageName }
+                AppProfileState(
+                    appInfo = app,
+                    isSelected = profileApp != null,
+                    limitMinutes = profileApp?.limitDurationMinutes ?: 0 // Default to 0 (Blocked) if selected
+                )
+            }
+            .sortedWith(compareByDescending<AppProfileState> { it.isSelected }.thenBy { it.appInfo.name })
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     init {
@@ -66,6 +70,10 @@ class EditProfileViewModel @Inject constructor(
         viewModelScope.launch {
             _installedApps.value = appRepository.getInstalledApps()
         }
+    }
+
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
     }
 
     fun updateProfileName(name: String) {

@@ -107,6 +107,40 @@ We have implemented the **Focus Profiles** feature, allowing users to create cus
     - Set Start: 23:00, End: 07:00.
     - Verify it is active if current time is 23:30 or 06:00.
 
+### UI Improvements Verification
+1.  **Search Apps**:
+    - Open Edit Profile.
+    - Type in the search bar.
+    - Verify app list filters correctly.
+2.  **Delete Profile**:
+    - Click Delete icon on a profile.
+    - Verify confirmation dialog appears.
+    - Cancel -> No delete.
+    - Confirm -> Profile deleted.
+3.  **Edit Profile**:
+    - Click anywhere on a profile card (not the switch/delete).
+    - Verify it opens the Edit Profile screen.
+    - Verify there is no separate "Edit" icon.
+
+### Take a Break Mode Verification
+1.  **Activation & Custom Duration**:
+    - Tap "Take a Break" on Dashboard.
+    - Enter a custom duration (e.g., 0 Days, 1 Hour, 30 Mins).
+    - Verify Dashboard shows "Break Active" and correct remaining time.
+2.  **Enforcement & Countdown**:
+    - Open a blocked app.
+    - Verify Overlay shows "Take a Break" and a countdown in DD:HH:MM:SS format.
+3.  **Breathing Exercise**:
+    - Tap "Start Breathing Exercise" on the overlay.
+    - Verify the breathing animation/text cycles (In/Hold/Out).
+    - Tap "Finish Exercise" to return to the countdown.
+4.  **Whitelist**:
+    - Open Settings or Phone.
+    - Verify they are accessible.
+5.  **Cancellation**:
+    - Tap "Tap to Stop" on Dashboard.
+    - Verify break ends and apps are accessible.
+
 ## Next Steps
 - **Refine Usage Stats**: Investigate `queryEvents` for more accurate "Today" stats if `INTERVAL_DAILY` proves insufficient.
 - **Schedule Profiles**: Implement automatic profile activation.

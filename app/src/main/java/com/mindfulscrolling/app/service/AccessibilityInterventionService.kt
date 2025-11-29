@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService
 import android.view.accessibility.AccessibilityEvent
 import com.mindfulscrolling.app.domain.usecase.CheckLimitExceededUseCase
 import com.mindfulscrolling.app.domain.usecase.GetAppLimitUseCase
+import kotlinx.coroutines.flow.first
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +31,9 @@ class AccessibilityInterventionService : AccessibilityService() {
     @Inject
     lateinit var overlayManager: com.mindfulscrolling.app.ui.overlay.OverlayManager
 
+    @Inject
+    lateinit var manageBreakUseCase: com.mindfulscrolling.app.domain.usecase.ManageBreakUseCase
+
     private val serviceScope = CoroutineScope(Dispatchers.Main + Job())
     private var monitoringJob: Job? = null
     private var currentPackageName: String? = null
@@ -51,7 +55,7 @@ class AccessibilityInterventionService : AccessibilityService() {
         monitoringJob = serviceScope.launch {
             var lastCheckTime = System.currentTimeMillis()
             while (isActive) {
-                delay(1000) // Check every second
+                delay(200) // Check every 200ms for faster response
                 val now = System.currentTimeMillis()
                 val delta = now - lastCheckTime
                 lastCheckTime = now
@@ -61,7 +65,27 @@ class AccessibilityInterventionService : AccessibilityService() {
                 // Update usage
                 updateUsageUseCase(packageName, delta, today)
 
-                // Check limit
+                // 1. Check Take a Break Mode
+                val isBreakActive = manageBreakUseCase.isBreakActive.first()
+                if (isBreakActive) {
+                    val remaining = manageBreakUseCase.getRemainingTimeMillis()
+                    if (remaining > 0) {
+                        if (!manageBreakUseCase.isAppWhitelisted(packageName)) {
+                             overlayManager.showOverlay(
+                                 packageName = packageName,
+                                 isBreakMode = true,
+                                 remainingTime = remaining
+                             ) {
+                                 performGlobalAction(GLOBAL_ACTION_HOME)
+                             }
+                             continue // Skip other checks if blocked by break
+                        }
+                    } else {
+                        manageBreakUseCase.stopBreak()
+                    }
+                }
+
+                // 2. Check App Limits
                 val isExceeded = checkLimitExceededUseCase(packageName, today)
                 if (isExceeded) {
                     overlayManager.showOverlay(packageName) {

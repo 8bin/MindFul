@@ -33,6 +33,8 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 
 @Composable
 fun DashboardScreen(
@@ -131,6 +133,66 @@ fun DashboardScreen(
                             style = MaterialTheme.typography.displayLarge,
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
+                    }
+                }
+            }
+
+            item {
+                val isBreakActive = uiState.isBreakActive
+                var showBreakDialog by remember { androidx.compose.runtime.mutableStateOf(false) }
+                
+                if (showBreakDialog) {
+                    TakeABreakDialog(
+                        onDismiss = { showBreakDialog = false },
+                        onStartBreak = { duration ->
+                            viewModel.startBreak(duration)
+                            showBreakDialog = false
+                        }
+                    )
+                }
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    colors = androidx.compose.material3.CardDefaults.cardColors(
+                        containerColor = if (isBreakActive) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.secondaryContainer
+                    ),
+                    onClick = { 
+                        if (isBreakActive) viewModel.stopBreak() else showBreakDialog = true 
+                    }
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = if (isBreakActive) "Break Active" else "Take a Break",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = if (isBreakActive) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                        if (isBreakActive) {
+                            val remainingMillis = uiState.breakEndTime - System.currentTimeMillis()
+                            val remainingMinutes = (remainingMillis / 60000).coerceAtLeast(0)
+                            Text(
+                                text = "$remainingMinutes min remaining",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onErrorContainer
+                            )
+                            Text(
+                                text = "Tap to Stop",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onErrorContainer
+                            )
+                        } else {
+                            Text(
+                                text = "Disconnect instantly",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                        }
                     }
                 }
             }
