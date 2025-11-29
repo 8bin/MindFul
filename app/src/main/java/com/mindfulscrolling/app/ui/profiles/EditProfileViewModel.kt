@@ -98,6 +98,20 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
+    fun updateSchedule(enabled: Boolean, startTime: Int?, endTime: Int?, days: String?) {
+        val current = _profile.value ?: return
+        val updated = current.copy(
+            scheduleEnabled = enabled,
+            startTime = startTime,
+            endTime = endTime,
+            daysOfWeek = days
+        )
+        viewModelScope.launch {
+            manageFocusProfilesUseCase.updateProfile(updated)
+            _profile.value = updated
+        }
+    }
+
     private fun updateProfileApps(apps: List<ProfileAppCrossRef>) {
         _profileApps.value = apps
         viewModelScope.launch {

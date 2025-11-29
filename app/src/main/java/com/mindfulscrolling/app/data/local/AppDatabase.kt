@@ -23,7 +23,7 @@ import com.mindfulscrolling.app.data.local.dao.FocusProfileDao
         FocusProfileEntity::class,
         ProfileAppCrossRef::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

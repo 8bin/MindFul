@@ -46,6 +46,17 @@ fun EditProfileScreen(
             )
 
             HorizontalDivider()
+            
+            profile?.let { p ->
+                ScheduleSection(
+                    profile = p,
+                    onUpdate = { enabled, start, end, days ->
+                        viewModel.updateSchedule(enabled, start, end, days)
+                    }
+                )
+            }
+
+            HorizontalDivider()
 
             Text(
                 text = "Select Apps to Block/Limit",
@@ -180,4 +191,94 @@ fun TimeLimitDialog(
             }
         }
     )
+}
+
+@Composable
+fun ScheduleSection(
+    profile: com.mindfulscrolling.app.data.local.entity.FocusProfileEntity,
+    onUpdate: (Boolean, Int?, Int?, String?) -> Unit
+) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    
+    // Helper to format time
+    fun formatTime(minutes: Int?): String {
+        if (minutes == null) return "Set Time"
+        val h = minutes / 60
+        val m = minutes % 60
+        return String.format("%02d:%02d", h, m)
+    }
+    
+    // Helper to show picker
+    fun showTimePicker(initialMinutes: Int?, onTimeSelected: (Int) -> Unit) {
+        val calendar = java.util.Calendar.getInstance()
+        val initialHour = initialMinutes?.div(60) ?: calendar.get(java.util.Calendar.HOUR_OF_DAY)
+        val initialMinute = initialMinutes?.rem(60) ?: calendar.get(java.util.Calendar.MINUTE)
+        
+        android.app.TimePickerDialog(
+            context,
+            { _, hour, minute -> onTimeSelected(hour * 60 + minute) },
+            initialHour,
+            initialMinute,
+            true
+        ).show()
+    }
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("Enable Schedule", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+            Switch(
+                checked = profile.scheduleEnabled,
+                onCheckedChange = { onUpdate(it, profile.startTime, profile.endTime, profile.daysOfWeek) }
+            )
+        }
+
+        if (profile.scheduleEnabled) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                OutlinedButton(onClick = { 
+                    showTimePicker(profile.startTime) { m -> 
+                        onUpdate(profile.scheduleEnabled, m, profile.endTime, profile.daysOfWeek) 
+                    } 
+                }) {
+                    Text("Start: ${formatTime(profile.startTime)}")
+                }
+                OutlinedButton(onClick = { 
+                    showTimePicker(profile.endTime) { m -> 
+                        onUpdate(profile.scheduleEnabled, profile.startTime, m, profile.daysOfWeek) 
+                    } 
+                }) {
+                    Text("End: ${formatTime(profile.endTime)}")
+                }
+            }
+            
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Days of Week", style = MaterialTheme.typography.bodyMedium)
+            Spacer(modifier = Modifier.height(4.dp))
+            
+            // Days Row
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                val days = profile.daysOfWeek?.split(",")?.mapNotNull { it.toIntOrNull() } ?: emptyList()
+                val weekDays = listOf("S", "M", "T", "W", "T", "F", "S")
+                
+                weekDays.forEachIndexed { index, label ->
+                    val dayValue = index + 1 // 1=Sun
+                    val isSelected = days.contains(dayValue)
+                    
+                    FilterChip(
+                        selected = isSelected,
+                        onClick = {
+                            val newDays = if (isSelected) {
+                                days - dayValue
+                            } else {
+                                days + dayValue
+                            }.sorted()
+                            onUpdate(profile.scheduleEnabled, profile.startTime, profile.endTime, newDays.joinToString(","))
+                        },
+                        label = { Text(label) },
+                        modifier = Modifier.padding(2.dp)
+                    )
+                }
+            }
+        }
+    }
 }

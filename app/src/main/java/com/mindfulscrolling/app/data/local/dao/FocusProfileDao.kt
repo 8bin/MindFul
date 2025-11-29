@@ -64,4 +64,12 @@ interface FocusProfileDao {
 
     @Query("SELECT * FROM profile_app_cross_ref WHERE packageName = :packageName AND profileId IN (SELECT id FROM focus_profiles WHERE isActive = 1)")
     suspend fun getLimitsForAppInActiveProfiles(packageName: String): List<ProfileAppCrossRef>
+
+    @Query("SELECT * FROM focus_profiles INNER JOIN profile_app_cross_ref ON focus_profiles.id = profile_app_cross_ref.profileId WHERE profile_app_cross_ref.packageName = :packageName")
+    suspend fun getProfileLimitsForApp(packageName: String): List<ProfileWithLimit>
 }
+
+data class ProfileWithLimit(
+    @androidx.room.Embedded val profile: FocusProfileEntity,
+    @androidx.room.Embedded val limit: ProfileAppCrossRef
+)

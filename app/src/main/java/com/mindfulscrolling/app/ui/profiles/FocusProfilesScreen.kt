@@ -100,6 +100,24 @@ fun ProfileItem(
                         color = MaterialTheme.colorScheme.primary
                     )
                 }
+                if (profile.scheduleEnabled) {
+                    val days = profile.daysOfWeek?.split(",")?.mapNotNull { it.toIntOrNull() } ?: emptyList()
+                    val dayLabels = listOf("S", "M", "T", "W", "T", "F", "S")
+                    val daysText = days.joinToString(" ") { dayLabels.getOrElse(it - 1) { "?" } }
+                    
+                    fun formatTime(minutes: Int?): String {
+                        if (minutes == null) return "??"
+                        val h = minutes / 60
+                        val m = minutes % 60
+                        return String.format("%02d:%02d", h, m)
+                    }
+                    
+                    Text(
+                        text = "Scheduled: $daysText (${formatTime(profile.startTime)} - ${formatTime(profile.endTime)})",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                }
             }
 
             Row(verticalAlignment = Alignment.CenterVertically) {

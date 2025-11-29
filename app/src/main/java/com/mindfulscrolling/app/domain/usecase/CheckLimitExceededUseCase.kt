@@ -7,6 +7,15 @@ class CheckLimitExceededUseCase @Inject constructor(
     private val appRepository: AppRepository
 ) {
     suspend operator fun invoke(packageName: String, date: Long): Boolean {
+        // 0. Check for Active Override
+        val lastOverride = appRepository.getLastOverrideForApp(packageName)
+        if (lastOverride != null) {
+            val endTime = lastOverride.timestamp + (lastOverride.durationMinutes * 60 * 1000)
+            if (System.currentTimeMillis() < endTime) {
+                return false // Override active, do not block
+            }
+        }
+
         // 1. Check Active Profile Limits
         val profileLimits = appRepository.getLimitsForAppInActiveProfiles(packageName)
         

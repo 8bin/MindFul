@@ -81,6 +81,31 @@ We have implemented the **Focus Profiles** feature, allowing users to create cus
 6.  **Compact UI**:
     - Edit a profile.
     - Verify "Block", "Allow", "Custom" chips are to the RIGHT of the app name.
+7.  **Strict Mode (Override)**:
+    - Trigger a block (limit exceeded).
+    - Click "5 More Minutes".
+    - Verify the card content changes to a Math Challenge (Emergency Override).
+    - Enter wrong answer -> Verify error message.
+    - Enter correct answer -> Verify overlay disappears and app is usable.
+    
+### Profile Scheduling Verification
+1.  **Configure Schedule**:
+    - Create/Edit a profile.
+    - Toggle "Enable Schedule" ON.
+    - Set Start Time to 1 minute from now.
+    - Set End Time to 1 hour from now.
+    - Select current day (e.g., "T" for Tuesday).
+    - Save/Back.
+2.  **Verify Activation**:
+    - Wait for the start time.
+    - Verify profile shows "Scheduled: ..." on the list.
+    - Verify apps in the profile are blocked/limited.
+3.  **Verify Deactivation**:
+    - Change End Time to 1 minute ago.
+    - Verify profile is no longer effective (apps accessible).
+4.  **Overnight Schedule**:
+    - Set Start: 23:00, End: 07:00.
+    - Verify it is active if current time is 23:30 or 06:00.
 
 ## Next Steps
 - **Refine Usage Stats**: Investigate `queryEvents` for more accurate "Today" stats if `INTERVAL_DAILY` proves insufficient.

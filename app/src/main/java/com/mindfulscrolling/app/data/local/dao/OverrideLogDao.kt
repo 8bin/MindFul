@@ -13,4 +13,7 @@ interface OverrideLogDao {
 
     @Query("SELECT * FROM override_logs ORDER BY timestamp DESC")
     fun getAllOverrides(): Flow<List<OverrideLogEntity>>
+
+    @Query("SELECT * FROM override_logs WHERE packageName = :packageName ORDER BY timestamp DESC LIMIT 1")
+    suspend fun getLastOverrideForApp(packageName: String): OverrideLogEntity?
 }

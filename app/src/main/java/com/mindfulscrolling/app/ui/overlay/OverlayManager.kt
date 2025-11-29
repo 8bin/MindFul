@@ -20,13 +20,16 @@ import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.launch
 
 @Singleton
 class OverlayManager @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val logEmergencyOverrideUseCase: com.mindfulscrolling.app.domain.usecase.LogEmergencyOverrideUseCase
 ) {
     private val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     private var overlayView: ComposeView? = null
+    private val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main + kotlinx.coroutines.SupervisorJob())
 
     fun showOverlay(packageName: String, onDismiss: () -> Unit) {
         if (overlayView != null) return // Already showing
@@ -57,6 +60,13 @@ class OverlayManager @Inject constructor(
                     onDismiss = {
                         removeOverlay()
                         onDismiss()
+                    },
+                    onOverride = { reason ->
+                        scope.launch {
+                            logEmergencyOverrideUseCase(packageName, reason, 5) // 5 minutes override
+                            removeOverlay()
+                            onDismiss()
+                        }
                     }
                 )
             }

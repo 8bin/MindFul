@@ -26,6 +26,7 @@ interface AppRepository {
     // Overrides
     suspend fun logOverride(override: OverrideLogEntity)
     fun getAllOverrides(): Flow<List<OverrideLogEntity>>
+    suspend fun getLastOverrideForApp(packageName: String): OverrideLogEntity?
 
     // System
     suspend fun getInstalledApps(): List<com.mindfulscrolling.app.domain.model.AppInfo>
@@ -46,4 +47,5 @@ interface AppRepository {
     suspend fun updateProfileApps(profileId: Long, apps: List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>)
     fun getActiveProfileApps(): Flow<List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>>
     suspend fun getLimitsForAppInActiveProfiles(packageName: String): List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>
+    suspend fun getProfileLimitsForApp(packageName: String): List<com.mindfulscrolling.app.data.local.dao.ProfileWithLimit>
 }

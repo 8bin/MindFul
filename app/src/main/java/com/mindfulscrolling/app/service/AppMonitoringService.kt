@@ -65,10 +65,13 @@ class AppMonitoringService : Service() {
     }
 
     @Inject
-    lateinit var overlayManager: com.mindfulscrolling.app.service.OverlayManager
+    lateinit var overlayManager: com.mindfulscrolling.app.ui.overlay.OverlayManager
 
     @Inject
     lateinit var permissionManager: com.mindfulscrolling.app.domain.manager.PermissionManager
+
+    @Inject
+    lateinit var logEmergencyOverrideUseCase: com.mindfulscrolling.app.domain.usecase.LogEmergencyOverrideUseCase
 
     private fun startMonitoring() {
         serviceScope.launch {
@@ -123,12 +126,7 @@ class AppMonitoringService : Service() {
                          kotlinx.coroutines.withContext(Dispatchers.Main) {
                             overlayManager.showOverlay(
                                 packageName = packageName,
-                                usageDuration = usedMillis,
-                                limitDuration = limitMillis,
-                                onContinue = {
-                                    // Extend limit by 5 mins (temp) - Logic to be added
-                                },
-                                onTakeBreak = {
+                                onDismiss = {
                                     val startMain = Intent(Intent.ACTION_MAIN)
                                     startMain.addCategory(Intent.CATEGORY_HOME)
                                     startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK

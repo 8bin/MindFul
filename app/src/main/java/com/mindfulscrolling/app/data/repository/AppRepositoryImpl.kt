@@ -40,6 +40,7 @@ class AppRepositoryImpl @Inject constructor(
 
     override suspend fun logOverride(override: OverrideLogEntity) = overrideLogDao.insert(override)
     override fun getAllOverrides(): Flow<List<OverrideLogEntity>> = overrideLogDao.getAllOverrides()
+    override suspend fun getLastOverrideForApp(packageName: String): OverrideLogEntity? = overrideLogDao.getLastOverrideForApp(packageName)
 
     override suspend fun getInstalledApps(): List<com.mindfulscrolling.app.domain.model.AppInfo> = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
         val packageManager = context.packageManager
@@ -72,4 +73,5 @@ class AppRepositoryImpl @Inject constructor(
     override suspend fun updateProfileApps(profileId: Long, apps: List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>) = focusProfileDao.updateProfileApps(profileId, apps)
     override fun getActiveProfileApps(): Flow<List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef>> = focusProfileDao.getActiveProfileApps()
     override suspend fun getLimitsForAppInActiveProfiles(packageName: String): List<com.mindfulscrolling.app.data.local.entity.ProfileAppCrossRef> = focusProfileDao.getLimitsForAppInActiveProfiles(packageName)
+    override suspend fun getProfileLimitsForApp(packageName: String): List<com.mindfulscrolling.app.data.local.dao.ProfileWithLimit> = focusProfileDao.getProfileLimitsForApp(packageName)
 }
