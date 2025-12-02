@@ -15,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val getDailyUsageUseCase: GetDailyUsageUseCase,
-    private val manageBreakUseCase: com.mindfulscrolling.app.domain.usecase.ManageBreakUseCase
+    private val manageBreakUseCase: com.mindfulscrolling.app.domain.usecase.ManageBreakUseCase,
+    private val appRepository: com.mindfulscrolling.app.domain.repository.AppRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(DashboardUiState())
@@ -24,6 +25,15 @@ class DashboardViewModel @Inject constructor(
     init {
         loadTodayUsage()
         observeBreakState()
+        loadInstalledApps()
+        loadProfiles()
+    }
+
+    private fun loadInstalledApps() {
+        viewModelScope.launch {
+            val apps = appRepository.getInstalledApps()
+            _uiState.value = _uiState.value.copy(installedApps = apps)
+        }
     }
 
     private fun loadTodayUsage() {
@@ -54,9 +64,15 @@ class DashboardViewModel @Inject constructor(
         }
     }
     
-    fun startBreak(durationMinutes: Int) {
+    fun startBreak(durationMinutes: Int, whitelist: Set<String>) {
         viewModelScope.launch {
-            manageBreakUseCase.startBreak(durationMinutes)
+            manageBreakUseCase.startBreak(durationMinutes, whitelist)
+        }
+    }
+    
+    fun startBreakWithProfile(durationMinutes: Int, profileId: Long) {
+        viewModelScope.launch {
+            manageBreakUseCase.startBreakWithProfile(durationMinutes, profileId)
         }
     }
     
@@ -65,11 +81,21 @@ class DashboardViewModel @Inject constructor(
             manageBreakUseCase.stopBreak()
         }
     }
+    
+    private fun loadProfiles() {
+        viewModelScope.launch {
+            appRepository.getAllProfiles().collect { profiles ->
+                _uiState.value = _uiState.value.copy(profiles = profiles)
+            }
+        }
+    }
 }
 
 data class DashboardUiState(
     val usageLogs: List<UsageLogEntity> = emptyList(),
     val totalUsageMillis: Long = 0,
     val isBreakActive: Boolean = false,
-    val breakEndTime: Long = 0
+    val breakEndTime: Long = 0,
+    val installedApps: List<com.mindfulscrolling.app.domain.model.AppInfo> = emptyList(),
+    val profiles: List<com.mindfulscrolling.app.data.local.entity.FocusProfileEntity> = emptyList()
 )

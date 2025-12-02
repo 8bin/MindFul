@@ -42,7 +42,8 @@ fun DashboardScreen(
     onNavigateToSettings: () -> Unit,
     onNavigateToAppLimits: () -> Unit,
     onNavigateToProfiles: () -> Unit,
-    onNavigateToHistory: () -> Unit
+    onNavigateToHistory: () -> Unit,
+    onNavigateToTakeBreak: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val usageLogs = uiState.usageLogs
@@ -139,18 +140,7 @@ fun DashboardScreen(
 
             item {
                 val isBreakActive = uiState.isBreakActive
-                var showBreakDialog by remember { androidx.compose.runtime.mutableStateOf(false) }
                 
-                if (showBreakDialog) {
-                    TakeABreakDialog(
-                        onDismiss = { showBreakDialog = false },
-                        onStartBreak = { duration ->
-                            viewModel.startBreak(duration)
-                            showBreakDialog = false
-                        }
-                    )
-                }
-
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -159,7 +149,7 @@ fun DashboardScreen(
                         containerColor = if (isBreakActive) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.secondaryContainer
                     ),
                     onClick = { 
-                        if (isBreakActive) viewModel.stopBreak() else showBreakDialog = true 
+                        if (isBreakActive) viewModel.stopBreak() else onNavigateToTakeBreak() 
                     }
                 ) {
                     Column(

@@ -129,17 +129,61 @@ We have implemented the **Focus Profiles** feature, allowing users to create cus
     - Verify Dashboard shows "Break Active" and correct remaining time.
 2.  **Enforcement & Countdown**:
     - Open a blocked app.
-    - Verify Overlay shows "Take a Break" and a countdown in DD:HH:MM:SS format.
+    - Verify Overlay appears almost instantly (< 200ms).
+    - **Verify Overlay is stable and does NOT flicker.**
+    - Verify Overlay shows "Take a Break" and a countdown in DD:HH:MM:SS format updating every second.
 3.  **Breathing Exercise**:
     - Tap "Start Breathing Exercise" on the overlay.
-    - Verify the breathing animation/text cycles (In/Hold/Out).
+    - Verify the breathing animation (circle expanding/shrinking) and text fading (Crossfade) are smooth.
     - Tap "Finish Exercise" to return to the countdown.
-4.  **Whitelist**:
-    - Open Settings or Phone.
-    - Verify they are accessible.
-5.  **Cancellation**:
-    - Tap "Tap to Stop" on Dashboard.
-    - Verify break ends and apps are accessible.
+4.  **System Whitelist**:
+    - Open Settings, Phone, or use the Keyboard.
+    - Verify they are NOT blocked (even without adding to manual whitelist).
+5.  **Auto-Dismiss**:
+    - Wait for the break to expire (or stop it from Dashboard).
+    - Verify the overlay automatically disappears if an app was blocked.
+
+### Settings & Permissions Verification
+1.  **Theme Switching**:
+    - Go to Settings -> General -> Theme.
+    - Change to Dark. Verify app goes dark immediately.
+    - Change to Light. Verify app goes light.
+    - Change to System. Verify it matches system setting.
+2.  **Strict Mode - Enable**:
+    - Go to Settings -> Strict Mode.
+    - Toggle ON.
+    - Verify "Set PIN" dialog appears.
+    - Enter PIN (e.g., 1234). Confirm PIN.
+    - Verify Switch is ON.
+3.  **Strict Mode - Enforcement**:
+    - Try to turn Strict Mode OFF.
+    - Verify "Enter PIN" dialog appears.
+    - Enter wrong PIN. Verify error.
+    - Enter correct PIN. Verify Switch turns OFF.
+4.  **About Section**:
+    - Verify Version is displayed as "1.0.0".
+
+### Bug Fixes & Improvements Verification
+1.  **Time Tracking**:
+    - Check "Usage History". Verify total time for "Today" is reasonable (e.g., < 24h).
+    - Compare with system Digital Wellbeing. The values should now be very close (within a few minutes).
+    - Ensure no system apps (like "Android System") are appearing in the list unless they have a launch intent.
+2.  **Keyboard**:
+    - Trigger "Emergency Override" (math challenge).
+    - Click on the answer field.
+    - Verify keyboard appears.
+3.  **Strict Mode**:
+    - Enable Strict Mode. Set PIN.
+    - Verify "Change PIN" option appears.
+    - Click "Change PIN". Enter Old PIN, then New PIN.
+    - Verify PIN is changed (try to disable with old PIN -> fail, new PIN -> success).
+    - Enter wrong PIN when disabling. Verify error message.
+4.  **Take a Break Enhancements**:
+    - **Default Profile**: Clear app data or reinstall. Verify "Essential" profile exists in "Focus Profiles".
+    - **New Screen**: Click "Take a Break" on Dashboard. Verify it opens a full screen (not popup).
+    - **Profile Selection**: Select "Essential" profile. Verify it shows allowed apps (Phone, etc.).
+    - **Start Break**: Select duration and start. Verify break starts and only profile apps are allowed.
+    - **Custom Profile**: Create a new profile. Go to "Take a Break", select it, and start. Verify correct apps are allowed.
 
 ## Next Steps
 - **Refine Usage Stats**: Investigate `queryEvents` for more accurate "Today" stats if `INTERVAL_DAILY` proves insufficient.

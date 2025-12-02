@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.runtime.mutableFloatStateOf
 
 @Composable
 fun OverlayScreen(
@@ -168,25 +169,26 @@ fun BreathingExercise(
     onFinish: () -> Unit
 ) {
     var phase by remember { mutableStateOf("Breathe In") }
+    var targetScale by remember { mutableFloatStateOf(1f) }
     
     val scale by androidx.compose.animation.core.animateFloatAsState(
-        targetValue = if (phase == "Breathe In" || phase == "Hold" && scale > 1f) 1.5f else 1f,
+        targetValue = targetScale,
         animationSpec = androidx.compose.animation.core.tween(durationMillis = 4000)
-    )
-    
-    val alpha by androidx.compose.animation.core.animateFloatAsState(
-        targetValue = if (phase == "Breathe In" || phase == "Breathe Out") 1f else 0.5f,
-        animationSpec = androidx.compose.animation.core.tween(durationMillis = 2000)
     )
     
     LaunchedEffect(Unit) {
         while(true) {
             phase = "Breathe In"
+            targetScale = 1.5f
             kotlinx.coroutines.delay(4000)
+            
             phase = "Hold"
             kotlinx.coroutines.delay(2000)
+            
             phase = "Breathe Out"
+            targetScale = 1f
             kotlinx.coroutines.delay(4000)
+            
             phase = "Hold"
             kotlinx.coroutines.delay(2000)
         }
@@ -218,11 +220,16 @@ fun BreathingExercise(
                 ),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = phase,
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = alpha)
-            )
+            androidx.compose.animation.Crossfade(
+                targetState = phase,
+                animationSpec = androidx.compose.animation.core.tween(durationMillis = 1000)
+            ) { currentPhase ->
+                Text(
+                    text = currentPhase,
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
         }
         
         Spacer(modifier = Modifier.height(48.dp))

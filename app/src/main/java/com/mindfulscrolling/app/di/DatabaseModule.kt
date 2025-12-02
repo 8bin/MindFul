@@ -2,6 +2,7 @@ package com.mindfulscrolling.app.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.mindfulscrolling.app.data.local.AppDatabase
 import com.mindfulscrolling.app.data.local.dao.AppGroupDao
 import com.mindfulscrolling.app.data.local.dao.AppLimitDao
@@ -27,6 +28,45 @@ object DatabaseModule {
             "mindful_db"
         )
         .fallbackToDestructiveMigration()
+        .addCallback(object : RoomDatabase.Callback() {
+            override fun onCreate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+                super.onCreate(db)
+                // Seed default profile
+                java.util.concurrent.Executors.newSingleThreadExecutor().execute {
+                    val profileId = 1L
+                    val contentValues = android.content.ContentValues().apply {
+                        put("id", profileId)
+                        put("name", "Essential")
+                        put("icon", "🌟")
+                        put("isActive", false)
+                        put("scheduleEnabled", false)
+                    }
+                    db.insert("focus_profiles", android.database.sqlite.SQLiteDatabase.CONFLICT_REPLACE, contentValues)
+
+                    // Seed essential apps
+                    val essentialApps = listOf(
+                        "com.android.phone",
+                        "com.google.android.dialer",
+                        "com.android.contacts",
+                        "com.google.android.contacts",
+                        "com.android.settings",
+                        "com.google.android.apps.messaging",
+                        "com.android.mms",
+                        "com.whatsapp", // Common essential
+                        "com.google.android.apps.nbu.paisa.user" // GPay
+                    )
+
+                    essentialApps.forEach { packageName ->
+                        val appValues = android.content.ContentValues().apply {
+                            put("profileId", profileId)
+                            put("packageName", packageName)
+                            put("limitDurationMinutes", -1L) // Whitelisted
+                        }
+                        db.insert("profile_app_cross_ref", android.database.sqlite.SQLiteDatabase.CONFLICT_REPLACE, appValues)
+                    }
+                }
+            }
+        })
         .build()
     }
 

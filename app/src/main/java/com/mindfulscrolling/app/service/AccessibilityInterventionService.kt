@@ -43,6 +43,8 @@ class AccessibilityInterventionService : AccessibilityService() {
 
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             val packageName = event.packageName?.toString() ?: return
+            if (packageName == "com.mindfulscrolling.app") return // Ignore own overlay
+            
             if (packageName != currentPackageName) {
                 stopMonitoring()
                 startMonitoring(packageName)
@@ -55,7 +57,7 @@ class AccessibilityInterventionService : AccessibilityService() {
         monitoringJob = serviceScope.launch {
             var lastCheckTime = System.currentTimeMillis()
             while (isActive) {
-                delay(200) // Check every 200ms for faster response
+                // Run check immediately, then delay
                 val now = System.currentTimeMillis()
                 val delta = now - lastCheckTime
                 lastCheckTime = now
@@ -65,34 +67,45 @@ class AccessibilityInterventionService : AccessibilityService() {
                 // Update usage
                 updateUsageUseCase(packageName, delta, today)
 
+                var shouldBlock = false
+                var isBreakMode = false
+                var remaining = 0L
+
                 // 1. Check Take a Break Mode
                 val isBreakActive = manageBreakUseCase.isBreakActive.first()
                 if (isBreakActive) {
-                    val remaining = manageBreakUseCase.getRemainingTimeMillis()
+                    remaining = manageBreakUseCase.getRemainingTimeMillis()
                     if (remaining > 0) {
                         if (!manageBreakUseCase.isAppWhitelisted(packageName)) {
-                             overlayManager.showOverlay(
-                                 packageName = packageName,
-                                 isBreakMode = true,
-                                 remainingTime = remaining
-                             ) {
-                                 performGlobalAction(GLOBAL_ACTION_HOME)
-                             }
-                             continue // Skip other checks if blocked by break
+                             shouldBlock = true
+                             isBreakMode = true
                         }
                     } else {
                         manageBreakUseCase.stopBreak()
                     }
                 }
 
-                // 2. Check App Limits
-                val isExceeded = checkLimitExceededUseCase(packageName, today)
-                if (isExceeded) {
-                    overlayManager.showOverlay(packageName) {
-                        // On Dismiss (Close App), go Home
-                        performGlobalAction(GLOBAL_ACTION_HOME)
+                // 2. Check App Limits (if not already blocked by break)
+                if (!shouldBlock) {
+                    val isExceeded = checkLimitExceededUseCase(packageName, today)
+                    if (isExceeded) {
+                        shouldBlock = true
                     }
                 }
+
+                if (shouldBlock) {
+                    overlayManager.showOverlay(
+                        packageName = packageName,
+                        isBreakMode = isBreakMode,
+                        remainingTime = remaining
+                    ) {
+                        performGlobalAction(GLOBAL_ACTION_HOME)
+                    }
+                } else {
+                    overlayManager.removeOverlay()
+                }
+                
+                delay(100) // Check every 100ms
             }
         }
     }

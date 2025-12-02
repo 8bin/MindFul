@@ -14,6 +14,10 @@ import com.mindfulscrolling.app.domain.manager.PermissionManager
 import com.mindfulscrolling.app.ui.dashboard.DashboardScreen
 import com.mindfulscrolling.app.ui.onboarding.OnboardingScreen
 import com.mindfulscrolling.app.ui.theme.MindfulScrollingTheme
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.mindfulscrolling.app.data.repository.UserPreferencesRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,6 +26,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var permissionManager: PermissionManager
+
+    @Inject
+    lateinit var userPreferencesRepository: UserPreferencesRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +45,15 @@ class MainActivity : ComponentActivity() {
         )
 
         setContent {
-            MindfulScrollingTheme {
+            val themeMode by userPreferencesRepository.themeMode.collectAsState(initial = "SYSTEM")
+            
+            MindfulScrollingTheme(
+                darkTheme = when (themeMode) {
+                    "LIGHT" -> false
+                    "DARK" -> true
+                    else -> isSystemInDarkTheme()
+                }
+            ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -78,6 +93,9 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onNavigateToHistory = {
                                     navController.navigate("history")
+                                },
+                                onNavigateToTakeBreak = {
+                                    navController.navigate("take_break")
                                 }
                             )
                         }
@@ -109,6 +127,11 @@ class MainActivity : ComponentActivity() {
                         composable("history") {
                             com.mindfulscrolling.app.ui.dashboard.UsageHistoryScreen(
                                 onBack = { navController.popBackStack() }
+                            )
+                        }
+                        composable("take_break") {
+                            com.mindfulscrolling.app.ui.dashboard.TakeABreakScreen(
+                                onNavigateBack = { navController.popBackStack() }
                             )
                         }
                     }

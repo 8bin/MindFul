@@ -2,44 +2,64 @@ package com.mindfulscrolling.app.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mindfulscrolling.app.data.local.entity.AppLimitEntity
-import com.mindfulscrolling.app.domain.usecase.GetAllAppLimitsUseCase
-import com.mindfulscrolling.app.domain.usecase.RemoveAppLimitUseCase
-import com.mindfulscrolling.app.domain.usecase.SetAppLimitUseCase
+import com.mindfulscrolling.app.domain.usecase.SettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val getAllAppLimitsUseCase: GetAllAppLimitsUseCase,
-    private val setAppLimitUseCase: SetAppLimitUseCase,
-    private val removeAppLimitUseCase: RemoveAppLimitUseCase
+    private val settingsUseCase: SettingsUseCase
 ) : ViewModel() {
 
-    private val _limits = MutableStateFlow<List<AppLimitEntity>>(emptyList())
-    val limits: StateFlow<List<AppLimitEntity>> = _limits.asStateFlow()
+    val themeMode: StateFlow<String> = settingsUseCase.themeMode
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "SYSTEM")
 
-    init {
+    val isStrictModeEnabled: StateFlow<Boolean> = settingsUseCase.isStrictModeEnabled
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    fun setThemeMode(mode: String) {
         viewModelScope.launch {
-            getAllAppLimitsUseCase().collect {
-                _limits.value = it
+            settingsUseCase.setThemeMode(mode)
+        }
+    }
+
+    fun enableStrictMode(pin: String) {
+        viewModelScope.launch {
+            settingsUseCase.enableStrictMode(pin)
+        }
+    }
+
+    fun disableStrictMode(pin: String, onSuccess: () -> Unit, onError: () -> Unit) {
+        viewModelScope.launch {
+            if (settingsUseCase.disableStrictMode(pin)) {
+                onSuccess()
+            } else {
+                onError()
             }
         }
     }
 
-    fun setLimit(packageName: String, minutes: Int) {
+    fun changePin(oldPin: String, newPin: String, onSuccess: () -> Unit, onError: () -> Unit) {
         viewModelScope.launch {
-            setAppLimitUseCase(packageName, minutes)
+            if (settingsUseCase.changePin(oldPin, newPin)) {
+                onSuccess()
+            } else {
+                onError()
+            }
         }
     }
-
-    fun removeLimit(packageName: String) {
+    
+    fun verifyPin(pin: String, onSuccess: () -> Unit, onError: () -> Unit) {
         viewModelScope.launch {
-            removeAppLimitUseCase(packageName)
+            if (settingsUseCase.validatePin(pin)) {
+                onSuccess()
+            } else {
+                onError()
+            }
         }
     }
 }

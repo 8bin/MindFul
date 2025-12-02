@@ -12,7 +12,7 @@
         - [x] `OverrideLog` (Emergency overrides)
     - [x] Create DAOs (AppLimitDao, AppGroupDao, UsageDao)
     - [x] Implement Repository Layer (Settings, Usage, Limits)
-    - [ ] Implement DataStore for User Preferences (Night Mode settings, Schedule)
+    - [x] Implement DataStore for User Preferences (Night Mode settings, Schedule)
 - [x] **Domain Layer** <!-- id: 2 -->
     - [x] Use Cases: Usage Monitoring, Limit Checking, Group Management
     - [x] Profile Scheduling Logic
@@ -20,14 +20,24 @@
     - [x] Overlay Window Implementation (System Alert Window)
     - [x] Pop-up UI: "Time's Up", "Take a Break"
     - [x] Emergency Override Logic & UI
-    - [ ] Intervention Overlay (Breathing exercise)
+    - [x] Intervention Overlay (Breathing exercise)
 - [x] **Feature: Take a Break Mode (Req 6)** <!-- id: 8 -->
     - [x] Mode Activation UI (Duration, Whitelist)
     - [x] Strict Blocking Overlay
     - [x] Custom Duration (Days/Hours/Mins)
     - [x] Real-time Countdown (DD:HH:MM:SS)
     - [x] Breathing Exercise Feature
-- [ ] **Settings & Permissions (Req 5)** <!-- id: 10 -->
-    - [ ] Onboarding Flow: Permission Requests (Usage, Overlay, Accessibility)
-    - [ ] General Settings Screen
-    - [ ] **Strict Mode Configuration**: Prevent Uninstall, PIN Protection
+    - [x] Enhanced Animation & Faster Blocking
+    - [x] System App Whitelist
+    - [x] Auto-Dismiss Overlay
+    - [x] Flickering Fix (Ignore Own Overlay)
+- [x] **Settings & Permissions (Req 5)** <!-- id: 10 -->
+    - [x] Onboarding Flow: Permission Requests (Usage, Overlay, Accessibility)
+    - [x] General Settings Screen
+    - [x] **Strict Mode Configuration**: Prevent Uninstall, PIN Protection
+- [x] **Bug Fixes & Improvements** <!-- id: 11 -->
+    - [x] Fix Time Tracking (>24h issue)
+    - [x] Fix Overlay Keyboard Input
+    - [x] Improve Strict Mode (Change PIN, Error Feedback)
+    - [x] Implement Break Mode Whitelist
+    - [x] Enhance Take a Break UI & Profiles (Default Profile, Full Screen)
