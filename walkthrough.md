@@ -183,7 +183,16 @@ We have implemented the **Focus Profiles** feature, allowing users to create cus
     - **New Screen**: Click "Take a Break" on Dashboard. Verify it opens a full screen (not popup).
     - **Profile Selection**: Select "Essential" profile. Verify it shows allowed apps (Phone, etc.).
     - **Start Break**: Select duration and start. Verify break starts and only profile apps are allowed.
-    - **Custom Profile**: Create a new profile. Go to "Take a Break", select it, and start. Verify correct apps are allowed.
+5.  **UI Overhaul**:
+    - **Bottom Navigation**: Verify Dashboard, Modes, and Analytics tabs are visible and clickable.
+    - **Dashboard Sections**:
+        - **Welcome**: Check for "Hello, User".
+        - **Permissions**: Check for "All Systems Go".
+        - **Analytics**: Scroll horizontally to see all cards (Screen Time, App Launches, etc.).
+        - **Take a Break**: Click and verify it opens the full screen.
+        - **Strictness**: Verify "Moderate" level is shown.
+        - **Quick Actions**: Verify 5 buttons (Apps, Sites, Keyword, Adult, Reels) are present.
+        - **Profiles**: Click "Focus Profiles" and verify it opens the profile list.
 
 ## Next Steps
 - **Refine Usage Stats**: Investigate `queryEvents` for more accurate "Today" stats if `INTERVAL_DAILY` proves insufficient.

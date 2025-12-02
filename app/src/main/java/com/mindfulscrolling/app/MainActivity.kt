@@ -11,7 +11,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mindfulscrolling.app.domain.manager.PermissionManager
-import com.mindfulscrolling.app.ui.dashboard.DashboardScreen
 import com.mindfulscrolling.app.ui.onboarding.OnboardingScreen
 import com.mindfulscrolling.app.ui.theme.MindfulScrollingTheme
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -63,7 +62,7 @@ class MainActivity : ComponentActivity() {
                         permissionManager.hasOverlayPermission() && 
                         permissionManager.isAccessibilityServiceEnabled()) {
                         startService(android.content.Intent(this, com.mindfulscrolling.app.service.AppMonitoringService::class.java))
-                        "dashboard"
+                        "main"
                     } else {
                         "onboarding"
                     }
@@ -74,14 +73,14 @@ class MainActivity : ComponentActivity() {
                                 permissionManager = permissionManager,
                                 onAllPermissionsGranted = {
                                     startService(android.content.Intent(this@MainActivity, com.mindfulscrolling.app.service.AppMonitoringService::class.java))
-                                    navController.navigate("dashboard") {
+                                    navController.navigate("main") {
                                         popUpTo("onboarding") { inclusive = true }
                                     }
                                 }
                             )
                         }
-                        composable("dashboard") {
-                            DashboardScreen(
+                        composable("main") {
+                            com.mindfulscrolling.app.ui.main.MainScreen(
                                 onNavigateToSettings = {
                                     navController.navigate("settings")
                                 },
