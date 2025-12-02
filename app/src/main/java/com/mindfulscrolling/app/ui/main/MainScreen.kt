@@ -89,14 +89,39 @@ fun MainScreen(
                     onNavigateToAppLimits = onNavigateToAppLimits,
                     onNavigateToProfiles = onNavigateToProfiles,
                     onNavigateToHistory = onNavigateToHistory,
-                    onNavigateToTakeBreak = onNavigateToTakeBreak
+                    onNavigateToTakeBreak = onNavigateToTakeBreak,
+                    onAnalyticsClick = { type ->
+                        navController.navigate("analytics_tab?type=$type") {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
+                    onNavigateToModes = {
+                        navController.navigate("modes_tab") {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
                 )
             }
             composable("modes_tab") {
                 ModesScreen()
             }
-            composable("analytics_tab") {
-                AnalyticsScreen()
+            composable(
+                route = "analytics_tab?type={type}",
+                arguments = listOf(androidx.navigation.navArgument("type") { 
+                    defaultValue = "Screen Time" 
+                    nullable = true
+                })
+            ) { backStackEntry ->
+                val type = backStackEntry.arguments?.getString("type")
+                AnalyticsScreen(initialTab = type)
             }
         }
     }

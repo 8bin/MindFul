@@ -29,7 +29,9 @@ fun DashboardScreen(
     onNavigateToAppLimits: () -> Unit,
     onNavigateToProfiles: () -> Unit,
     onNavigateToHistory: () -> Unit,
-    onNavigateToTakeBreak: () -> Unit
+    onNavigateToTakeBreak: () -> Unit,
+    onAnalyticsClick: (String) -> Unit,
+    onNavigateToModes: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     
@@ -52,7 +54,7 @@ fun DashboardScreen(
 
         // 3. Analytics Section (Horizontal Scroll)
         item {
-            AnalyticsSection(uiState.totalUsageMillis)
+            AnalyticsSection(uiState.totalUsageMillis, onAnalyticsClick)
         }
 
         // 4. Take a Break Section
@@ -68,7 +70,7 @@ fun DashboardScreen(
 
         // 5. Strictness Level Section
         item {
-            StrictnessLevelSection()
+            StrictnessLevelSection(onNavigateToModes)
         }
 
         // 6. Quick Action Section
@@ -129,7 +131,7 @@ fun PermissionSection() {
 }
 
 @Composable
-fun AnalyticsSection(totalUsageMillis: Long) {
+fun AnalyticsSection(totalUsageMillis: Long, onAnalyticsClick: (String) -> Unit) {
     Column {
         Text("Analytics", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
@@ -138,29 +140,52 @@ fun AnalyticsSection(totalUsageMillis: Long) {
                 AnalyticsCard(
                     title = "Screen Time",
                     value = "${totalUsageMillis / 60000 / 60}h ${totalUsageMillis / 60000 % 60}m",
-                    icon = Icons.Default.DateRange
+                    icon = Icons.Default.DateRange,
+                    onClick = { onAnalyticsClick("Screen Time") }
                 )
             }
             item {
-                AnalyticsCard(title = "App Launches", value = "42", icon = Icons.Default.PlayArrow)
+                AnalyticsCard(
+                    title = "App Launches",
+                    value = "42",
+                    icon = Icons.Default.PlayArrow,
+                    onClick = { onAnalyticsClick("App Launches") }
+                )
             }
             item {
-                AnalyticsCard(title = "Browsing", value = "1h 20m", icon = Icons.Default.Place)
+                AnalyticsCard(
+                    title = "Browsing",
+                    value = "1h 20m",
+                    icon = Icons.Default.Place,
+                    onClick = { onAnalyticsClick("Browsing Time") }
+                )
             }
             item {
-                AnalyticsCard(title = "Unlocks", value = "15", icon = Icons.Default.Lock)
+                AnalyticsCard(
+                    title = "Unlocks",
+                    value = "15",
+                    icon = Icons.Default.Lock,
+                    onClick = { onAnalyticsClick("Screen Unlocks") }
+                )
             }
             item {
-                AnalyticsCard(title = "Usage Time", value = "3h 10m", icon = Icons.Default.Phone)
+                AnalyticsCard(
+                    title = "Usage Timeline",
+                    value = "3h 10m",
+                    icon = Icons.Default.Phone,
+                    onClick = { onAnalyticsClick("Usage Timeline") }
+                )
             }
         }
     }
 }
 
 @Composable
-fun AnalyticsCard(title: String, value: String, icon: ImageVector) {
+fun AnalyticsCard(title: String, value: String, icon: ImageVector, onClick: () -> Unit) {
     Card(
-        modifier = Modifier.size(width = 140.dp, height = 100.dp),
+        modifier = Modifier
+            .size(width = 140.dp, height = 100.dp)
+            .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(
@@ -216,9 +241,9 @@ fun TakeABreakSection(
 }
 
 @Composable
-fun StrictnessLevelSection() {
+fun StrictnessLevelSection(onNavigateToModes: () -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onNavigateToModes),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Row(

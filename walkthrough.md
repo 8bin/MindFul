@@ -193,6 +193,24 @@ We have implemented the **Focus Profiles** feature, allowing users to create cus
         - **Strictness**: Verify "Moderate" level is shown.
         - **Quick Actions**: Verify 5 buttons (Apps, Sites, Keyword, Adult, Reels) are present.
         - **Profiles**: Click "Focus Profiles" and verify it opens the profile list.
+6.  **UI Refinements**:
+    - **Settings Button**: Verify it is now at the top-left corner of the Dashboard.
+    - **Modes Screen**:
+        - Navigate to "Modes" tab.
+        - Verify 3 cards: Normal, Lock, Strict.
+        - Toggle switches and verify visual state changes.
+7.  **Analytics Enhancement**:
+    - **Dashboard**: Verify "Usage Time" is renamed to "Usage Timeline".
+    - **Navigation**:
+        - Click "Screen Time" card -> Verify Analytics Screen opens with "Screen Time" tab selected.
+        - Click "Usage Timeline" card -> Verify Analytics Screen opens with "Usage Timeline" tab selected.
+    - **Analytics Screen**:
+        - Verify 4 sections: Date Selector, Tabs, Graph, Usage Overview.
+        - Scroll tabs horizontally.
+        - Verify clicking tabs updates the selected tab state.
+8.  **Strictness Navigation**:
+    - **Dashboard**: Click "Strictness Level" card.
+    - **Verification**: Verify it navigates to the "Modes" tab.
 
 ## Next Steps
 - **Refine Usage Stats**: Investigate `queryEvents` for more accurate "Today" stats if `INTERVAL_DAILY` proves insufficient.

@@ -44,3 +44,12 @@
 - [x] **UI Overhaul** <!-- id: 12 -->
     - [x] Implement Bottom Navigation (Dashboard, Modes, Analytics)
     - [x] Redesign Dashboard (7 Sections)
+- [x] **UI Refinements** <!-- id: 13 -->
+    - [x] Move Settings Button to Top-Left
+    - [x] Implement Modes Screen (Normal, Lock, Strict with Toggles)
+- [x] **Analytics Enhancement** <!-- id: 14 -->
+    - [x] Rename "Usage Time" to "Usage Timeline"
+    - [x] Implement Analytics Screen (4 Sections)
+    - [x] Link Dashboard Analytics Cards to Analytics Screen Tabs
+- [x] **Strictness Navigation** <!-- id: 15 -->
+    - [x] Link "Strictness Level" Card to Modes Screen
