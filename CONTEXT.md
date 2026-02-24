@@ -211,12 +211,18 @@ MainActivity NavHost
 ## Core Features & How They Work
 
 ### 1. Screen Time Monitoring
-- **`UsageStatsDataSource`**: Wraps Android's `UsageStatsManager`. Uses `queryAndAggregateUsageStats()` — the **exact same API as Android Digital Wellbeing** — as the authoritative source for all screen time totals. Hourly breakdowns from `queryEvents` are normalized to match these totals.
-- **`DashboardViewModel`**: Uses `UsageStatsDataSource` directly as the **single source of truth** for all dashboard metrics. No Room DB flow is used for dashboard totals (eliminates data race). Refreshes every **30 seconds** via coroutine loop.
+- **`UsageStatsDataSource`** (core data engine):
+  - Uses `totalTimeVisible` (API 29+) instead of `totalTimeInForeground` — matches **Digital Wellbeing exactly**. `totalTimeInForeground` counts hidden foreground time (behind overlays); `totalTimeVisible` counts only actually visible time.
+  - Falls back to `totalTimeInForeground` on API 26-28.
+  - Uses `ACTIVITY_RESUMED`/`ACTIVITY_PAUSED` events (API 29+) for hourly breakdown — more accurate than `MOVE_TO_FOREGROUND`/`MOVE_TO_BACKGROUND`.
+  - Filters with `lastTimeUsed >= startTime` and `minOf` to prevent adjacent-day bucket contamination.
+  - `isUserFacingApp()` filter ensures only apps with launcher icons are counted.
+  - Hourly data normalized proportionally to match authoritative daily total.
+- **`DashboardViewModel`**: Uses `UsageStatsDataSource` as the **single source of truth**. No Room DB data for dashboard totals. Refreshes every **30 seconds**. Handles first-install (no permissions) with welcome message.
 - **`UsageRepositoryImpl`**: Clamps `endTime` to `System.currentTimeMillis()` for today to prevent querying future timestamps.
-- **`AccessibilityInterventionService`** (primary): Listens for `TYPE_WINDOW_STATE_CHANGED` → detects foreground app → starts a polling loop (100ms) that increments usage via `UpdateUsageUseCase`.
-- **`AppMonitoringService`** (fallback foreground service): Queries `UsageStatsManager` every 1s to detect foreground app and log usage.
-- **`SyncUsageWorker`**: Periodically (15min) syncs historical data from `UsageStatsManager` into Room (used for limits, not dashboard display).
+- **`AccessibilityInterventionService`** (primary): Listens for `TYPE_WINDOW_STATE_CHANGED` → detects foreground app → polling loop for limit checking.
+- **`AppMonitoringService`** (fallback foreground service): Queries `UsageStatsManager` every 1s.
+- **`SyncUsageWorker`**: Periodically (15min) syncs historical data into Room (used for limits, not dashboard).
 
 ### 2. App & Group Limits
 - Per-app daily limits stored in `app_limits` table (minutes).
@@ -341,4 +347,4 @@ MainActivity NavHost
 
 ---
 
-*Last updated: 2026-02-24 22:57 IST*
+*Last updated: 2026-02-24 23:35 IST*
