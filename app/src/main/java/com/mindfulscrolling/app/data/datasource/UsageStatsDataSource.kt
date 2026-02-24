@@ -16,22 +16,39 @@ class UsageStatsDataSource @Inject constructor(
     private val usageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
     private val packageManager = context.packageManager
 
+    /**
+     * Get per-app screen time using INTERVAL_DAILY — matches Digital Wellbeing exactly.
+     * 
+     * queryAndAggregateUsageStats() inflates totals by summing across overlapping
+     * internal interval buckets. queryUsageStats(INTERVAL_DAILY) returns Android's
+     * pre-computed daily totals, which is what Digital Wellbeing uses.
+     */
     fun getUsageStats(startTime: Long, endTime: Long): Map<String, Long> {
-        val statsMap = usageStatsManager.queryAndAggregateUsageStats(startTime, endTime)
-        return statsMap.mapValues { it.value.totalTimeInForeground }
+        val statsList = usageStatsManager.queryUsageStats(
+            UsageStatsManager.INTERVAL_DAILY, startTime, endTime
+        )
+        // Group by package, take max totalTimeInForeground per package
+        // (Android may return multiple entries for overlapping day boundaries)
+        return statsList
+            .filter { it.totalTimeInForeground > 0 }
+            .groupBy { it.packageName }
+            .mapValues { (_, stats) -> stats.maxOf { it.totalTimeInForeground } }
     }
 
     fun getDailyAnalytics(startTime: Long, endTime: Long): DailyAnalytics {
-        // 1. Authoritative Totals (Matches Dashboard Logic)
-        // usageStatsManager.queryAndAggregateUsageStats handles overlapping usage and background services correctly,
-        // unlike manual queryEvents summation which can lead to inflated totals (e.g. 124h).
-        val statsMap = usageStatsManager.queryAndAggregateUsageStats(startTime, endTime)
-        val authoritativeAppUsageMap = statsMap.entries
-            .asSequence()
-            .filter { it.value.totalTimeInForeground > 0 }
-            // Optional: Filter by launch intent to ensure we only show user-facing apps, matching Dashboard's "Installed Apps" feel
-            .filter { packageManager.getLaunchIntentForPackage(it.key) != null }
-            .associate { it.key to it.value.totalTimeInForeground }
+        // 1. Authoritative Totals — using INTERVAL_DAILY to match Digital Wellbeing
+        // queryAndAggregateUsageStats inflates totals by summing overlapping interval buckets.
+        // queryUsageStats(INTERVAL_DAILY) returns Android's pre-computed daily totals.
+        val statsList = usageStatsManager.queryUsageStats(
+            UsageStatsManager.INTERVAL_DAILY, startTime, endTime
+        )
+        
+        // Group by package, take max foreground time (handles duplicate entries)
+        val authoritativeAppUsageMap = statsList
+            .filter { it.totalTimeInForeground > 0 }
+            .filter { packageManager.getLaunchIntentForPackage(it.packageName) != null }
+            .groupBy { it.packageName }
+            .mapValues { (_, stats) -> stats.maxOf { it.totalTimeInForeground } }
 
         val authoritativeTotalScreenTime = authoritativeAppUsageMap.values.sum()
         val validPackages = authoritativeAppUsageMap.keys
