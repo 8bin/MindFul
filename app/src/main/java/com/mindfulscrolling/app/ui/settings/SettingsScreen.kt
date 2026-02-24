@@ -1,149 +1,235 @@
 package com.mindfulscrolling.app.ui.settings
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.mindfulscrolling.app.ui.common.PinDialog
+import com.mindfulscrolling.app.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = hiltViewModel(),
+    onNavigateBack: () -> Unit,
+    onNavigateToOnboarding: () -> Unit
 ) {
     val themeMode by viewModel.themeMode.collectAsState()
-    val isStrictModeEnabled by viewModel.isStrictModeEnabled.collectAsState()
-    
+    val isStrictMode by viewModel.isStrictModeEnabled.collectAsState()
+    val notificationsEnabled by viewModel.notificationsEnabled.collectAsState()
+    val notificationInterval by viewModel.notificationInterval.collectAsState()
+
     var showThemeDialog by remember { mutableStateOf(false) }
     var showPinDialog by remember { mutableStateOf(false) }
-    var isEnablingStrictMode by remember { mutableStateOf(true) }
     var showChangePinDialog by remember { mutableStateOf(false) }
+    var pinDialogType by remember { mutableStateOf("enable") }
     var pinError by remember { mutableStateOf<String?>(null) }
+    var showIntervalDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Settings") })
-        }
-    ) { padding ->
-        Column(
+            TopAppBar(
+                title = {
+                    Text(
+                        "Settings",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
+            )
+        },
+        containerColor = MaterialTheme.colorScheme.background
+    ) { paddingValues ->
+        LazyColumn(
             modifier = Modifier
-                .padding(padding)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(vertical = 8.dp)
         ) {
-            // General Settings
-            SettingsSection(title = "General") {
-                SettingsItem(
-                    icon = Icons.Default.Settings,
+            // Appearance Section
+            item {
+                SettingsSectionHeader("Appearance")
+            }
+            item {
+                SettingsCard(
+                    icon = Icons.Default.AccountCircle,
+                    iconBackground = Teal400.copy(alpha = 0.15f),
+                    iconTint = Teal400,
                     title = "Theme",
-                    subtitle = themeMode.lowercase().replaceFirstChar { it.uppercase() },
+                    subtitle = when (themeMode) {
+                        "LIGHT" -> "Light"
+                        "DARK" -> "Dark"
+                        else -> "System Default"
+                    },
                     onClick = { showThemeDialog = true }
                 )
             }
 
-            // Strict Mode
-            SettingsSection(title = "Security") {
-                Column {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                            Column(modifier = Modifier.padding(start = 16.dp)) {
-                                Text(
-                                    text = "Strict Mode",
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    text = if (isStrictModeEnabled) "Enabled (PIN Protected)" else "Disabled",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                        }
-                        Switch(
-                            checked = isStrictModeEnabled,
-                            onCheckedChange = { 
-                                isEnablingStrictMode = it
-                                showPinDialog = true 
-                            }
-                        )
-                    }
-                    
-                    if (isStrictModeEnabled) {
-                        SettingsItem(
-                            icon = Icons.Default.Lock, // Reusing lock icon or could use Edit
-                            title = "Change PIN",
-                            subtitle = "Update your Strict Mode PIN",
-                            onClick = { 
-                                isEnablingStrictMode = false // Reusing flag logic slightly differently or need new state
-                                showChangePinDialog = true
-                            }
-                        )
-                    }
+            // Notifications Section
+            item {
+                SettingsSectionHeader("Notifications")
+            }
+            item {
+                SettingsToggleCard(
+                    icon = Icons.Default.Notifications,
+                    iconBackground = Amber400.copy(alpha = 0.15f),
+                    iconTint = Amber400,
+                    title = "Usage Alerts",
+                    subtitle = if (notificationsEnabled) "Every ${notificationInterval} minutes" else "Disabled",
+                    isChecked = notificationsEnabled,
+                    onCheckedChange = { viewModel.setNotificationsEnabled(it) }
+                )
+            }
+            if (notificationsEnabled) {
+                item {
+                    SettingsCard(
+                        icon = Icons.Default.DateRange,
+                        iconBackground = Cyan400.copy(alpha = 0.15f),
+                        iconTint = Cyan400,
+                        title = "Alert Interval",
+                        subtitle = "${notificationInterval} minutes",
+                        onClick = { showIntervalDialog = true }
+                    )
                 }
             }
 
-            // About
-            SettingsSection(title = "About") {
-                SettingsItem(
-                    icon = Icons.Default.Info,
-                    title = "Version",
-                    subtitle = "1.0.0",
-                    onClick = { }
+            // Security Section
+            item {
+                SettingsSectionHeader("Security")
+            }
+            item {
+                SettingsToggleCard(
+                    icon = Icons.Default.Lock,
+                    iconBackground = CoralRed.copy(alpha = 0.15f),
+                    iconTint = CoralRed,
+                    title = "Strict Mode",
+                    subtitle = if (isStrictMode) "Protected with PIN" else "Off",
+                    isChecked = isStrictMode,
+                    onCheckedChange = {
+                        pinDialogType = if (it) "enable" else "disable"
+                        pinError = null
+                        showPinDialog = true
+                    }
                 )
             }
+            if (isStrictMode) {
+                item {
+                    SettingsCard(
+                        icon = Icons.Default.Edit,
+                        iconBackground = Color(0xFF7C4DFF).copy(alpha = 0.15f),
+                        iconTint = Color(0xFF7C4DFF),
+                        title = "Change PIN",
+                        subtitle = "Update your security PIN",
+                        onClick = {
+                            pinError = null
+                            showChangePinDialog = true
+                        }
+                    )
+                }
+            }
+
+            // Permissions Section
+            item {
+                SettingsSectionHeader("Permissions")
+            }
+            item {
+                SettingsCard(
+                    icon = Icons.Default.Settings,
+                    iconBackground = SuccessGreen.copy(alpha = 0.15f),
+                    iconTint = SuccessGreen,
+                    title = "Manage Permissions",
+                    subtitle = "Usage access, overlay, accessibility",
+                    onClick = onNavigateToOnboarding
+                )
+            }
+
+            // About Section
+            item {
+                SettingsSectionHeader("About")
+            }
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    listOf(Teal400.copy(alpha = 0.08f), Cyan400.copy(alpha = 0.04f))
+                                ),
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                            .then(
+                                Modifier.background(
+                                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+                                    shape = RoundedCornerShape(16.dp)
+                                )
+                            )
+                            .padding(20.dp)
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = "MindFul Scrolling",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "Version 1.0.0",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "Your digital wellbeing companion",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+            
+            item { Spacer(modifier = Modifier.height(16.dp)) }
         }
     }
 
+    // Dialogs
     if (showThemeDialog) {
         ThemeSelectionDialog(
             currentTheme = themeMode,
-            onThemeSelected = { 
+            onThemeSelected = {
                 viewModel.setThemeMode(it)
                 showThemeDialog = false
             },
@@ -153,111 +239,165 @@ fun SettingsScreen(
 
     if (showPinDialog) {
         PinDialog(
-            title = if (isEnablingStrictMode) "Set Strict Mode PIN" else "Enter PIN to Disable",
-            isSettingPin = isEnablingStrictMode,
+            title = if (pinDialogType == "enable") "Set PIN" else "Enter PIN to Disable",
+            isSettingPin = pinDialogType == "enable",
             onDismiss = { showPinDialog = false },
             onConfirm = { pin ->
-                if (isEnablingStrictMode) {
+                if (pinDialogType == "enable") {
                     viewModel.enableStrictMode(pin)
                     showPinDialog = false
                 } else {
-                    viewModel.disableStrictMode(
-                        pin = pin,
+                    viewModel.disableStrictMode(pin,
                         onSuccess = { showPinDialog = false },
-                        onError = { pinError = "Incorrect PIN" } // We need to pass this error to PinDialog
+                        onError = { pinError = "Incorrect PIN" }
                     )
                 }
             },
-            errorMessage = pinError // Need to update PinDialog to accept this
+            errorMessage = pinError
         )
     }
-    
+
     if (showChangePinDialog) {
-        var step by remember { mutableStateOf(0) } // 0: Old PIN, 1: New PIN
-        var oldPin by remember { mutableStateOf("") }
-        var error by remember { mutableStateOf<String?>(null) }
-        
-        PinDialog(
-            title = if (step == 0) "Enter Old PIN" else "Enter New PIN",
-            isSettingPin = step == 1,
+        ChangePinDialog(
             onDismiss = { showChangePinDialog = false },
-            onConfirm = { pin ->
-                if (step == 0) {
-                    viewModel.verifyPin(
-                        pin = pin,
-                        onSuccess = {
-                            oldPin = pin
-                            step = 1
-                            error = null
-                        },
-                        onError = { error = "Incorrect Old PIN" }
-                    )
-                } else {
-                    viewModel.changePin(
-                        oldPin = oldPin,
-                        newPin = pin,
-                        onSuccess = { showChangePinDialog = false },
-                        onError = { error = "Failed to change PIN" }
-                    )
-                }
+            onConfirm = { oldPin, newPin ->
+                viewModel.changePin(oldPin, newPin,
+                    onSuccess = { showChangePinDialog = false },
+                    onError = { pinError = "Incorrect current PIN" }
+                )
             },
-            errorMessage = error
+            errorMessage = pinError
+        )
+    }
+
+    if (showIntervalDialog) {
+        IntervalSelectionDialog(
+            currentInterval = notificationInterval,
+            onIntervalSelected = {
+                viewModel.setNotificationInterval(it)
+                showIntervalDialog = false
+            },
+            onDismiss = { showIntervalDialog = false }
         )
     }
 }
 
 @Composable
-fun SettingsSection(
+fun SettingsSectionHeader(title: String) {
+    Text(
+        text = title,
+        style = MaterialTheme.typography.titleSmall,
+        fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(top = 8.dp, bottom = 4.dp)
+    )
+}
+
+@Composable
+fun SettingsCard(
+    icon: ImageVector,
+    iconBackground: Color,
+    iconTint: Color,
     title: String,
-    content: @Composable () -> Unit
+    subtitle: String,
+    onClick: () -> Unit
 ) {
-    Column {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-            )
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                content()
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(iconBackground),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(icon, contentDescription = null, tint = iconTint, modifier = Modifier.size(20.dp))
             }
+            Spacer(modifier = Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Icon(
+                Icons.Default.KeyboardArrowRight,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+            )
         }
     }
 }
 
 @Composable
-fun SettingsItem(
+fun SettingsToggleCard(
     icon: ImageVector,
+    iconBackground: Color,
+    iconTint: Color,
     title: String,
     subtitle: String,
-    onClick: () -> Unit
+    isChecked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary
-        )
-        Column(modifier = Modifier.padding(start = 16.dp)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium
-            )
-            Text(
-                text = subtitle,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+        Row(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(iconBackground),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(icon, contentDescription = null, tint = iconTint, modifier = Modifier.size(20.dp))
+            }
+            Spacer(modifier = Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Switch(
+                checked = isChecked,
+                onCheckedChange = onCheckedChange,
+                colors = SwitchDefaults.colors(
+                    checkedTrackColor = MaterialTheme.colorScheme.primary,
+                    checkedThumbColor = Color.White
+                )
             )
         }
     }
@@ -271,55 +411,226 @@ fun ThemeSelectionDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Choose Theme") },
+        title = {
+            Text(
+                "Choose Theme",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+        },
         text = {
-            Column {
-                ThemeOption(
-                    text = "System Default",
-                    selected = currentTheme == "SYSTEM",
-                    onClick = { onThemeSelected("SYSTEM") }
-                )
-                ThemeOption(
-                    text = "Light",
-                    selected = currentTheme == "LIGHT",
-                    onClick = { onThemeSelected("LIGHT") }
-                )
-                ThemeOption(
-                    text = "Dark",
-                    selected = currentTheme == "DARK",
-                    onClick = { onThemeSelected("DARK") }
-                )
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                ThemeOption("System Default", currentTheme == "SYSTEM") { onThemeSelected("SYSTEM") }
+                ThemeOption("Light", currentTheme == "LIGHT") { onThemeSelected("LIGHT") }
+                ThemeOption("Dark", currentTheme == "DARK") { onThemeSelected("DARK") }
             }
         },
         confirmButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel")
-            }
-        }
+            TextButton(onClick = onDismiss) { Text("Cancel") }
+        },
+        shape = RoundedCornerShape(20.dp)
     )
 }
 
 @Composable
-fun ThemeOption(
-    text: String,
-    selected: Boolean,
-    onClick: () -> Unit
-) {
+fun ThemeOption(title: String, isSelected: Boolean, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
             .clickable(onClick = onClick)
-            .padding(vertical = 8.dp),
+            .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         RadioButton(
-            selected = selected,
-            onClick = onClick
+            selected = isSelected,
+            onClick = onClick,
+            colors = RadioButtonDefaults.colors(
+                selectedColor = MaterialTheme.colorScheme.primary
+            )
         )
+        Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = text,
+            text = title,
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(start = 8.dp)
+            fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+            color = MaterialTheme.colorScheme.onSurface
         )
     }
+}
+
+@Composable
+fun IntervalSelectionDialog(
+    currentInterval: Int,
+    onIntervalSelected: (Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val intervals = listOf(15, 30, 60)
+    
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                "Alert Interval",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+        },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                intervals.forEach { minutes ->
+                    val label = if (minutes >= 60) "${minutes / 60} hour" else "$minutes minutes"
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(10.dp))
+                            .clickable { onIntervalSelected(minutes) }
+                            .padding(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = currentInterval == minutes,
+                            onClick = { onIntervalSelected(minutes) },
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = MaterialTheme.colorScheme.primary
+                            )
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = label,
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = if (currentInterval == minutes) FontWeight.SemiBold else FontWeight.Normal,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) { Text("Cancel") }
+        },
+        shape = RoundedCornerShape(20.dp)
+    )
+}
+
+@Composable
+fun PinDialog(
+    title: String,
+    isSettingPin: Boolean,
+    onDismiss: () -> Unit,
+    onConfirm: (String) -> Unit,
+    errorMessage: String?
+) {
+    var input by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                title,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+        },
+        text = {
+            Column {
+                OutlinedTextField(
+                    value = input,
+                    onValueChange = { if (it.length <= 6 && it.all { c -> c.isDigit() }) input = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+                    visualTransformation = PasswordVisualTransformation(),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = { Text("Enter 4-6 digit PIN") },
+                    shape = RoundedCornerShape(12.dp)
+                )
+                if (errorMessage != null) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = errorMessage,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = { if (input.length >= 4) onConfirm(input) },
+                enabled = input.length >= 4,
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Text("Confirm", fontWeight = FontWeight.SemiBold)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text("Cancel") }
+        },
+        shape = RoundedCornerShape(20.dp)
+    )
+}
+
+@Composable
+fun ChangePinDialog(
+    onDismiss: () -> Unit,
+    onConfirm: (String, String) -> Unit,
+    errorMessage: String?
+) {
+    var oldPin by remember { mutableStateOf("") }
+    var newPin by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                "Change PIN",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+        },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                OutlinedTextField(
+                    value = oldPin,
+                    onValueChange = { if (it.length <= 6 && it.all { c -> c.isDigit() }) oldPin = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+                    visualTransformation = PasswordVisualTransformation(),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Current PIN") },
+                    shape = RoundedCornerShape(12.dp)
+                )
+                OutlinedTextField(
+                    value = newPin,
+                    onValueChange = { if (it.length <= 6 && it.all { c -> c.isDigit() }) newPin = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+                    visualTransformation = PasswordVisualTransformation(),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("New PIN") },
+                    shape = RoundedCornerShape(12.dp)
+                )
+                if (errorMessage != null) {
+                    Text(
+                        text = errorMessage,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = { if (oldPin.length >= 4 && newPin.length >= 4) onConfirm(oldPin, newPin) },
+                enabled = oldPin.length >= 4 && newPin.length >= 4,
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Text("Change", fontWeight = FontWeight.SemiBold)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text("Cancel") }
+        },
+        shape = RoundedCornerShape(20.dp)
+    )
 }

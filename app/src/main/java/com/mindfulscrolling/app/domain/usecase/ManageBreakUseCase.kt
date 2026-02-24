@@ -36,12 +36,25 @@ class ManageBreakUseCase @Inject constructor(
     
     private val systemWhitelist = setOf(
         "com.android.settings",
+        // Phone / Dialer / InCall
         "com.android.phone",
         "com.google.android.dialer",
+        "com.android.dialer",
+        "com.android.server.telecom",
+        "com.android.incallui",
+        "com.samsung.android.incallui",
+        // System UI
         "com.android.systemui",
+        // Keyboards
         "com.google.android.inputmethod.latin", // Gboard
         "com.samsung.android.honeyboard", // Samsung Keyboard
-        "com.mindfulscrolling.app" // Prevent self-blocking
+        // Camera
+        "com.android.camera",
+        "com.android.camera2",
+        "com.google.android.GoogleCamera",
+        "com.sec.android.app.camera", // Samsung Camera
+        // Self
+        "com.mindfulscrolling.app"
     )
 
     suspend fun isAppWhitelisted(packageName: String): Boolean {

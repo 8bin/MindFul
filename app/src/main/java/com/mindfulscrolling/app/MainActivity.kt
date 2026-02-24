@@ -70,11 +70,14 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = startDestination) {
                         composable("onboarding") {
                             OnboardingScreen(
-                                permissionManager = permissionManager,
-                                onAllPermissionsGranted = {
-                                    startService(android.content.Intent(this@MainActivity, com.mindfulscrolling.app.service.AppMonitoringService::class.java))
-                                    navController.navigate("main") {
-                                        popUpTo("onboarding") { inclusive = true }
+                                onNavigateBack = {
+                                    if (permissionManager.hasUsageStatsPermission() &&
+                                        permissionManager.hasOverlayPermission() &&
+                                        permissionManager.isAccessibilityServiceEnabled()) {
+                                        startService(android.content.Intent(this@MainActivity, com.mindfulscrolling.app.service.AppMonitoringService::class.java))
+                                        navController.navigate("main") {
+                                            popUpTo("onboarding") { inclusive = true }
+                                        }
                                     }
                                 }
                             )
@@ -83,9 +86,6 @@ class MainActivity : ComponentActivity() {
                             com.mindfulscrolling.app.ui.main.MainScreen(
                                 onNavigateToSettings = {
                                     navController.navigate("settings")
-                                },
-                                onNavigateToAppLimits = {
-                                    navController.navigate("app_limits")
                                 },
                                 onNavigateToProfiles = {
                                     navController.navigate("profiles")
@@ -99,15 +99,12 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("settings") {
-                            com.mindfulscrolling.app.ui.settings.SettingsScreen()
-                        }
-                        composable("app_limits") {
-                            com.mindfulscrolling.app.ui.limits.AppListScreen(
-                                onNavigateBack = {
-                                    navController.popBackStack()
-                                }
+                            com.mindfulscrolling.app.ui.settings.SettingsScreen(
+                                onNavigateBack = { navController.popBackStack() },
+                                onNavigateToOnboarding = { navController.navigate("onboarding") }
                             )
                         }
+
                         composable("profiles") {
                             com.mindfulscrolling.app.ui.profiles.FocusProfilesScreen(
                                 onNavigateToEditProfile = { profileId ->

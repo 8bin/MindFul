@@ -5,14 +5,30 @@ import com.mindfulscrolling.app.domain.repository.UsageRepository
 import java.util.Calendar
 import javax.inject.Inject
 
+import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+
 class SyncUsageUseCase @Inject constructor(
     private val usageStatsDataSource: UsageStatsDataSource,
-    private val usageRepository: UsageRepository
+    private val usageRepository: UsageRepository,
+    @ApplicationContext private val context: Context
 ) {
     suspend operator fun invoke() {
-        val (startTime, endTime) = getTodayRange()
-        val stats = usageStatsDataSource.getUsageStats(startTime, endTime)
-        usageRepository.syncUsage(stats, startTime)
+        val (todayStart, todayEnd) = getTodayRange()
+        
+        // Get Install Time
+        val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+        val installTime = packageInfo.firstInstallTime
+        
+        // Use the later of TodayMidnight or InstallTime
+        val startTime = kotlin.math.max(todayStart, installTime)
+        
+        // If we are still before "now" (i.e. app installed in past or today), sync.
+        // If app installed tomorrow (impossible), don't sync.
+        if (startTime < todayEnd) {
+             val stats = usageStatsDataSource.getUsageStats(startTime, todayEnd)
+             usageRepository.syncUsage(stats, todayStart)
+        }
     }
 
     private fun getTodayRange(): Pair<Long, Long> {

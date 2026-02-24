@@ -3,8 +3,8 @@ package com.mindfulscrolling.app.ui.main
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -14,13 +14,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mindfulscrolling.app.ui.dashboard.DashboardScreen
-import com.mindfulscrolling.app.ui.modes.ModesScreen
+import com.mindfulscrolling.app.ui.limits.AppListScreen
 import com.mindfulscrolling.app.ui.analytics.AnalyticsScreen
 
 @Composable
 fun MainScreen(
     onNavigateToSettings: () -> Unit,
-    onNavigateToAppLimits: () -> Unit,
     onNavigateToProfiles: () -> Unit,
     onNavigateToHistory: () -> Unit,
     onNavigateToTakeBreak: () -> Unit
@@ -48,11 +47,11 @@ fun MainScreen(
                     }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Filled.List, contentDescription = "Modes") },
-                    label = { Text("Modes") },
-                    selected = currentDestination?.route == "modes_tab",
+                    icon = { Icon(Icons.Filled.Phone, contentDescription = "Apps") },
+                    label = { Text("Apps") },
+                    selected = currentDestination?.route == "apps_tab",
                     onClick = {
-                        navController.navigate("modes_tab") {
+                        navController.navigate("apps_tab") {
                             popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true
                             }
@@ -86,7 +85,6 @@ fun MainScreen(
             composable("dashboard_tab") {
                 DashboardScreen(
                     onNavigateToSettings = onNavigateToSettings,
-                    onNavigateToAppLimits = onNavigateToAppLimits,
                     onNavigateToProfiles = onNavigateToProfiles,
                     onNavigateToHistory = onNavigateToHistory,
                     onNavigateToTakeBreak = onNavigateToTakeBreak,
@@ -98,20 +96,11 @@ fun MainScreen(
                             launchSingleTop = true
                             restoreState = true
                         }
-                    },
-                    onNavigateToModes = {
-                        navController.navigate("modes_tab") {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
                     }
                 )
             }
-            composable("modes_tab") {
-                ModesScreen()
+            composable("apps_tab") {
+                AppListScreen()
             }
             composable(
                 route = "analytics_tab?type={type}",

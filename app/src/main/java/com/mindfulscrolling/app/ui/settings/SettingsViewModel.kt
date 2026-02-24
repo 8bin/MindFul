@@ -3,16 +3,20 @@ package com.mindfulscrolling.app.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mindfulscrolling.app.domain.usecase.SettingsUseCase
+import com.mindfulscrolling.app.service.UsageNotificationManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val settingsUseCase: SettingsUseCase
+    private val settingsUseCase: SettingsUseCase,
+    private val usageNotificationManager: UsageNotificationManager
 ) : ViewModel() {
 
     val themeMode: StateFlow<String> = settingsUseCase.themeMode
@@ -21,10 +25,26 @@ class SettingsViewModel @Inject constructor(
     val isStrictModeEnabled: StateFlow<Boolean> = settingsUseCase.isStrictModeEnabled
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
+    private val _notificationsEnabled = MutableStateFlow(usageNotificationManager.isEnabled)
+    val notificationsEnabled: StateFlow<Boolean> = _notificationsEnabled.asStateFlow()
+
+    private val _notificationInterval = MutableStateFlow(usageNotificationManager.intervalMinutes)
+    val notificationInterval: StateFlow<Int> = _notificationInterval.asStateFlow()
+
     fun setThemeMode(mode: String) {
         viewModelScope.launch {
             settingsUseCase.setThemeMode(mode)
         }
+    }
+
+    fun setNotificationsEnabled(enabled: Boolean) {
+        usageNotificationManager.isEnabled = enabled
+        _notificationsEnabled.value = enabled
+    }
+
+    fun setNotificationInterval(minutes: Int) {
+        usageNotificationManager.intervalMinutes = minutes
+        _notificationInterval.value = minutes
     }
 
     fun enableStrictMode(pin: String) {

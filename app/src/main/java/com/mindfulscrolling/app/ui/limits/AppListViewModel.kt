@@ -2,6 +2,7 @@ package com.mindfulscrolling.app.ui.limits
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mindfulscrolling.app.data.datasource.UsageStatsDataSource
 import com.mindfulscrolling.app.data.local.entity.AppLimitEntity
 import com.mindfulscrolling.app.domain.model.AppInfo
 import com.mindfulscrolling.app.domain.repository.AppRepository
@@ -10,11 +11,19 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import javax.inject.Inject
+
+enum class AppFilterMode(val label: String) {
+    ALL("All Apps"),
+    INSTALLED("Installed"),
+    SYSTEM("System")
+}
 
 @HiltViewModel
 class AppListViewModel @Inject constructor(
-    private val appRepository: AppRepository
+    private val appRepository: AppRepository,
+    private val usageStatsDataSource: UsageStatsDataSource
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<AppListUiState>(AppListUiState.Loading)
@@ -22,6 +31,9 @@ class AppListViewModel @Inject constructor(
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery = _searchQuery.asStateFlow()
+
+    private val _filterMode = MutableStateFlow(AppFilterMode.ALL)
+    val filterMode = _filterMode.asStateFlow()
 
     init {
         loadData()
@@ -32,15 +44,40 @@ class AppListViewModel @Inject constructor(
             try {
                 val installedApps = appRepository.getInstalledApps()
                 
+                // Load real usage data for today
+                val todayStart = Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }.timeInMillis
+                val now = System.currentTimeMillis()
+                
+                val usageMap = try {
+                    usageStatsDataSource.getUsageStats(todayStart, now)
+                } catch (_: Exception) {
+                    emptyMap()
+                }
+                
                 kotlinx.coroutines.flow.combine(
                     appRepository.getAllLimits(),
-                    _searchQuery
-                ) { limits, query ->
+                    _searchQuery,
+                    _filterMode
+                ) { limits, query, filter ->
                     val limitMap = limits.associateBy { it.packageName }
+                    
+                    // Apply filter
+                    val filteredByType = when (filter) {
+                        AppFilterMode.ALL -> installedApps
+                        AppFilterMode.INSTALLED -> installedApps.filter { !it.isSystemApp }
+                        AppFilterMode.SYSTEM -> installedApps.filter { it.isSystemApp }
+                    }
+                    
+                    // Apply search
                     val filteredApps = if (query.isBlank()) {
-                        installedApps
+                        filteredByType
                     } else {
-                        installedApps.filter { 
+                        filteredByType.filter { 
                             it.name.contains(query, ignoreCase = true) || 
                             it.packageName.contains(query, ignoreCase = true) 
                         }
@@ -49,9 +86,11 @@ class AppListViewModel @Inject constructor(
                     filteredApps.map { app ->
                         AppItemUiState(
                             appInfo = app,
-                            limitMinutes = limitMap[app.packageName]?.limitDurationMinutes
+                            limitMinutes = limitMap[app.packageName]?.limitDurationMinutes,
+                            notificationIntervalMinutes = limitMap[app.packageName]?.notificationIntervalMinutes,
+                            usageMillis = usageMap[app.packageName] ?: 0L
                         )
-                    }
+                    }.sortedByDescending { it.usageMillis }
                 }.collect { appItems ->
                     _uiState.value = AppListUiState.Success(appItems)
                 }
@@ -65,12 +104,17 @@ class AppListViewModel @Inject constructor(
         _searchQuery.value = query
     }
 
-    fun setLimit(packageName: String, minutes: Int) {
+    fun onFilterModeChanged(mode: AppFilterMode) {
+        _filterMode.value = mode
+    }
+
+    fun setLimit(packageName: String, minutes: Int, notificationInterval: Int? = null) {
         viewModelScope.launch {
             appRepository.insertLimit(
                 AppLimitEntity(
                     packageName = packageName,
-                    limitDurationMinutes = minutes
+                    limitDurationMinutes = minutes,
+                    notificationIntervalMinutes = notificationInterval
                 )
             )
         }
@@ -91,5 +135,7 @@ sealed class AppListUiState {
 
 data class AppItemUiState(
     val appInfo: AppInfo,
-    val limitMinutes: Int?
+    val limitMinutes: Int?,
+    val notificationIntervalMinutes: Int? = null,
+    val usageMillis: Long = 0
 )

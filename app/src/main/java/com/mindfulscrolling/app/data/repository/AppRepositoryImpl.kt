@@ -47,12 +47,16 @@ class AppRepositoryImpl @Inject constructor(
         val packageManager = context.packageManager
         packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
             .filter { appInfo ->
+                // Include all apps that have a launcher icon (user-facing apps)
                 packageManager.getLaunchIntentForPackage(appInfo.packageName) != null
             }
             .map { appInfo ->
+                val isSystem = (appInfo.flags and android.content.pm.ApplicationInfo.FLAG_SYSTEM) != 0
                 com.mindfulscrolling.app.domain.model.AppInfo(
                     name = packageManager.getApplicationLabel(appInfo).toString(),
-                    packageName = appInfo.packageName
+                    packageName = appInfo.packageName,
+                    icon = try { packageManager.getApplicationIcon(appInfo) } catch (_: Exception) { null },
+                    isSystemApp = isSystem
                 )
             }
             .sortedBy { it.name }

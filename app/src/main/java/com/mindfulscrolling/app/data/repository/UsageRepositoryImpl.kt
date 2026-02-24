@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class UsageRepositoryImpl @Inject constructor(
-    private val usageLogDao: UsageLogDao
+    private val usageLogDao: UsageLogDao,
+    private val usageStatsDataSource: com.mindfulscrolling.app.data.datasource.UsageStatsDataSource
 ) : UsageRepository {
 
     override fun getUsageForDate(date: Long): Flow<List<UsageLogEntity>> {
@@ -41,10 +42,8 @@ class UsageRepositoryImpl @Inject constructor(
                 val currentLog = usageLogDao.getUsageForAppAndDate(packageName, date)
                 val localDuration = currentLog?.durationMillis ?: 0
                 
-                // If system stats show more usage, trust system stats (it's the source of truth)
-                // But we also need to be careful not to overwrite if we have more granular data.
-                // For now, let's take the max.
-                if (systemDuration > localDuration) {
+                // Trust system stats if they are larger OR if local data is corrupt (> 24h)
+                if (systemDuration > localDuration || localDuration > 86400000L) {
                     val log = UsageLogEntity(
                         id = currentLog?.id ?: 0,
                         packageName = packageName,
@@ -56,5 +55,13 @@ class UsageRepositoryImpl @Inject constructor(
                 }
             }
         }
+    }
+
+    override suspend fun getDailyAnalytics(date: Long): com.mindfulscrolling.app.domain.model.DailyAnalytics {
+        val start = date
+        val endOfDay = date + 24 * 60 * 60 * 1000 - 1
+        // Clamp to current time for today — don't query into the future
+        val end = minOf(endOfDay, System.currentTimeMillis())
+        return usageStatsDataSource.getDailyAnalytics(start, end)
     }
 }

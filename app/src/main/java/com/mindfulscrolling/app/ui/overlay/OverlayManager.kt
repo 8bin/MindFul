@@ -31,7 +31,14 @@ class OverlayManager @Inject constructor(
     private var overlayView: ComposeView? = null
     private val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main + kotlinx.coroutines.SupervisorJob())
 
-    fun showOverlay(packageName: String, isBreakMode: Boolean = false, remainingTime: Long = 0, onDismiss: () -> Unit) {
+    fun showOverlay(
+        packageName: String,
+        isBreakMode: Boolean = false,
+        remainingTime: Long = 0,
+        breakEndTime: Long = 0L,
+        whitelistedApps: List<String> = emptyList(),
+        onDismiss: () -> Unit
+    ) {
         if (overlayView != null) return // Already showing
 
         val params = WindowManager.LayoutParams(
@@ -48,6 +55,8 @@ class OverlayManager @Inject constructor(
         )
         params.gravity = Gravity.CENTER
 
+        val appContext = context
+
         val view = ComposeView(context).apply {
             val lifecycleOwner = MyLifecycleOwner()
             setViewTreeLifecycleOwner(lifecycleOwner)
@@ -59,6 +68,8 @@ class OverlayManager @Inject constructor(
                     packageName = packageName,
                     isBreakMode = isBreakMode,
                     remainingTime = remainingTime,
+                    breakEndTime = breakEndTime,
+                    whitelistedApps = whitelistedApps,
                     onDismiss = {
                         removeOverlay()
                         onDismiss()
@@ -69,6 +80,13 @@ class OverlayManager @Inject constructor(
                             removeOverlay()
                             onDismiss()
                         }
+                    },
+                    onLaunchApp = { targetPackage ->
+                        try {
+                            val launchIntent = appContext.packageManager.getLaunchIntentForPackage(targetPackage)
+                            launchIntent?.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                            launchIntent?.let { appContext.startActivity(it) }
+                        } catch (_: Exception) { }
                     }
                 )
             }

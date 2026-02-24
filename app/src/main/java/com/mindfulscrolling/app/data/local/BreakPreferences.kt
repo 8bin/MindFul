@@ -41,6 +41,8 @@ class BreakPreferences @Inject constructor(
             "com.android.settings",
             "com.google.android.dialer",
             "com.android.dialer",
+            "com.android.phone",
+            "com.android.incallui",
             "com.mindfulscrolling.app" // Self
         )
     }
