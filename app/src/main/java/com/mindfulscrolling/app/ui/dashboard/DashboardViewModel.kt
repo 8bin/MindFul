@@ -163,6 +163,14 @@ class DashboardViewModel @Inject constructor(
         val state = _uiState.value
         if (!state.dataLoaded) return
         
+        // First-install: no permissions yet — show welcome message
+        if (!state.allPermissionsGranted) {
+            _uiState.value = _uiState.value.copy(
+                insightText = "👋 Welcome! Grant permissions to start tracking your screen time."
+            )
+            return
+        }
+        
         val totalMs = state.totalUsageMillis
         val totalHours = totalMs / 3600000f
         val goalProgress = totalHours / 4f
